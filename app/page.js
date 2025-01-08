@@ -3,6 +3,7 @@ import Hero from "./components/home/hero";
 import ServiceListing from "./components/home/serviceListing";
 import TiffinSection from "./components/home/tiffinSection";
 import HousingSection from "./components/home/housingSection";
+import MaidSection from "./components/home/maidSection";
 
 export default function Home() {
   return (
@@ -21,6 +22,10 @@ export default function Home() {
 
       <div>
         <HousingSection />
+      </div>
+
+      <div>
+        <MaidSection />
       </div>
     </main>
   );
