@@ -1,6 +1,7 @@
 'use client'
 import Navbar from "../navbar"
 import Image from "next/image"
+import { comfortaa } from "@/app/ui/fonts"
 
 export default function Hero() {
     return (
@@ -11,14 +12,14 @@ export default function Hero() {
                 <Navbar />
             </div>
 
-            <section className="pt-24 w-full pb-4">
+            <section className="pt-28 w-full pb-4">
                 {/* heading title */}
-                <h1 className="text-4xl text-center">
+                <h1 className={`text-4xl text-center font-bold leading-snug ${comfortaa.className}`}>
                     All Student Needs <br />At One Stop
                 </h1>
 
                 {/* location and input box here */}
-                <div className="flex w-full justify-center mt-20 ">
+                <div className="flex w-full justify-center mt-10">
                     <div className="flex  border border-black rounded-full bg-white">
                         {/* location here */}
                         <section className="flex gap-2 border-r border-black px-4 py-3 items-center">

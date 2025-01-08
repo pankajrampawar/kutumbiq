@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Hero from "./components/home/hero";
+import ServiceListing from "./components/home/serviceListing";
 
 export default function Home() {
   return (
@@ -7,8 +8,9 @@ export default function Home() {
       <div className="w-full">
         <Hero />
       </div>
-      <div>
 
+      <div>
+        <ServiceListing />
       </div>
     </main>
   );

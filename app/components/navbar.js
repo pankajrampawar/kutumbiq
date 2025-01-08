@@ -2,24 +2,59 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { comfortaa } from "../ui/fonts";
 
 export default function Navbar() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const toggleMenu = () => {
         setIsMenuOpen(prev => !prev)
     }
 
     const NavItems = () => {
+
+        const pageLinks = [
+            {
+                name: "Home",
+                href: '/'
+            },
+            {
+                name: "Tiffin",
+                href: '/tiffin'
+            },
+            {
+                name: "Maid",
+                href: '/maid'
+            },
+            {
+                name: "Housing",
+                href: '/housing'
+            },
+            {
+                name: "Furniture",
+                href: '/furniture'
+            },
+        ]
         return (
             <nav className="flex justify-center items-center">
                 <ul className="flex flex-col justify-center items-center gap-3">
-                    <li>Home</li>
-                    <li>Dabba</li>
-                    <li>Maid</li>
-                    <li>Housing</li>
-                    <li>Furniture</li>
+                    {
+                        pageLinks.map((link) => {
+                            return (
+                                <li key={link.name}>
+                                    <Link
+                                        href={link.href}
+                                    >
+                                        <p>{link.name}</p>
+                                    </Link>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             </nav>
         )
