@@ -8,7 +8,7 @@ export default function Hero() {
         <header className="w-full bg-cover" style={{ backgroundImage: "url('/heroBg.png')" }}
 
         >
-            <div className="fixed top-0  w-screen">
+            <div className="fixed top-0 w-screen">
                 <Navbar />
             </div>
 

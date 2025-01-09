@@ -94,7 +94,7 @@ export default function Navbar() {
                 </button>
             </div>
 
-            <div className={`absolute w-screen h-screen bg-black text-white top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-white h-screen transition-all ease-in-out duration-500`}>
+            <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-white h-screen transition-all ease-in-out duration-500`}>
                 <NavItems />
             </div>
         </div>
