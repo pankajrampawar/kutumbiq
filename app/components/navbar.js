@@ -61,7 +61,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className="p-2 flex justify-between w-full relative">
+        <div className="p-2 flex justify-between w-full">
             <h3 className="relative z-10">
                 <Image
                     src="/kutumbiq.svg"
@@ -94,7 +94,7 @@ export default function Navbar() {
                 </button>
             </div>
 
-            <div className={`absolute w-full ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} bg-white h-screen transition-all ease-in-out duration-500`}>
+            <div className={`absolute w-screen h-screen bg-black text-white top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-white h-screen transition-all ease-in-out duration-500`}>
                 <NavItems />
             </div>
         </div>

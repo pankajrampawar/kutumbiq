@@ -20,7 +20,7 @@ export default function MaidSection() {
                     <HolderCard
                         src="/maidCleaning.png"
                         alt="maid holding a cloth and cleaning a surface, an illustration to showcase our cleaning service we offer."
-                        title="House Cleaning"
+                        title="Cleaning"
                         href="/maid"
                     />
                 </li>

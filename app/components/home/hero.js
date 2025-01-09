@@ -8,7 +8,7 @@ export default function Hero() {
         <header className="w-full bg-cover" style={{ backgroundImage: "url('/heroBg.png')" }}
 
         >
-            <div className="fixed top-0 w-full left-0">
+            <div className="fixed top-0  w-screen">
                 <Navbar />
             </div>
 
@@ -20,18 +20,18 @@ export default function Hero() {
 
                 {/* location and input box here */}
                 <div className="flex w-full justify-center mt-10">
-                    <div className="flex  border border-black rounded-full bg-white">
+                    <div className="flex  border border-black rounded-full bg-white max-w-[280px] ">
                         {/* location here */}
-                        <section className="flex gap-2 border-r border-black px-4 py-3 items-center">
-                            <div>
+                        <section className="flex gap-2 border-r border-black px-2 py-2 sm:px-4 sm:py-3 items-center min-w-fit">
+                            <div className="min-w-fit">
                                 <Image
                                     src="/locationPointer.svg"
                                     alt="Location Pin"
-                                    width="20"
-                                    height="20"
+                                    width="15"
+                                    height="15"
                                 />
                             </div>
-                            <div className="text-xl">
+                            <div className="text-sm">
                                 Mumbai
                             </div>
                         </section>
