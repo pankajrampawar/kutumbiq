@@ -6,7 +6,7 @@ export default function MaidSection() {
 
     return (
         <div className="mx-[5%] mt-10">
-            <article className="flex flex-col gap-1">
+            <article className="flex flex-col itmes-center gap-1">
                 <h2 className={`${montserrat.className} text-xl font-semibold`}>
                     Looking for a Maid?
                 </h2>
@@ -15,7 +15,7 @@ export default function MaidSection() {
                     We connect you with trusted, skilled maids in your area who offer great cooking and cleaning services at affordable prices. Our service plans are designed to suit your needs, whether you require help for just a day, weekly, biweekly, or on a monthly basis. Simply choose a plan that works best for you and enjoy hassle-free home assistance.
                 </p>
             </article>
-            <ul className="flex gap-2 overflow-x-scroll mt-6">
+            <ul className="flex justify-between overflow-x-scroll mt-6">
                 <li>
                     <HolderCard
                         src="/maidCleaning.png"

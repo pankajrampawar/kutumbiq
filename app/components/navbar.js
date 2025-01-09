@@ -4,7 +4,8 @@ import Image from "next/image"
 import { useState } from "react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { comfortaa } from "../ui/fonts";
+import { comfortaa, montserrat } from "../ui/fonts";
+import clsx from 'clsx'
 
 export default function Navbar() {
 
@@ -16,7 +17,6 @@ export default function Navbar() {
     }
 
     const NavItems = () => {
-
         const pageLinks = [
             {
                 name: "Home",
@@ -40,12 +40,19 @@ export default function Navbar() {
             },
         ]
         return (
-            <nav className="flex justify-center items-center">
-                <ul className="flex flex-col justify-center items-center gap-3">
+            <nav className="flex justify-center items-center mt-20 w-full">
+                <ul className="flex flex-col justify-center items-star gap-4 w-full px-[5%]">
                     {
                         pageLinks.map((link) => {
                             return (
-                                <li key={link.name}>
+                                <li key={link.name}
+                                    className={clsx(
+                                        `border-b border-gray-600 w-full text-2xl ${comfortaa.className} font-medium tracking-wider pb-2 pl-2`,
+                                        {
+                                            'text-white border-white': pathname === link.href,
+                                        }
+                                    )}
+                                >
                                     <Link
                                         href={link.href}
                                     >
@@ -70,6 +77,9 @@ export default function Navbar() {
                     width="150"
                     height="40"
                     loading="eager"
+                    className={clsx({
+                        'invert': isMenuOpen
+                    })}
                 />
             </h3>
             <nav className="hidden">
@@ -90,11 +100,14 @@ export default function Navbar() {
                         height="21"
                         priority={true}
                         loading="eager"
+                        className={clsx({
+                            'invert': isMenuOpen
+                        })}
                     />
                 </button>
             </div>
 
-            <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-white h-screen transition-all ease-in-out duration-500`}>
+            <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500`}>
                 <NavItems />
             </div>
         </div>
