@@ -38,9 +38,6 @@ export default function Hero() {
                                 {
                                     loading ? "..." : error ? "Error" : location
                                 }
-                                {
-                                    console.log(location)
-                                }
                             </div>
                         </section>
 

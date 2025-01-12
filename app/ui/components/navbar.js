@@ -56,6 +56,7 @@ export default function Navbar() {
                                 >
                                     <Link
                                         href={link.href}
+                                        onClick={toggleMenu}
                                     >
                                         <p>{link.name}</p>
                                     </Link>
