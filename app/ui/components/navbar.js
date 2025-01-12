@@ -72,17 +72,19 @@ export default function Navbar() {
     return (
         <div className="p-2 flex justify-between w-full">
             <h3 className="relative z-10">
-                <Image
-                    src="/kutumbiq.svg"
-                    alt="kutumbiq logo"
-                    priority={true}
-                    width="150"
-                    height="40"
-                    loading="eager"
-                    className={clsx({
-                        'invert': isMenuOpen
-                    })}
-                />
+                <Link href="/">
+                    <Image
+                        src="/kutumbiq.svg"
+                        alt="kutumbiq logo"
+                        priority={true}
+                        width="150"
+                        height="40"
+                        loading="eager"
+                        className={clsx({
+                            'invert': isMenuOpen
+                        })}
+                    />
+                </Link>
             </h3>
             <nav className="hidden">
                 <ul>
