@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Hero from "./components/home/hero";
-import ServiceListing from "./components/home/serviceListing";
-import TiffinSection from "./components/home/tiffinSection";
-import HousingSection from "./components/home/housingSection";
-import MaidSection from "./components/home/maidSection";
+import Hero from "./ui/components/home/hero";
+import ServiceListing from "./ui/components/home/serviceListing";
+import TiffinSection from "./ui/components/home/tiffinSection";
+import HousingSection from "./ui/components/home/housingSection";
+import MaidSection from "./ui/components/home/maidSection";
 
 export default function Home() {
   return (

@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { comfortaa, montserrat } from "../ui/fonts";
+import { comfortaa, montserrat } from "../fonts";
 import clsx from 'clsx'
 
 export default function Navbar() {
@@ -24,21 +24,22 @@ export default function Navbar() {
             },
             {
                 name: "Tiffin",
-                href: '/tiffin'
+                href: '/services/tiffin'
             },
             {
                 name: "Maid",
-                href: '/maid'
+                href: '/services/maid'
             },
             {
                 name: "Housing",
-                href: '/housing'
+                href: '/services/housing'
             },
             {
                 name: "Furniture",
-                href: '/furniture'
+                href: '/services/furniture'
             },
         ]
+
         return (
             <nav className="flex justify-center items-center mt-20 w-full">
                 <ul className="flex flex-col justify-center items-star gap-4 w-full px-[5%]">
