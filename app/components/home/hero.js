@@ -2,8 +2,12 @@
 import Navbar from "../navbar"
 import Image from "next/image"
 import { comfortaa } from "@/app/ui/fonts"
+import { useLocationContext } from "@/app/context/locationContext"
 
 export default function Hero() {
+
+    const { location, error, loading } = useLocationContext();
+
     return (
         <header className="w-full bg-cover" style={{ backgroundImage: "url('/heroBg.png')" }}
         >
@@ -31,7 +35,12 @@ export default function Hero() {
                                 />
                             </div>
                             <div className="text-sm">
-                                Mumbai
+                                {
+                                    loading ? "..." : error ? "Error" : location
+                                }
+                                {
+                                    console.log(location)
+                                }
                             </div>
                         </section>
 

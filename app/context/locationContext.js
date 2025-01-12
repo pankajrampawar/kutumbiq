@@ -1,16 +1,16 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect } from "react"
+import { fetchReadableLocation } from "../lib/readableLocation";
 
 // create context
 const LocationContext = createContext();
 
 // Provider Component
-const LocationProvider = ({ children }) => {
-    const [location, setLocation] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(null)
-
+export const LocationProvider = ({ children }) => {
+    const [location, setLocation] = useState(null); // Stores user's location
+    const [error, setError] = useState(null);       // Stores error message
+    const [loading, setLoading] = useState(true);   // Indicates loading state
 
     useEffect(() => {
         if (!navigator.geolocation) {
@@ -19,11 +19,11 @@ const LocationProvider = ({ children }) => {
             return;
         }
 
-        const handleSuccess = (position) => {
-            setLocation({
-                lat: position.coords.latitude,
-                lon: position.coords.longitude,
-            });
+        const handleSuccess = async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            const readableLocation = await fetchReadableLocation(latitude, longitude)
+            setLocation(readableLocation);
             setLoading(false);
         };
 
@@ -39,7 +39,7 @@ const LocationProvider = ({ children }) => {
         <LocationContext.Provider value={{ location, error, loading }}>
             {children}
         </LocationContext.Provider>
-    )
-}
+    );
+};
 
 export const useLocationContext = () => useContext(LocationContext);

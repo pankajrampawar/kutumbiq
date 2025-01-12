@@ -1,6 +1,5 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
+import { LocationProvider } from "./context/locationContext";
 
 export const metadata = {
   title: "Kutumbiq",
@@ -13,7 +12,9 @@ export default function RootLayout({ children }) {
       <body
         className={``}
       >
-        {children}
+        <LocationProvider>
+          {children}
+        </LocationProvider>
       </body>
     </html>
   );
