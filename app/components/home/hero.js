@@ -6,7 +6,6 @@ import { comfortaa } from "@/app/ui/fonts"
 export default function Hero() {
     return (
         <header className="w-full bg-cover" style={{ backgroundImage: "url('/heroBg.png')" }}
-
         >
             <div className="fixed top-0 w-screen">
                 <Navbar />
@@ -20,7 +19,7 @@ export default function Hero() {
 
                 {/* location and input box here */}
                 <div className="flex w-full justify-center mt-10">
-                    <div className="flex  border border-black rounded-full bg-white max-w-[280px] ">
+                    <div className="flex border border-black rounded-full bg-white max-w-[280px] w-full">
                         {/* location here */}
                         <section className="flex gap-2 border-r border-black px-2 py-2 sm:px-4 sm:py-3 items-center min-w-fit">
                             <div className="min-w-fit">
@@ -37,9 +36,10 @@ export default function Hero() {
                         </section>
 
                         {/* search box here */}
-                        <div className="flex items-cetner pr-4 rounded-full">
+                        <div className="flex items-center flex-grow">
                             <input
-                                className="rounded-r-full pl-2 text-xl focus:outline-none bg-inherit"
+                                className="w-full rounded-r-full pl-2 pr-4 py-2 sm:py-3 text-sm focus:outline-none bg-inherit"
+                                placeholder="Search here..."
                             />
                         </div>
                     </div>
