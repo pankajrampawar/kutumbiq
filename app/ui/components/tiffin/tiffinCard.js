@@ -33,14 +33,13 @@ export default function TiffinCard({ title, price, description, src, alt, servic
                         alt={alt}
                     />
                     <div>
-                        {itemsInCart &&
-                            <>
-                                <button onClick={addItemToCart}><span>-</span></button>
-                                <button onClick={removeItemFromCart}><span>+</span></button>
-                            </>
-                        }
-
-                        {!itemsInCart &&
+                        {itemsInCart
+                            ?
+                            <div>
+                                <button ><span onClick={removeItemFromCart}>-</span></button>
+                                <button onClick={addItemToCart}><span>+</span></button>
+                            </div>
+                            :
                             <button onClick={addItemToCart}>
                                 <p>Add</p>
                             </button>
