@@ -1,9 +1,6 @@
 import "./globals.css";
 import { LocationProvider } from "./context/locationContext";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./lib/store";
-
+import { ReduxProvider } from "./context/reduxProvider";
 
 export const metadata = {
   title: "Kutumbiq",
@@ -17,11 +14,9 @@ export default function RootLayout({ children }) {
         className={``}
       >
         <LocationProvider>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              {children}
-            </PersistGate>
-          </Provider>
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
         </LocationProvider>
       </body>
     </html>
