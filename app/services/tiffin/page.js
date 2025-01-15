@@ -1,7 +1,53 @@
 import TiffinCard from "@/app/ui/components/tiffin/tiffinCard";
 import { comfortaa } from "@/app/ui/fonts";
 
-
+const tiffinItems = [
+    {
+        id: "60d21b4667d0d8992e610c85",
+        title: "Panner Veg Thali",
+        price: "120",
+        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
+        src: "/image",
+        alt: "something",
+        serviceProvider: "Lokhande Tiffin Services"
+    },
+    {
+        id: "60d21b4667d0d8992e610c86",
+        title: "Panner Veg Thali",
+        price: "120",
+        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar (serves 1)",
+        src: "/image",
+        alt: "something",
+        serviceProvider: "Lokhande Tiffin Services 1"
+    },
+    {
+        id: "60d21b4667d0d8992e610c87",
+        title: "Panner Veg Thali",
+        price: "120",
+        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
+        src: "/image",
+        alt: "something",
+        serviceProvider: "Lokhande Tiffin Services 4"
+    },
+    {
+        id: "60d21b4667d0d8992e610c88",
+        title: "Panner Veg Thali",
+        price: "120",
+        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
+        src: "/image",
+        alt: "something",
+        serviceProvider: "Lokhande Tiffin Services 5"
+    },
+    {
+        id: "60d21b4667d0d8992e610c89",
+        title: "Panner Veg Thali",
+        price: "120",
+        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar. (serves 1)",
+        src: "/image",
+        alt: "something",
+        serviceProvider: "Lokhande Tiffin Services 1"
+    }
+];
 export default function Tiffin() {
     return (
         <div>
@@ -33,46 +79,13 @@ export default function Tiffin() {
 
                 {/* items list */}
                 <section>
-                    <TiffinCard
-                        title="Panner Veg Thali"
-                        price="120"
-                        description="Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1) "
-                        src="/image"
-                        alt="something"
-                        serviceProvider="Lokhande Tiffin Services"
-                    />
-                    <TiffinCard
-                        title="Panner Veg Thali"
-                        price="120"
-                        description="Panner Thali with Panner Sabji, 3 chapatis, dal, aachar (serves 1) "
-                        src="/image"
-                        alt="something"
-                        serviceProvider="Lokhande Tiffin Services"
-                    />
-                    <TiffinCard
-                        title="Panner Veg Thali"
-                        price="120"
-                        description="Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1) "
-                        src="/image"
-                        alt="something"
-                        serviceProvider="Lokhande Tiffin Services"
-                    />
-                    <TiffinCard
-                        title="Panner Veg Thali"
-                        price="120"
-                        description="Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1) "
-                        src="/image"
-                        alt="something"
-                        serviceProvider="Lokhande Tiffin Services"
-                    />
-                    <TiffinCard
-                        title="Panner Veg Thali"
-                        price="120"
-                        description="Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, . (serves 1) "
-                        src="/image"
-                        alt="something"
-                        serviceProvider="Lokhande Tiffin Services"
-                    />
+                    {
+                        tiffinItems.map((item) => (
+                            <TiffinCard key={item.id} {...item}>
+                            </TiffinCard>
+                        ))
+                    }
+
                 </section>
             </section>
         </div>

@@ -1,22 +1,31 @@
 'use client'
-import { useState } from "react"
 import { montserrat } from "../../fonts";
+import { useCart } from "@/app/context/cartContext";
+import { useEffect, useState } from 'react';
 
-export default function TiffinCard({ title, price, description, src, alt, serviceProvider }) {
+export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider }) {
 
-    const [itemsInCart, setItemsInCart] = useState(0);
+    const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
+    const [quantity, setQuantity] = useState(0);
 
-    const addItemToCart = () => {
-        setItemsInCart(prev => prev + 1);
+    useEffect(() => {
+        const item = cartItems.find(item => item.id === id);
+        if (item) {
+            setQuantity(item.quantity);
+        }
+    }, [cartItems])
+
+    const handleAddItem = () => {
+        const item = { id, title, price, description, serviceProvider, quantity: 1 };
+        const isItemAdded = addItemToCart(item);
+        if (isItemAdded) {
+            setQuantity(prevQuantity => prevQuantity + 1);
+        }
     };
 
-    const removeItemFromCart = () => {
-        setItemsInCart((prev) => {
-            if (prev === 0) return 0;
-            else {
-                return prev - 1;
-            }
-        });
+    const handleRemoveItem = () => {
+        removeItemFromCart(id);
+        setQuantity(prevQuantity => prevQuantity - 1);
     };
 
     return (
@@ -36,17 +45,17 @@ export default function TiffinCard({ title, price, description, src, alt, servic
                         />
                     </div>
                     <div className="absolute bg-white border border-black rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
-                        {itemsInCart
-                            ?
-                            <div className="flex justify-between text-2xl gap-2 px-4 py-1">
-                                <button ><span onClick={removeItemFromCart}>-</span></button>
-                                <button onClick={addItemToCart}><span>+</span></button>
+                        {quantity > 0 ? (
+                            <div className="flex items-center">
+                                <button className="px-4 py-1 text-xl" onClick={handleRemoveItem}>-</button>
+                                <div className="px-4 py-1 text-xl">{quantity}</div>
+                                <button className="px-4 py-1 text-xl" onClick={handleAddItem}>+</button>
                             </div>
-                            :
-                            <button onClick={addItemToCart} className="px-4 py-1 text-xl">
+                        ) : (
+                            <button className="px-4 py-1 text-xl" onClick={handleAddItem}>
                                 <p>Add</p>
                             </button>
-                        }
+                        )}
                     </div>
                 </div>
             </section>

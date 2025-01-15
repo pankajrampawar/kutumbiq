@@ -1,5 +1,6 @@
 import "./globals.css";
 import { LocationProvider } from "./context/locationContext";
+import { CartProvider } from "./context/cartContext";
 
 export const metadata = {
   title: "Kutumbiq",
@@ -9,11 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={``}
-      >
+      <body className={``}>
         <LocationProvider>
-          {children}
+          <CartProvider>
+            {children}
+          </CartProvider>
         </LocationProvider>
       </body>
     </html>
