@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Hero from "./ui/components/home/hero";
 import ServiceListing from "./ui/components/home/serviceListing";
 import TiffinSection from "./ui/components/home/tiffinSection";

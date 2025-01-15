@@ -1,6 +1,5 @@
 import "./globals.css";
 import { LocationProvider } from "./context/locationContext";
-import { ReduxProvider } from "./context/reduxProvider";
 
 export const metadata = {
   title: "Kutumbiq",
@@ -14,9 +13,7 @@ export default function RootLayout({ children }) {
         className={``}
       >
         <LocationProvider>
-          <ReduxProvider>
-            {children}
-          </ReduxProvider>
+          {children}
         </LocationProvider>
       </body>
     </html>
