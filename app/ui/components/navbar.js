@@ -80,7 +80,9 @@ export default function Navbar() {
     }
 
     return (
-        <div className="p-2 flex justify-between w-full">
+        <div className={clsx(`p-2 flex justify-between w-full`,
+            { "fixed top-0": isMenuOpen }
+        )}>
             <h3 className="relative z-10">
                 <Link href="/">
                     <Image
