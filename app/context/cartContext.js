@@ -60,7 +60,6 @@ export const CartProvider = ({ children }) => {
 
     const removeItemFromCart = (itemId) => {
         const existingItemIndex = cartItems.findIndex(cartItem => cartItem.id === itemId);
-
         if (existingItemIndex === -1) return;
         else {
             const updatedCartItems = [...cartItems]
@@ -70,12 +69,12 @@ export const CartProvider = ({ children }) => {
             if (updatedCartItems[existingItemIndex].quantity === 0) {
                 updatedCartItems.splice(existingItemIndex, 1);
 
-                setCartItems(updatedCartItems);
-
                 if (updatedCartItems.length === 0) {  // Reset service provider if cart is empty
                     setServiceProviderInCart(null);
                 }
             }
+
+            setCartItems(updatedCartItems);
         }
     };
 

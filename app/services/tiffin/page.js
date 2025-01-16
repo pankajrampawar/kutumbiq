@@ -1,5 +1,7 @@
+'use client'
 import TiffinCard from "@/app/ui/components/tiffin/tiffinCard";
 import { comfortaa } from "@/app/ui/fonts";
+import { useCart } from "@/app/context/cartContext";
 
 const tiffinItems = [
     {
@@ -13,7 +15,7 @@ const tiffinItems = [
     },
     {
         id: "60d21b4667d0d8992e610c86",
-        title: "Panner Veg Thali",
+        title: "Dal Fry",
         price: "120",
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar (serves 1)",
         src: "/image",
@@ -31,7 +33,7 @@ const tiffinItems = [
     },
     {
         id: "60d21b4667d0d8992e610c88",
-        title: "Panner Veg Thali",
+        title: "Dal Tadka",
         price: "120",
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
         src: "/image",
@@ -40,7 +42,7 @@ const tiffinItems = [
     },
     {
         id: "60d21b4667d0d8992e610c89",
-        title: "Panner Veg Thali",
+        title: "Bhendi masala",
         price: "120",
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar. (serves 1)",
         src: "/image",
@@ -48,7 +50,11 @@ const tiffinItems = [
         serviceProvider: "Lokhande Tiffin Services 1"
     }
 ];
+
 export default function Tiffin() {
+
+    const { serviceProviderInCart } = useCart();
+
     return (
         <div>
             {/* hero section */}
@@ -80,14 +86,23 @@ export default function Tiffin() {
                 {/* items list */}
                 <section>
                     {
-                        tiffinItems.map((item) => (
-                            <TiffinCard key={item.id} {...item}>
-                            </TiffinCard>
-                        ))
+                        tiffinItems.map((item) => {
+                            if (serviceProviderInCart) {
+                                if (serviceProviderInCart === item.serviceProvider) {
+                                    return (
+                                        < TiffinCard key={item.id} {...item} >
+                                        </TiffinCard>
+                                    )
+                                }
+                            } else
+                                return (
+                                    < TiffinCard key={item.id} {...item} >
+                                    </TiffinCard>
+                                )
+                        })
                     }
-
                 </section>
             </section>
-        </div>
+        </div >
     )
 }   
