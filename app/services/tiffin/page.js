@@ -11,7 +11,8 @@ const tiffinItems = [
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
         src: "/image",
         alt: "something",
-        serviceProvider: "Lokhande Tiffin Services"
+        serviceProvider: "Lokhande Tiffin Services",
+        deliveryBy: "8:00 PM"
     },
     {
         id: "60d21b4667d0d8992e610c86",
@@ -20,7 +21,8 @@ const tiffinItems = [
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar (serves 1)",
         src: "/image",
         alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 1"
+        serviceProvider: "Lokhande Tiffin Services 1",
+        deliveryBy: "8:00 PM"
     },
     {
         id: "60d21b4667d0d8992e610c87",
@@ -29,7 +31,8 @@ const tiffinItems = [
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
         src: "/image",
         alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 4"
+        serviceProvider: "Lokhande Tiffin Services 4",
+        deliveryBy: "8:00 PM"
     },
     {
         id: "60d21b4667d0d8992e610c88",
@@ -38,7 +41,8 @@ const tiffinItems = [
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
         src: "/image",
         alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 5"
+        serviceProvider: "Lokhande Tiffin Services 5",
+        deliveryBy: "8:00 PM"
     },
     {
         id: "60d21b4667d0d8992e610c89",
@@ -47,7 +51,8 @@ const tiffinItems = [
         description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar. (serves 1)",
         src: "/image",
         alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 1"
+        serviceProvider: "Lokhande Tiffin Services 1",
+        deliveryBy: "8:00 PM"
     }
 ];
 

@@ -3,7 +3,7 @@ import { montserrat } from "../../fonts";
 import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from 'react';
 
-export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider }) {
+export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy }) {
 
     const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
     const [quantity, setQuantity] = useState(0);
@@ -44,15 +44,15 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
                             alt={alt}
                         />
                     </div>
-                    <div className="absolute bg-white border border-black rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                    <div className="absolute bg-white border border-[#017272] rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
                         {quantity > 0 ? (
-                            <div className="flex items-center">
+                            <div className="flex items-center font-bold">
                                 <button className="px-4 py-1 text-xl" onClick={handleRemoveItem}>-</button>
-                                <div className="px-4 py-1 text-xl">{quantity}</div>
+                                <div className="px-4 py-1 text-xl font-semibold">{quantity}</div>
                                 <button className="px-4 py-1 text-xl" onClick={handleAddItem}>+</button>
                             </div>
                         ) : (
-                            <button className="px-4 py-1 text-xl" onClick={handleAddItem}>
+                            <button className="px-4 py-1 text-xl font-semibold text-[#017272]" onClick={handleAddItem}>
                                 <p>Add</p>
                             </button>
                         )}
@@ -62,7 +62,7 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
 
             <section>
                 <div>
-                    <p className="text-sm">By: {serviceProvider}</p>
+                    <p className="text-sm">Delivery By: {deliveryBy}</p>
                 </div>
             </section>
         </div>
