@@ -4,11 +4,18 @@ import { useCart } from "@/app/context/cartContext"
 import CheckoutCrumb from "@/app/ui/components/tiffin/checkoutCrumb";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { montserrat } from "@/app/ui/fonts";
 
+import { useSession } from "next-auth/react";
 export default function CartPage() {
 
     const router = useRouter();
-    const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
+    const { cartItems } = useCart();
+    const { data: session, status } = useSession();
+
+    const handlePlaceOrder = () => {
+        router.push("confirmOrder")
+    }
 
     return (
         <div className="mx-[3%]">
@@ -34,6 +41,22 @@ export default function CartPage() {
                     })
                 }
             </div>
+
+            {cartItems.length > 0 &&
+                <section className="fixed bottom-0 w-screen left-0 text-white p-4">
+                    {
+                        status === "authenticated" && !session.user.address && <div className="text-black mb-14 w-full text-center">
+                            <button className="underline" onClick={() => router.push("/form/address")}>
+                                Add Deliver Address
+                            </button>
+                        </div>
+                    }
+                    <div className={`fixed w-screen bottom-0 left-0 bg-zinc-900 flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className}`}>
+                        <button onClick={handlePlaceOrder}>
+                            Place Order
+                        </button>
+                    </div>
+                </section>}
         </div>
     )
 } 

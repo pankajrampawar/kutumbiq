@@ -10,6 +10,7 @@ const LocationContext = createContext();
 export const LocationProvider = ({ children }) => {
     const [location, setLocation] = useState(null); // Stores user's location
     const [error, setError] = useState(null);       // Stores error message
+    const [completeAddress, setCompleteAddress] = useState(null); // Stores complete address
     const [loading, setLoading] = useState(true);   // Indicates loading state
 
     useEffect(() => {
@@ -23,7 +24,9 @@ export const LocationProvider = ({ children }) => {
             const { latitude, longitude } = position.coords;
 
             const readableLocation = await fetchReadableLocation(latitude, longitude)
-            setLocation(readableLocation);
+            setCompleteAddress(readableLocation);
+            const currentLocation = readableLocation.neighbourhood || readableLocation.street || readableLocation.city || readableLocation.postalCode || readableLocation.state || readableLocation.country;
+            setLocation(currentLocation);
             setLoading(false);
         };
 
@@ -36,7 +39,7 @@ export const LocationProvider = ({ children }) => {
     }, []);
 
     return (
-        <LocationContext.Provider value={{ location, error, loading }}>
+        <LocationContext.Provider value={{ location, error, loading, completeAddress }}>
             {children}
         </LocationContext.Provider>
     );
