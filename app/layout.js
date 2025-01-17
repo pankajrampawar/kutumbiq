@@ -1,6 +1,8 @@
 import "./globals.css";
 import { LocationProvider } from "./context/locationContext";
 import { CartProvider } from "./context/cartContext";
+import UserProvider from "./context/userContext";
+import User from "@/models/User";
 
 export const metadata = {
   title: "Kutumbiq",
@@ -13,7 +15,9 @@ export default function RootLayout({ children }) {
       <body className={``}>
         <LocationProvider>
           <CartProvider>
-            {children}
+            <UserProvider>
+              {children}
+            </UserProvider>
           </CartProvider>
         </LocationProvider>
       </body>

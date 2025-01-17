@@ -8,10 +8,13 @@ import { comfortaa, montserrat } from "../fonts";
 import clsx from 'clsx'
 import { useCart } from "@/app/context/cartContext";
 import { useRouter } from "next/navigation";
+import { SignIn } from "./auth/sign-in";
+import { useSession } from "next-auth/react"
 
 export default function Navbar() {
 
     const { cartItems } = useCart();
+    const { data: session } = useSession()
 
     const router = useRouter();
 
@@ -133,6 +136,8 @@ export default function Navbar() {
                         })}
                     />
                 </button>
+
+                {session ? "Pankaj" : <SignIn />}
             </div>
 
             <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500`}>
