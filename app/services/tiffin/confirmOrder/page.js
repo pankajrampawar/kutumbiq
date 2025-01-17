@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { signIn } from "next-auth/react";
 
 export default function ConfirmOrder() {
 
@@ -14,6 +15,14 @@ export default function ConfirmOrder() {
             if (session.user.phoneNumber === null) {
                 router.push("/form/phoneNumber")
             }
+
+            if (!session.user.address) {
+                router.push('/form/address')
+            }
+        }
+
+        if (status === "unauthenticated") {
+            signIn();
         }
     }, [status])
 
