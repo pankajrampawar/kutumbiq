@@ -45,8 +45,8 @@ export default function FormForMobile() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    _id: session.user._id,
                     phoneNumber: mobileNumber,
-                    _id: session.user._id
                 })
             });
 
@@ -56,11 +56,12 @@ export default function FormForMobile() {
             }
 
             const data = await response.json();
-            router.push('/services/tiffin')
+            localStorage.setItem("phoneNumber", "true");
         } catch (error) {
             console.error("Error:", error);
         } finally {
             setLoading(false);
+            router.back()
         }
     }
 

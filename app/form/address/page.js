@@ -2,10 +2,38 @@
 import { useEffect, useState } from "react";
 import { useLocationContext } from "@/app/context/locationContext";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+
+const convertAddressToString = (formData) => {
+    // Destructure the address fields from the formData
+    const { addressLine1, addressLine2, city, country, postalCode } = formData;
+
+    // Create an array to hold non-empty address components
+    const addressParts = [];
+
+    // Add fields to the array only if they are truthy (not empty, null, or undefined)
+    if (addressLine1) addressParts.push(addressLine1);
+    if (addressLine2) addressParts.push(addressLine2);
+    if (city) addressParts.push(city);
+    if (country) addressParts.push(country);
+    if (postalCode) addressParts.push(postalCode);
+
+    // If there are no address parts, return a default message or empty string
+    if (addressParts.length === 0) {
+        return "Address not provided"; // Or return an empty string if desired
+    }
+
+    // Join the address parts with commas and ensure proper spacing
+    return addressParts.join(", ").trim();
+};
 
 function AddressForm() {
 
     const router = useRouter();
+    const { data: session, status } = useSession()
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const [formData, setFormData] = useState({
         addressLine1: "",
@@ -18,6 +46,25 @@ function AddressForm() {
     const { location, error, loading, completeAddress } = useLocationContext();
 
     useEffect(() => {
+        if (status === "loading") {
+            setIsLoading(true)
+        }
+
+        if (status === "unauthenticated") {
+            setIsLoading(false)
+            signIn("google")
+        }
+
+        if (status === "authenticated") {
+            setIsLoading(false);
+            if (session.user.address) {
+                router.push('/services/tiffin/cart')
+            }
+        }
+    }, [status])
+
+    // Adds the location using location context
+    useEffect(() => {
         if (location) {
             console.log("Location Data:", completeAddress);
             setFormData({
@@ -28,7 +75,7 @@ function AddressForm() {
                 postalCode: completeAddress.postalCode || "",
             });
         }
-    }, [location]); // Add location to the dependency array
+    }, [location]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,11 +85,43 @@ function AddressForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form Submitted:", formData);
-        localStorage.setItem("address", JSON.stringify(formData));
-        router.push('/services/tiffin/cart')
+        setIsLoading(true)
+        const address = convertAddressToString(formData)
+        try {
+            setIsLoading(true);  // Make sure to set loading state before starting the request
+            const response = await fetch('/api/user/addUserAddress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    address: address,
+                    _id: session.user._id
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                // Check if the error data has the correct field
+                throw new Error(errorData.error || "Failed to update your address");
+            }
+
+            const data = await response.json();
+            if (data && data.message) {
+                // Assuming success is indicated by a message in the response
+                console.log(data.message); // You could log success message here
+                localStorage.setItem('address', "true")
+                router.back();  // Navigating back to the previous page
+            }
+
+        } catch (error) {
+            console.error("Error:", error.message); // Log only the error message for clarity
+        } finally {
+            setIsLoading(false); // Always reset loading state
+        }
     };
 
     return (
@@ -160,6 +239,13 @@ function AddressForm() {
                     </div>
                 </form>
             </div>
+
+            {
+                isLoading &&
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20">
+                    <div className="text-white text-lg">Loading...</div>
+                </div>
+            }
         </div>
     );
 }

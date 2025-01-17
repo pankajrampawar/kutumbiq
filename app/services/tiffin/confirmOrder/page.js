@@ -13,16 +13,22 @@ export default function ConfirmOrder() {
     useEffect(() => {
         if (status === "authenticated") {
             if (session.user.phoneNumber === null) {
-                router.push("/form/phoneNumber")
+                const phone = localStorage.getItem("phoneNumber");
+                if (!phone) {
+                    router.push("/form/phoneNumber")
+                }
             }
 
             if (!session.user.address) {
-                router.push('/form/address')
+                const address = localStorage.getItem("address")
+                if (!address) {
+                    router.push('/form/address')
+                }
             }
         }
 
         if (status === "unauthenticated") {
-            signIn();
+            signIn("google");
         }
     }, [status])
 
