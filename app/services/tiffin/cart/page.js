@@ -2,7 +2,7 @@
 
 import { useCart } from "@/app/context/cartContext"
 import CheckoutCrumb from "@/app/ui/components/tiffin/checkoutCrumb";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { montserrat } from "@/app/ui/fonts";
 
@@ -12,8 +12,19 @@ export default function CartPage() {
     const router = useRouter();
     const { cartItems } = useCart();
     const { data: session, status } = useSession();
+    const [address, setAddress] = useState(null);
+
+    useEffect(() => {
+        const addressJson = localStorage.getItem("address");
+        if (addressJson) {
+            const address = JSON.parse(addressJson);
+            setAddress(address);
+            console.log("Address:", address);
+        }
+    }, [])
 
     const handlePlaceOrder = () => {
+        if (!address) router.push("/form/address")
         router.push("confirmOrder")
     }
 
@@ -45,7 +56,7 @@ export default function CartPage() {
             {cartItems.length > 0 &&
                 <section className="fixed bottom-0 w-screen left-0 text-white p-4">
                     {
-                        status === "authenticated" && !session.user.address && <div className="text-black mb-14 w-full text-center">
+                        status === "authenticated" && !session.user.address && !address && <div className="text-black mb-14 w-full text-center">
                             <button className="underline" onClick={() => router.push("/form/address")}>
                                 Add Deliver Address
                             </button>

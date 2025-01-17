@@ -41,6 +41,7 @@ function AddressForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form Submitted:", formData);
+        localStorage.setItem("address", JSON.stringify(formData));
         router.push('/services/tiffin/cart')
     };
 
