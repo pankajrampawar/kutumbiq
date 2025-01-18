@@ -2,63 +2,39 @@
 import TiffinCard from "@/app/ui/components/tiffin/tiffinCard";
 import { comfortaa } from "@/app/ui/fonts";
 import { useCart } from "@/app/context/cartContext";
-
-const tiffinItems = [
-    {
-        id: "60d21b4667d0d8992e610c85",
-        title: "Panner Veg Thali",
-        price: "120",
-        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
-        src: "/image",
-        alt: "something",
-        serviceProvider: "Lokhande Tiffin Services",
-        deliveryBy: "8:00 PM"
-    },
-    {
-        id: "60d21b4667d0d8992e610c86",
-        title: "Dal Fry",
-        price: "120",
-        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar (serves 1)",
-        src: "/image",
-        alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 1",
-        deliveryBy: "8:00 PM"
-    },
-    {
-        id: "60d21b4667d0d8992e610c87",
-        title: "Panner Veg Thali",
-        price: "120",
-        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
-        src: "/image",
-        alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 4",
-        deliveryBy: "8:00 PM"
-    },
-    {
-        id: "60d21b4667d0d8992e610c88",
-        title: "Dal Tadka",
-        price: "120",
-        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar, simple papad and rice. (serves 1)",
-        src: "/image",
-        alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 5",
-        deliveryBy: "8:00 PM"
-    },
-    {
-        id: "60d21b4667d0d8992e610c89",
-        title: "Bhendi masala",
-        price: "120",
-        description: "Panner Thali with Panner Sabji, 3 chapatis, dal, aachar. (serves 1)",
-        src: "/image",
-        alt: "something",
-        serviceProvider: "Lokhande Tiffin Services 1",
-        deliveryBy: "8:00 PM"
-    }
-];
+import { useEffect, useState } from "react";
 
 export default function Tiffin() {
-
+    const [menuItems, setMenuItems] = useState([]);
+    const [loading, setLoading] = useState(false);
     const { serviceProviderInCart } = useCart();
+
+    const getMenuItems = async () => {
+        try {
+            const response = await fetch("/api/tiffin/getMenu", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            if (!response) {
+                const errorData = await response.json();
+                throw new Error(errorData || "unable to Fetch the menuItems")
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setMenuItems(data)
+            setLoading(false);
+        } catch (error) {
+            console.log("Error", error)
+        }
+    }
+
+    useEffect(() => {
+        getMenuItems();
+    }, [])
 
     return (
         <div>
@@ -88,21 +64,32 @@ export default function Tiffin() {
                     </div>
                 </section>
 
-                {/* items list */}
                 <section>
                     {
-                        tiffinItems.map((item) => {
+                        menuItems.map((item) => {
                             if (serviceProviderInCart) {
                                 if (serviceProviderInCart === item.serviceProvider) {
                                     return (
-                                        < TiffinCard key={item.id} {...item} >
-                                        </TiffinCard>
+                                        < TiffinCard key={item._id}
+                                            id={item._id}
+                                            title={item.title}
+                                            price={item.price}
+                                            description={item.description}
+                                            serviceProvider={item.serviceProvider}
+                                            deliveryBy={item.deliveryBy}
+                                        />
                                     )
                                 }
                             } else
                                 return (
-                                    < TiffinCard key={item.id} {...item} >
-                                    </TiffinCard>
+                                    < TiffinCard key={item._id}
+                                        id={item._id}
+                                        title={item.title}
+                                        price={item.price}
+                                        description={item.description}
+                                        serviceProvider={item.serviceProvider}
+                                        deliveryBy={item.deliveryBy}
+                                    />
                                 )
                         })
                     }
