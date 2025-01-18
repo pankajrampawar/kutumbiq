@@ -77,9 +77,21 @@ export default function ConfirmOrder() {
     }, [status, cartItems, serviceProviderInCart]);
 
     return (
-        <div>
-            <h1>Placing Your Order</h1>
-            <p>Hang on tight!</p>
+        <div className="h-full">
+            {isOrderPlaced
+                ?
+                <div className="fixed h-screen w-screen top-0 left-0 flex items-center justify-center z-10 flex-col gap-2">
+                    <h1 className="text-xl">Order Placed successfully</h1>
+                    <button className="text-md bg-zinc-900 text-white p-3 rounded-lg" onClick={() => { router.push('/services/tiffin') }}>
+                        Go Back
+                    </button>
+                </div>
+                :
+                <div>
+                    <h1>Placing Your Order</h1>
+                    <p>Hang on tight!</p>
+                </div>
+            }
         </div>
     );
 }
