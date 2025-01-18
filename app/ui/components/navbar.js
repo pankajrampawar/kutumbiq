@@ -18,10 +18,6 @@ export default function Navbar() {
 
     const router = useRouter();
 
-    useEffect(() => {
-        console.log(session)
-    }, [status])
-
     const navgateToCart = () => {
         router.push("/services/tiffin/cart")
     }

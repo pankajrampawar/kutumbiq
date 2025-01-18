@@ -28,8 +28,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 name: user.name,
                 createdAt: new Date()
             });
-
-            console.log("New user created:", newUser);
             return true;
         },
 
