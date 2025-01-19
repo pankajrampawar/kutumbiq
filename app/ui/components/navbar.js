@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { useCart } from "@/app/context/cartContext";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react"
+import { SignOut } from "./auth/sign-out";
 
 export default function Navbar() {
 
@@ -121,6 +122,8 @@ export default function Navbar() {
                     />
                 </button>
             </div>
+
+            <SignOut />
 
             <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500`}>
                 <NavItems />

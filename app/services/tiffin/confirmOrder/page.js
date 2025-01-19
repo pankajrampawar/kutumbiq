@@ -32,7 +32,7 @@ export default function ConfirmOrder() {
             try {
                 if (status === "unauthenticated") {
                     console.log("Signing in...");
-                    await signIn("google");
+                    signIn("google");
                     return;
                 }
 
@@ -40,28 +40,28 @@ export default function ConfirmOrder() {
                     // Mark that we've checked credentials
                     credentialsChecked.current = true;
 
-                    if (!session?.user?._id) {
-                        if (userData._id) {
+                    let user = session?.user;
+                    if (!user?._id) {
+                        const fetchedUser = await fetchUserData(user.email)
+                        if (!fetchedUser._id) {
+                            signIn("google");
+                            return;
+                        }
+                        user = fetchedUser;
+                    }
+
+                    if (!user?.phoneNumber) {
+                        router.push('/form/phoneNumber');
+                        return;
+                    }
+
+                    if (!user?.address) {
+                        const fetchedUser = await fetchUserData(user.email)
+                        if (!fetchedUser?.address) {
+                            router.push('/form/address');
                             return;
                         }
                     }
-
-                    if (!session?.user?.phoneNumber) { // Check for phone number in user data
-                        await fetchUserData(session.user.email);
-                        if (!userData.phoneNumber) {
-                            router.push("/form/phoneNumber");
-                        }
-                        return;
-                    }
-
-                    if (!session?.user?.address) { // Check for address in user data
-                        await fetchUserData(session.user.email);
-                        if (!userData?.address) {
-                            router.push("/form/address");
-                        }
-                        return;
-                    }
-
                     console.log("All requirements met. Placing order...");
                     await placeOrder();
                 }
@@ -78,11 +78,26 @@ export default function ConfirmOrder() {
     const placeOrder = async () => {
         try {
             const totalPrice = getTotalPrice(cartItems);
+
+            let userId;
+            if (session?.user?._id) {
+                userId = session.user._id
+            } else if (userData?._id) {
+                userId = userData._id
+            } else if (session?.user?.email) {
+                const user = await fetchUserData(session.user.email)
+                if (user?._id) {
+                    userId = user._id;
+                }
+            } else {
+                signIn("google")
+            }
+
             const response = await fetch("/api/tiffin/placeOrder", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    userId: session.user._id,
+                    userId: userId,
                     vendorId: serviceProviderInCart,
                     totalPrice: totalPrice,
                     items: cartItems,

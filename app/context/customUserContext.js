@@ -21,6 +21,7 @@ export const CustomUserProvider = ({ children }) => {
             if (!response.ok) throw new Error("Failed to fetch user data");
             const data = await response.json()
             setUserData(data)
+            return data;
         } catch (error) {
             console.error("Error fetching user data:", error);
         }

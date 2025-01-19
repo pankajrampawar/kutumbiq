@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { signIn, signOut } from 'next-auth/react'
+import { useCustomUser } from '@/app/context/customUserContext'
 
 export default function FormForMobile() {
     const router = useRouter();
@@ -10,6 +11,7 @@ export default function FormForMobile() {
     const [isValid, setIsValid] = useState(true)
     const [loading, setLoading] = useState(false)
     const { data: session, status, update } = useSession()
+    const { userData, fetchUserData } = useCustomUser();
 
     const handleMobileChange = (e) => {
         const value = e.target.value
@@ -24,6 +26,20 @@ export default function FormForMobile() {
 
         try {
             // First, save the phone number
+            let userId;
+            if (session?.user?._id) {
+                userId = session.user._id
+            } else if (userData?._id) {
+                userId = userData._id
+            } else if (session?.user?.email) {
+                const user = await fetchUserData(session.user.email)
+                if (user?._id) {
+                    userId = user._id;
+                }
+            } else {
+                signIn("google")
+            }
+
             const response = await fetch('/api/user/addUserPhoneNumber', {
                 method: 'POST',
                 headers: {
@@ -31,7 +47,7 @@ export default function FormForMobile() {
                 },
                 body: JSON.stringify({
                     phoneNumber: mobileNumber,
-                    _id: session.user._id,
+                    _id: userId
                 }),
             });
 
@@ -39,12 +55,6 @@ export default function FormForMobile() {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to add phone number');
             }
-
-            // Sign out the user
-            await signOut({ redirect: false });
-
-            // Sign in again
-            await signIn("google", { redirect: false });
 
             // Wait for the session to update
 

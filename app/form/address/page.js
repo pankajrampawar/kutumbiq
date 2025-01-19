@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useLocationContext } from "@/app/context/locationContext";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useCustomUser } from '@/app/context/customUserContext'
 
 const convertAddressToString = (formData) => {
     // Destructure the address fields from the formData
@@ -31,7 +31,7 @@ const convertAddressToString = (formData) => {
 function AddressForm() {
     const router = useRouter();
     const { data: session, status } = useSession()
-
+    const { userData, fetchUserData } = useCustomUser();
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         addressLine1: "",
@@ -71,6 +71,20 @@ function AddressForm() {
         try {
             // Make sure to set loading state before starting the request
             setIsLoading(true);
+            let userId;
+            if (session?.user?._id) {
+                userId = session.user._id
+            } else if (userData?._id) {
+                userId = userData._id;
+            } else if (session?.user?.email) {
+                const fetchedUser = fetchUserData(session.user.email);
+                if (fetchedUser?._id) {
+                    userId = fetchUserData._id
+                }
+            } else {
+                signIn("google")
+            }
+
             const address = convertAddressToString(formData)
             const response = await fetch('/api/user/addUserAddress', {
                 method: 'POST',
@@ -79,7 +93,7 @@ function AddressForm() {
                 },
                 body: JSON.stringify({
                     address: address,
-                    _id: session.user._id
+                    _id: userId
                 })
             });
 
@@ -88,24 +102,8 @@ function AddressForm() {
                 throw new Error(errorData.error || "Failed to update your address");
             }
 
-            let attempts = 0
-            const maxAttempts = 10
-            const checkSession = async () => {
-                if (session?.user?.address) {
-                    // Phone number is now in session, safe to redirect
-                    router.push('/services/tiffin/confirmOrder')
-                } else if (attempts < maxAttempts) {
-                    // Try again in 1 second
-                    attempts++
-                    setTimeout(checkSession, 1000)
-                } else {
-                    // Give up after max attempts
-                    console.error("Failed to update session after multiple attempts")
-                    setIsLoading(false)
-                }
-            }
-
-            await checkSession()
+            setIsLoading(false);
+            router.push('/services/tiffin/confirmOrder')
         } catch (error) {
             console.error("Error:", error.message); // Log only the error message for clarity
         } finally {
