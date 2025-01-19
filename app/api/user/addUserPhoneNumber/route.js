@@ -5,7 +5,6 @@ export const POST = async (req) => {
     try {
         // Parse the request body
         const { phoneNumber, _id } = await req.json();
-        console.log("Received data:", { phoneNumber, _id });
 
         // Validate input fields
         if (!_id || !phoneNumber) {
