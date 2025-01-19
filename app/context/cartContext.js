@@ -1,4 +1,11 @@
-'use client'
+'use client';
+import { useEffect } from "react";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import React, { createContext, useState, useContext } from "react";
+import { montserrat } from "../ui/fonts";
+import { useRouter } from "next/navigation";
+
 const saveCartToLocalStorage = (cartItems, serviceProviderInCart) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     localStorage.setItem("serviceProviderInCart", JSON.stringify(serviceProviderInCart));
@@ -14,9 +21,6 @@ const loadCartFromLocalStorage = () => {
     };
 };
 
-import react, { createContext, useState, useContext } from "react";
-import { useEffect } from "react";
-
 const CartContext = createContext();
 
 export const useCart = () => {
@@ -24,6 +28,8 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
+
+    const router = useRouter();
     const [cartItems, setCartItems] = useState([]);
     const [serviceProviderInCart, setServiceProviderInCart] = useState(null);
 
@@ -37,9 +43,9 @@ export const CartProvider = ({ children }) => {
         saveCartToLocalStorage(cartItems, serviceProviderInCart);
     }, [cartItems, serviceProviderInCart]);
 
-    const addItemToCart = (item) => { // Add items to cart
+    const addItemToCart = (item) => {
         if (!serviceProviderInCart) {
-            setServiceProviderInCart(item.serviceProvider)
+            setServiceProviderInCart(item.serviceProvider);
         } else if (serviceProviderInCart !== item.serviceProvider) {
             alert("You can only order from one service provider at a time");
             return false;
@@ -51,42 +57,58 @@ export const CartProvider = ({ children }) => {
             updatedCartItems[existingItemIndex].quantity += 1;
             setCartItems(updatedCartItems);
         } else {
-            setCartItems((prevItems) => [...prevItems, item])
+            setCartItems((prevItems) => [...prevItems, item]);
         }
 
-        console.log(cartItems);
         return true;
-    }
+    };
 
     const removeItemFromCart = (itemId) => {
         const existingItemIndex = cartItems.findIndex(cartItem => cartItem.id === itemId);
         if (existingItemIndex === -1) return;
-        else {
-            const updatedCartItems = [...cartItems]
 
-            updatedCartItems[existingItemIndex].quantity -= 1;
+        const updatedCartItems = [...cartItems];
+        updatedCartItems[existingItemIndex].quantity -= 1;
 
-            if (updatedCartItems[existingItemIndex].quantity === 0) {
-                updatedCartItems.splice(existingItemIndex, 1);
+        if (updatedCartItems[existingItemIndex].quantity === 0) {
+            updatedCartItems.splice(existingItemIndex, 1);
 
-                if (updatedCartItems.length === 0) {  // Reset service provider if cart is empty
-                    setServiceProviderInCart(null);
-                }
+            if (updatedCartItems.length === 0) {
+                setServiceProviderInCart(null);
             }
-
-            setCartItems(updatedCartItems);
         }
+
+        setCartItems(updatedCartItems);
     };
 
     const clearCart = () => {
-        setCartItems([])
-        setServiceProviderInCart(null)
-    }
+        setCartItems([]);
+        setServiceProviderInCart(null);
+    };
 
     return (
         <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart, clearCart }}>
             {children}
-        </CartContext.Provider>
-    )
-};
 
+            {/* Animated Checkout Bar */}
+            <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: cartItems.length > 0 ? 0 : "100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className={clsx(
+                    "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-between items-center",
+                    { "text-xl": cartItems.length > 0 }
+                )}
+            >
+                <div className="flex justify-between w-full items-center bg-black h-full p-4 text-white rounded-xl">
+                    <span>{cartItems.length} item(s) in cart</span>
+                    <button className={`bg-white text-black px-4 py-2 rounded font-semibold  tracking-wide${montserrat.className}`}
+                        onClick={() => { router.push('/services/tiffin/cart') }}
+                    >
+                        Checkout
+                    </button>
+                </div>
+            </motion.div>
+        </CartContext.Provider >
+    );
+};
