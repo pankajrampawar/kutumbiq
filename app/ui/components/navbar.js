@@ -111,18 +111,6 @@ export default function Navbar() {
             </nav>
 
             <div className="flex justify-center items-center gap-3">
-                {cartItems.length > 0 && <button onClick={navgateToCart} className={clsx("relative", { "hidden": pathname === "/services/tiffin/cart" })}>
-                    <Image
-                        src="/cart.svg"
-                        alt="Cart Icon"
-                        width="25"
-                        height="25"
-
-                    />
-
-                    <span className="absolute bg-black text-white text-xs px-[4px] rounded-full -top-1/3 -right-1/3">{cartItems.length}</span>
-                </button>}
-
                 <button
                     onClick={toggleMenu}
                     className="relative z-10"
@@ -139,8 +127,6 @@ export default function Navbar() {
                         })}
                     />
                 </button>
-
-                <SignOut /> <SignIn />
             </div>
 
             <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500`}>
