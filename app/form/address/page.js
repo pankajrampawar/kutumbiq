@@ -88,12 +88,6 @@ function AddressForm() {
                 throw new Error(errorData.error || "Failed to update your address");
             }
 
-            // signout and wait
-            await signOut({ redirect: false })
-
-            // Sign in again
-            await signIn("google", { redirect: false })
-
             let attempts = 0
             const maxAttempts = 10
             const checkSession = async () => {

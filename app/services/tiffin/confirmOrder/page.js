@@ -25,7 +25,7 @@ export default function ConfirmOrder() {
 
         const checkCredentials = async () => {
             if (cartItems.length === 0) {
-                //router.push("/services/tiffin/cart");
+                router.push("/services/tiffin/cart");
                 return;
             }
 
@@ -73,7 +73,7 @@ export default function ConfirmOrder() {
         };
 
         checkCredentials();
-    }, [status]); // Only depend on status, not session
+    }, [status]);
 
     const placeOrder = async () => {
         try {
@@ -128,14 +128,29 @@ export default function ConfirmOrder() {
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
                     <p className="mt-4 text-gray-600">Processing your order...</p>
                 </div>
-            ) : orderPlaced ? ( // Show success UI
+            ) : orderPlaced ? (
                 <div className="flex flex-col items-center gap-4">
                     <h1 className="text-md">Order placed successfully!</h1>
                     <p className="text-sm text-gray-600">
                         Redirecting you to the cart page in a few seconds...
                     </p>
-                    <div className="mt-2">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+                    <div className="mt-2 flex justify-center items-center">
+                        <div className="relative h-12 w-12">
+                            <div className="absolute top-0 left-0 w-full h-full bg-green-500 rounded-full animate-pulse"></div>
+                            <svg
+                                className="absolute w-full h-full"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <polyline points="2 12 9 18 20 6"></polyline>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             ) : (

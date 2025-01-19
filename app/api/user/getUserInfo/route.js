@@ -26,7 +26,6 @@ export const GET = async (req) => {
         return createResponse(user, 200);
     } catch (error) {
         console.log("Error loading user data! Pleaes try again later", error);
-
         return createResponse({ error: "Failed to data! please try again later!" }, 500)
     }
 }
