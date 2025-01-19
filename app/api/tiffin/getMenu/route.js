@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 export async function GET() {
 
     try {
-        const { db } = await connectToDatabase("Tiffin");
+        const db = await connectToDatabase("Tiffin");
 
         // Fetch menu items
         const menu = await db.collection("menu").find({}).toArray();
