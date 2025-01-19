@@ -6,12 +6,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { montserrat } from "@/app/ui/fonts";
 import { useSession } from "next-auth/react";
+import { useCustomUser } from "@/app/context/customUserContext";
 
 
 export default function CartPage() {
 
     const router = useRouter();
     const { cartItems } = useCart();
+    const { userData, fetchUserData, getUserId, getUserAddress } = useCustomUser();
     const { data: session, status } = useSession();
     const [address, setAddress] = useState(null);
 
@@ -27,6 +29,7 @@ export default function CartPage() {
     const handlePlaceOrder = () => {
         router.push("confirmOrder")
     }
+
 
     return (
         <div className="mx-[3%]">
