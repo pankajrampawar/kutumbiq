@@ -94,7 +94,7 @@ export const CartProvider = ({ children }) => {
             {/* Animated Checkout Bar */}
             <motion.div
                 initial={{ y: "100%" }}
-                animate={{ y: pathname === "/services/tiffin/cart" ? "100%" : cartItems.length > 0 ? 0 : "100%" }}
+                animate={{ y: pathname === "/services/tiffin/cart" && "/services/tiffin/confirmOrder" && "/form/address" && "/for/phoneNumber" ? "100%" : cartItems.length > 0 ? 0 : "100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className={clsx(
                     "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-between items-center",

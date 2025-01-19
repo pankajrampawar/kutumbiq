@@ -64,7 +64,7 @@ export default function Tiffin() {
                     </div>
                 </section>
 
-                <section>
+                <section className="mb-40">
                     {
                         menuItems.map((item) => {
                             if (serviceProviderInCart) {
