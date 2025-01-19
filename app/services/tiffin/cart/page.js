@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { montserrat } from "@/app/ui/fonts";
 import { useSession } from "next-auth/react";
 import { useCustomUser } from "@/app/context/customUserContext";
+import { motion } from "framer-motion";
 
 
 export default function CartPage() {
@@ -33,7 +34,7 @@ export default function CartPage() {
     return (
         <div className="mx-[3%]">
             <h1 className="text-xl mt-2 underline underline-offset-4 ">Checkout Page</h1>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-col gap-2">
                 {cartItems.length === 0
                     ?
                     <div className="w-full h-full fixed top-0 justify-center items-center flex flex-col gap-5">
@@ -58,17 +59,23 @@ export default function CartPage() {
             {cartItems.length > 0 &&
                 <section className="fixed bottom-0 w-screen left-0 text-white p-4">
                     {
-                        status === "authenticated" && !session.user.address && !address && <div className="text-black mb-14 w-full text-center">
+                        status === "authenticated" && !session.user.address && !address &&
+                        <div className="text-black mb-14 w-full text-center">
                             <button className="underline" onClick={() => router.push("/form/address")}>
                                 Add Deliver Address
                             </button>
                         </div>
                     }
-                    <div className={`fixed w-screen bottom-0 left-0 bg-zinc-900 flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className}`}>
+                    <motion.div
+                        initial={{ y: '100%' }}
+                        animate={{ y: '-20%' }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className={`fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-xl bg-zinc-900 flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className}`}
+                    >
                         <button onClick={handlePlaceOrder}>
                             Place Order
                         </button>
-                    </div>
+                    </motion.div>
                 </section>}
         </div>
     )
