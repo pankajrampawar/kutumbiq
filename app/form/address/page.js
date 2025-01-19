@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocationContext } from "@/app/context/locationContext";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 const convertAddressToString = (formData) => {
     // Destructure the address fields from the formData
@@ -29,12 +29,10 @@ const convertAddressToString = (formData) => {
 };
 
 function AddressForm() {
-
     const router = useRouter();
     const { data: session, status } = useSession()
 
     const [isLoading, setIsLoading] = useState(false)
-
     const [formData, setFormData] = useState({
         addressLine1: "",
         addressLine2: "",
@@ -42,26 +40,7 @@ function AddressForm() {
         country: "",
         postalCode: "",
     });
-
     const { location, error, loading, completeAddress } = useLocationContext();
-
-    useEffect(() => {
-        if (status === "loading") {
-            setIsLoading(true)
-        }
-
-        if (status === "unauthenticated") {
-            setIsLoading(false)
-            signIn("google")
-        }
-
-        if (status === "authenticated") {
-            setIsLoading(false);
-            if (session.user.address) {
-                router.push('/services/tiffin/cart')
-            }
-        }
-    }, [status])
 
     // Adds the location using location context
     useEffect(() => {
@@ -87,11 +66,12 @@ function AddressForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Submitted:", formData);
         setIsLoading(true)
-        const address = convertAddressToString(formData)
+
         try {
-            setIsLoading(true);  // Make sure to set loading state before starting the request
+            // Make sure to set loading state before starting the request
+            setIsLoading(true);
+            const address = convertAddressToString(formData)
             const response = await fetch('/api/user/addUserAddress', {
                 method: 'POST',
                 headers: {
@@ -105,22 +85,38 @@ function AddressForm() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                // Check if the error data has the correct field
                 throw new Error(errorData.error || "Failed to update your address");
             }
 
-            const data = await response.json();
-            if (data && data.message) {
-                // Assuming success is indicated by a message in the response
-                console.log(data.message); // You could log success message here
-                localStorage.setItem('address', "true")
-                router.back();  // Navigating back to the previous page
+            // signout and wait
+            await signOut({ redirect: false })
+
+            // Sign in again
+            await signIn("google", { redirect: false })
+
+            let attempts = 0
+            const maxAttempts = 10
+            const checkSession = async () => {
+                if (session?.user?.address) {
+                    // Phone number is now in session, safe to redirect
+                    router.push('/services/tiffin/confirmOrder')
+                } else if (attempts < maxAttempts) {
+                    // Try again in 1 second
+                    attempts++
+                    setTimeout(checkSession, 1000)
+                } else {
+                    // Give up after max attempts
+                    console.error("Failed to update session after multiple attempts")
+                    setIsLoading(false)
+                }
             }
 
+            await checkSession()
         } catch (error) {
             console.error("Error:", error.message); // Log only the error message for clarity
         } finally {
-            setIsLoading(false); // Always reset loading state
+            setIsLoading(false);
+            router.push('/services/tiffin/confirmOrder')
         }
     };
 
@@ -246,6 +242,7 @@ function AddressForm() {
                     <div className="text-white text-lg">Loading...</div>
                 </div>
             }
+
         </div>
     );
 }

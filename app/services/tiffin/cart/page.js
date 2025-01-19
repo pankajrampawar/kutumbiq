@@ -25,7 +25,6 @@ export default function CartPage() {
     }, [])
 
     const handlePlaceOrder = () => {
-        if (!address) router.push("/form/address")
         router.push("confirmOrder")
     }
 
@@ -39,7 +38,7 @@ export default function CartPage() {
                         <p>
                             No items in cart!
                         </p>
-                        <button className="bg-black text-white px-4 py-2 rounded-lg" onClick={() => router.back()}>
+                        <button className="bg-black text-white px-4 py-2 rounded-lg" onClick={() => router.push('/services/tiffin')}>
                             Go back
                         </button>
                     </div>

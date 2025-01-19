@@ -1,97 +1,131 @@
 'use client'
-import { useSession } from "next-auth/react"
+import { useEffect, useState, useRef } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
-import { signIn } from "next-auth/react";
 import { useCart } from "@/app/context/cartContext";
 
 export default function ConfirmOrder() {
-
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const { data: session, status } = useSession();
     const router = useRouter();
     const { cartItems, serviceProviderInCart, clearCart } = useCart();
-    console.log(cartItems);
-    const { data: session, status } = useSession();
-    const [isOrderPlaced, setIsOrderPlaced] = useState(false);
-    const orderPlacedRef = useRef(false); // Prevent multiple orders
+    const credentialsChecked = useRef(false);
 
     const getTotalPrice = (cartItems) => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    }
+    };
 
     useEffect(() => {
-        if (status === "authenticated") {
-            if (session.user.phoneNumber === null) {
-                const phone = localStorage.getItem("phoneNumber");
-                if (!phone) {
-                    router.push("/form/phoneNumber");
-                    return;
-                }
+        // Skip if we've already checked credentials
+        if (credentialsChecked.current) return;
+
+        const checkCredentials = async () => {
+            if (cartItems.length === 0) {
+                router.push("/services/tiffin/cart");
+                return;
             }
 
-            if (!session.user.address) {
-                const address = localStorage.getItem("address");
-                if (!address) {
-                    router.push('/form/address');
+            try {
+                if (status === "unauthenticated") {
+                    console.log("Signing in...");
+                    await signIn("google");
                     return;
                 }
-            }
 
-            const placeOrder = async () => {
-                if (orderPlacedRef.current || !cartItems.length) return;
-                orderPlacedRef.current = true; // Prevent multiple orders
-                const totalPrice = getTotalPrice(cartItems);
+                if (status === "authenticated") {
+                    // Mark that we've checked credentials
+                    credentialsChecked.current = true;
 
-                try {
-                    const response = await fetch("/api/tiffin/placeOrder", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            userId: session.user._id,
-                            vendorId: serviceProviderInCart,
-                            totalPrice: totalPrice,
-                            items: cartItems
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error("Unable to place the order");
+                    if (!session?.user?._id) {
+                        await signOut();
+                        await signIn("google");
+                        return;
                     }
+
+                    if (!session?.user?.phoneNumber) {
+                        router.push("/form/phoneNumber");
+                        return;
+                    }
+
+                    if (!session?.user?.address) {
+                        router.push("/form/address");
+                        return;
+                    }
+
+                    console.log("All requirements met. Placing order...");
+                    await placeOrder();
                     clearCart();
-                    setIsOrderPlaced(true);
-                } catch (error) {
-                    alert("Unable to place your order, please try again later.");
-                    router.push("/services/tiffin/cart");
+                    alert("WoHoo! Order Placed!")
+                    setLoading(false);
                 }
-            };
-
-            if (!isOrderPlaced) {
-                placeOrder();
+            } catch (err) {
+                console.error("Error in credential check:", err);
+                setError("An error occurred while processing your order. Please try again.");
+                setLoading(false);
             }
-        }
+        };
 
-        if (status === "unauthenticated") {
-            signIn("google");
+        // Only run checkCredentials if we haven't checked before
+        if (!credentialsChecked.current) {
+            checkCredentials();
         }
-    }, [status, cartItems, serviceProviderInCart]);
+    }, [status]); // Only depend on status, not session
+
+    const placeOrder = async () => {
+        try {
+            const totalPrice = getTotalPrice(cartItems);
+            const response = await fetch("/api/tiffin/placeOrder", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: session.user._id,
+                    vendorId: serviceProviderInCart,
+                    totalPrice: totalPrice,
+                    items: cartItems,
+                }),
+            });
+
+            if (!response.ok) throw new Error("Failed to place order");
+        } catch (err) {
+            console.error("Order placement error:", err);
+            setError("Failed to place your order. Please try again.");
+            setLoading(false);
+        }
+    };
+
+    if (error) {
+        return (
+            <div className="p-4 text-red-500">
+                <p>{error}</p>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                    Try Again
+                </button>
+            </div>
+        );
+    }
 
     return (
-        <div className="h-full">
-            {isOrderPlaced
-                ?
-                <div className="fixed h-screen w-screen top-0 left-0 flex items-center justify-center z-10 flex-col gap-2">
-                    <h1 className="text-xl">Order Placed successfully</h1>
-                    <button className="text-md bg-zinc-900 text-white p-3 rounded-lg" onClick={() => { router.push('/services/tiffin') }}>
+        <div className="flex justify-center items-center min-h-screen">
+            {loading ? (
+                <div className="flex flex-col items-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+                    <p className="mt-4 text-gray-600">Processing your order...</p>
+                </div>
+            ) : (
+                <div className="flex flex-col items-center gap-4">
+                    <h1 className="text-md">Order placed successfully</h1>
+                    <button
+                        onClick={() => router.push("/services/tiffin/")}
+                        className="text-sm bg-black text-white p-2 rounded-lg"
+                    >
                         Go Back
                     </button>
                 </div>
-                :
-                <div>
-                    <h1>Placing Your Order</h1>
-                    <p>Hang on tight!</p>
-                </div>
-            }
+            )}
         </div>
     );
 }

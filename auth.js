@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import Profile from "./models/User"
 import { connectToDatabase } from "./lib/mongodb"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -24,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             // If no user exists, create a new one
             const newUser = await profilesCollection.insertOne({
                 email: user.email,
-                phoneNumber: user.phoneNumber,
                 name: user.name,
                 createdAt: new Date()
             });

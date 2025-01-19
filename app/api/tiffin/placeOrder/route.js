@@ -1,11 +1,8 @@
 import { connectToDatabase } from "@/lib/mongodb";
-import { ObjectId } from "mongodb";
 
 export const POST = async (req) => {
     try {
         const { userId, vendorId, totalPrice, items } = await req.json();
-
-        console.log(userId, vendorId, totalPrice, items)
 
         if (!userId || !vendorId || !totalPrice || !items) {
             return new Response(JSON.stringify({ error: "All fields are required" }), { status: 400 });
