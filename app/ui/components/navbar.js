@@ -1,15 +1,13 @@
 'use client'
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { comfortaa, montserrat } from "../fonts";
 import clsx from 'clsx'
 import { useCart } from "@/app/context/cartContext";
 import { useRouter } from "next/navigation";
-import { SignIn } from "./auth/sign-in";
 import { useSession } from "next-auth/react"
-import { SignOut } from "./auth/sign-out";
 
 export default function Navbar() {
 
@@ -20,10 +18,6 @@ export default function Navbar() {
     }
 
     const router = useRouter();
-
-    const navgateToCart = () => {
-        router.push("/services/tiffin/cart")
-    }
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
@@ -113,7 +107,8 @@ export default function Navbar() {
             <div className="flex justify-center items-center gap-3">
                 <button
                     onClick={toggleMenu}
-                    className="relative z-10"
+                    className={clsx("relative z-10 bg-black p-2 rounded-lg",
+                    )}
                 >
                     <Image
                         src="/hamIcon.svg"
@@ -122,9 +117,7 @@ export default function Navbar() {
                         height="20"
                         priority={true}
                         loading="eager"
-                        className={clsx({
-                            'invert': isMenuOpen
-                        })}
+                        className={clsx("invert max-w-[24px] min-h-[20px]")}
                     />
                 </button>
             </div>
