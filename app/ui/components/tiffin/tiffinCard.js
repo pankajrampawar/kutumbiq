@@ -2,8 +2,9 @@
 import { montserrat } from "../../fonts";
 import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from 'react';
+import clsx from "clsx";
 
-export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy }) {
+export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy, active }) {
 
     const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
     const [quantity, setQuantity] = useState(0);
@@ -30,7 +31,9 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
     };
 
     return (
-        <div className="flex flex-col gap-4 mx-[2%] border-t py-[5%]">
+        <div className={clsx("flex flex-col gap-4 mx-[2%] border-t py-[5%]",
+            { "text-zinc-400": !active }
+        )}>
             <section className="flex justify-between gap-2 items-center ">
                 <article className="flex-1 ">
                     <h2 className={`text-lg font-semibold ${montserrat.className}`}>{title}</h2>
