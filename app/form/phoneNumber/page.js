@@ -55,27 +55,6 @@ export default function FormForMobile() {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to add phone number');
             }
-
-            // Wait for the session to update
-
-            let attempts = 0
-            const maxAttempts = 10
-            const checkSession = async () => {
-                if (session?.user?.phoneNumber) {
-                    // Phone number is now in session, safe to redirect
-                    router.push('/services/tiffin/confirmOrder')
-                } else if (attempts < maxAttempts) {
-                    // Try again in 1 second
-                    attempts++
-                    setTimeout(checkSession, 1000)
-                } else {
-                    // Give up after max attempts
-                    console.error("Failed to update session after multiple attempts")
-                    setLoading(false)
-                }
-            }
-
-            await checkSession()
         } catch (error) {
             console.error("Error:", error);
         } finally {
