@@ -49,6 +49,10 @@ export default function Navbar() {
                 name: "Furniture",
                 href: '/services/furniture'
             },
+            {
+                name: "Your Orders",
+                href: '/user/orders'
+            }
         ]
 
         return (
