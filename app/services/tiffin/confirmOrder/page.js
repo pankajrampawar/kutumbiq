@@ -4,6 +4,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/app/context/cartContext";
 import { useCustomUser } from "@/app/context/customUserContext";
+import { useAlert } from "@/app/context/alertContext";
 
 export default function ConfirmOrder() {
     const [loading, setLoading] = useState(true);
@@ -14,6 +15,7 @@ export default function ConfirmOrder() {
     const router = useRouter();
     const { cartItems, serviceProviderInCart, clearCart } = useCart();
     const credentialsChecked = useRef(false);
+    const { addAlert } = useAlert();
 
     const getTotalPrice = (cartItems) => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -64,6 +66,7 @@ export default function ConfirmOrder() {
                     }
                     console.log("All requirements met. Placing order...");
                     await placeOrder();
+                    addAlert("All orders are COD!", "success");
                 }
             } catch (err) {
                 console.error("Error in credential check:", err);
