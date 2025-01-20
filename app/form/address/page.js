@@ -7,7 +7,7 @@ import { useCustomUser } from '@/app/context/customUserContext'
 
 const convertAddressToString = (formData) => {
     // Destructure the address fields from the formData
-    const { addressLine1, addressLine2, city, country, postalCode } = formData;
+    const { addressLine1, addressLine2, city } = formData;
 
     // Create an array to hold non-empty address components
     const addressParts = [];
@@ -16,8 +16,6 @@ const convertAddressToString = (formData) => {
     if (addressLine1) addressParts.push(addressLine1);
     if (addressLine2) addressParts.push(addressLine2);
     if (city) addressParts.push(city);
-    if (country) addressParts.push(country);
-    if (postalCode) addressParts.push(postalCode);
 
     // If there are no address parts, return a default message or empty string
     if (addressParts.length === 0) {
@@ -37,8 +35,6 @@ function AddressForm() {
         addressLine1: "",
         addressLine2: "",
         city: "",
-        country: "",
-        postalCode: "",
     });
     const { location, error, loading, completeAddress } = useLocationContext();
 
@@ -50,8 +46,6 @@ function AddressForm() {
                 addressLine1: "", // You may want to leave addressLine1 empty or set it to location data if available
                 addressLine2: completeAddress.neighbourhood || "",
                 city: completeAddress.city || "",
-                country: completeAddress.country || "",
-                postalCode: completeAddress.postalCode || "",
             });
         }
     }, [location]);
@@ -69,8 +63,6 @@ function AddressForm() {
         setIsLoading(true)
 
         try {
-            // Make sure to set loading state before starting the request
-            setIsLoading(true);
             let userId;
             if (session?.user?._id) {
                 userId = session.user._id
@@ -172,45 +164,6 @@ function AddressForm() {
                             value={formData.city}
                             onChange={handleChange}
                             placeholder="City"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required
-                        />
-                    </div>
-                    {/* Country */}
-                    <div className="mb-4">
-                        <label
-                            htmlFor="country"
-                            className="block text-gray-700 text-sm font-medium mb-2"
-                        >
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            id="country"
-                            name="country"
-                            value={formData.country}
-                            onChange={handleChange}
-                            placeholder="Country"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required
-                        />
-                    </div>
-
-                    {/* Postal Code */}
-                    <div className="mb-6">
-                        <label
-                            htmlFor="postalCode"
-                            className="block text-gray-700 text-sm font-medium mb-2"
-                        >
-                            Postal Code
-                        </label>
-                        <input
-                            type="text"
-                            id="postalCode"
-                            name="postalCode"
-                            value={formData.postalCode}
-                            onChange={handleChange}
-                            placeholder="12345"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             required
                         />

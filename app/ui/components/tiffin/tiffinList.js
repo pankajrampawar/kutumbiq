@@ -2,10 +2,12 @@
 import TiffinCard from "./tiffinCard";
 import { useEffect, useState } from "react";
 import { useCart } from "@/app/context/cartContext";
+import { useAlert } from "@/app/context/alertContext";
 
 export default function TiffinList({ filter }) {
     const [menuItems, setMenuItems] = useState([])
     const { serviceProviderInCart } = useCart();
+    const { addAlert } = useAlert();
 
     useEffect(() => {
         const getMenuItems = async () => {
@@ -25,6 +27,7 @@ export default function TiffinList({ filter }) {
                 const data = await response.json();
                 console.log(data);
                 setMenuItems(data)
+                addAlert('Online order closes at 7PM', 'warning')
                 setLoading(false);
             } catch (error) {
                 console.log("Error", error)

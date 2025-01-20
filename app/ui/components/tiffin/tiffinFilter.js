@@ -9,6 +9,7 @@ export default function TiffinFilter({ addTiffinFilter }) {
     const [vegFilter, setVegFilter] = useState(false);
     const [nonVegFilter, setNonVegFilter] = useState(false)
 
+
     const toggleVegFilter = () => {
         setVegFilter((prev) => {
             if (prev === false) {

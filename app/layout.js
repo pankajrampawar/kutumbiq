@@ -2,7 +2,7 @@ import "./globals.css";
 import { LocationProvider } from "./context/locationContext";
 import { CartProvider } from "./context/cartContext";
 import UserProvider from "./context/userContext";
-import User from "@/models/User";
+import { AlertProvider } from "./context/alertContext";
 import { CustomCartProvider, CustomUserProvider } from "./context/customUserContext";
 
 export const metadata = {
@@ -13,17 +13,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <CustomUserProvider>
-        <body className={``}>
-          <LocationProvider>
-            <CartProvider>
-              <UserProvider>
-                {children}
-              </UserProvider>
-            </CartProvider>
-          </LocationProvider>
-        </body>
-      </CustomUserProvider>
+      <body className={``}>
+        <CustomUserProvider>
+          <AlertProvider>
+            <LocationProvider>
+              <CartProvider>
+                <UserProvider>
+                  {children}
+                </UserProvider>
+              </CartProvider>
+            </LocationProvider>
+          </AlertProvider>
+        </CustomUserProvider>
+      </body>
     </html>
   );
 }
