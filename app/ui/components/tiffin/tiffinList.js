@@ -64,7 +64,7 @@ export default function TiffinList({ filter }) {
                                 description={item.description}
                                 serviceProvider={item.serviceProvider}
                                 deliveryBy={item.deliveryBy}
-                                active={false}
+                                active={true}
                             />
                         )
                 })
