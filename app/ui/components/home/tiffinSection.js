@@ -1,55 +1,12 @@
+'use client'
 import { montserrat } from "@/app/ui/fonts"
 import SimpleFoodCard from "@/app/ui/simpleFoodCard"
+import { useRouter } from "next/navigation"
 
 export default function TiffinSection() {
 
-    const tiffinItemsList = [
-        {
-            tiffinItem: "Veg tffin with paneer",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 1",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 2",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 3",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 4",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 5",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 6",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 7",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        },
-        {
-            tiffinItem: "Veg tffin with paneer 10",
-            tiffinPrice: "30",
-            src: "/tiffinImage.png"
-        }
-    ]
+    const router = useRouter();
+
     return (
         <div className="mx-[5%] mt-10">
             <article className="flex flex-col gap-2">
@@ -61,20 +18,9 @@ export default function TiffinSection() {
             </article>
 
             <ul className="flex overflow-x-scroll gap-4 mt-6">
-                {
-                    tiffinItemsList.map((item) => {
-                        return (
-                            <li key={item.tiffinItem}>
-                                <SimpleFoodCard
-                                    tiffinItem={item.tiffinItem}
-                                    tiffinPrice={item.tiffinPrice}
-                                    src={item.src}
-                                    alt={item.alt}
-                                />
-                            </li>
-                        )
-                    })
-                }
+                <button className={`bg-black text-white text-xl ${montserrat.className} p-4 rounded-lg`} onClick={() => { router.push("/services/tiffin") }}>
+                    Order Online
+                </button>
             </ul>
         </div>
     )
