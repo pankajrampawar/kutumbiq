@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/app/context/cartContext";
 import { useCustomUser } from "@/app/context/customUserContext";
 import { useAlert } from "@/app/context/alertContext";
+import { SignIn } from "@/app/ui/components/auth/sign-in";
 
 export default function ConfirmOrder() {
     const [loading, setLoading] = useState(true);
@@ -129,12 +130,7 @@ export default function ConfirmOrder() {
         return (
             <div className="p-4 text-red-500">
                 <p>{error}</p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                    Try Again
-                </button>
+                <SignIn />
             </div>
         );
     }
