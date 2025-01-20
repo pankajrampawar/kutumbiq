@@ -58,24 +58,17 @@ export default function CartPage() {
 
             {cartItems.length > 0 &&
                 <section className="fixed bottom-0 w-screen left-0 text-white p-4">
-                    {
-                        status === "authenticated" && !session.user.address && !address &&
-                        <div className="text-black mb-14 w-full text-center">
-                            <button className="underline" onClick={() => router.push("/form/address")}>
-                                Add Deliver Address
-                            </button>
-                        </div>
-                    }
-                    <motion.div
+                    <motion.button
                         initial={{ y: '100%' }}
                         animate={{ y: '-20%' }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className={`fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-xl bg-zinc-900 flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className}`}
+                        onClick={handlePlaceOrder}
                     >
-                        <button onClick={handlePlaceOrder}>
+                        <div>
                             Place Order
-                        </button>
-                    </motion.div>
+                        </div>
+                    </motion.button>
                 </section>}
         </div>
     )
