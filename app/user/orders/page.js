@@ -100,8 +100,11 @@ export default function YourOrders() {
 
     if (!orders.length)
         return (
-            <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-center items-center h-screen flex-col gap-2">
                 <p className="text-gray-500 text-lg font-semibold">No orders found.</p>
+                <div className="">
+                    <button className="flex text-white font-lg p-2 rounded-lg bg-black" onClick={() => { router.push("/services/tiffin") }}>Go Back</button>
+                </div>
             </div>
         );
 
