@@ -29,8 +29,16 @@ export default function CartPage() {
     };
 
     const handlePlaceOrder = () => {
+        const now = new Date();
+        const currentHour = now.getHours();
+
+        if (currentHour >= 19) {
+            alert("Orders cannot be placed after 7 PM. Please try again tomorrow.");
+            return;
+        }
         router.push("confirmOrder");
     };
+
 
     return (
         <div className="mx-[3%] pb-32">

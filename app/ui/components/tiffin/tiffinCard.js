@@ -18,6 +18,14 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
     }, [cartItems])
 
     const handleAddItem = () => {
+        const now = new Date();
+        const currentHour = now.getHours();
+
+        if (currentHour >= 19) {
+            alert("Orders cannot be placed after 7 PM. Please try again tomorrow.");
+            return;
+        }
+
         const item = { id, title, price, description, serviceProvider, quantity: 1 };
         const isItemAdded = addItemToCart(item);
         if (isItemAdded) {
