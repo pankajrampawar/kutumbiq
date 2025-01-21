@@ -55,6 +55,7 @@ export default function FormForMobile() {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to add phone number');
             }
+            router.push('/services/tiffin/confirmOrder')
         } catch (error) {
             console.error("Error:", error);
         } finally {
