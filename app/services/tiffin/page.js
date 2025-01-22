@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { useAlert } from "@/app/context/alertContext";
 import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
-import TiffinList from "@/app/ui/components/tiffin/tiffinList";
 import { comfortaa } from "@/app/ui/fonts";
+import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 
 export default function Tiffin() {
+
+    const [loadingMenuItems, setLoadingMenuItems] = useState(true);
     const [vegFilter, setVegFilter] = useState(false);
     const [nonVegFilter, setNonVegFilter] = useState(false);
     const [filter, setFilter] = useState(null);
@@ -55,6 +57,7 @@ export default function Tiffin() {
                 const data = await response.json();
                 setMenuItems(data);
                 console.log(data)
+                //setLoadingMenuItems(false)
                 addAlert('Online order closes at 7PM', 'warning');
             } catch (error) {
                 console.error("Error fetching menu items:", error);
@@ -73,13 +76,16 @@ export default function Tiffin() {
                         Budget Friendly And Truly Good Meal.
                     </h1>
                 </div>
-                <div>Location</div>
+
+                <div>
+
+                </div>
             </section>
 
             {/* Items section */}
             <section>
                 {/* Filters section */}
-                <section className="flex gap-4">
+                <section className="flex gap-4 mb-4">
                     <TiffinFilter
                         vegFilter={vegFilter}
                         nonVegFilter={nonVegFilter}
@@ -89,9 +95,16 @@ export default function Tiffin() {
                 </section>
 
                 {/* Tiffin list section */}
-                <section className="mb-40">
-                    <TiffinList menuItems={menuItems} filter={filter} />
-                </section>
+                {
+                    loadingMenuItems ?
+                        <div>
+                            <TiffinPageSkeleton />
+                        </div>
+                        :
+                        <section className="mb-40">
+                            {/* <TiffinList menuItems={menuItems} filter={filter} /> */}
+                        </section>
+                }
             </section>
         </div>
     );
