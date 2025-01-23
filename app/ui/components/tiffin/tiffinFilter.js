@@ -48,7 +48,7 @@ export default function TiffinFilter({ vegFilter, nonVegFilter, toggleVegFilter,
                 </FilterBlock>
             </div> */}
             <FilterBlock onClick={() => { alert("Honestly, we recommend everything! (We ourselves order every day from here 😋)") }}>Recommended</FilterBlock>
-            <FilterBlock onClick={() => { alert("Bhai 2 restraunts mei kya sort he karega? 👀") }}>Sort By</FilterBlock>
+            <FilterBlock onClick={() => { alert("Bhai 2 restraunts mei kya he sort karega? 👀") }}>Sort By</FilterBlock>
         </div>
     );
 }
