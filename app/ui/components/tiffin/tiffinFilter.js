@@ -5,8 +5,8 @@ import FilterBlock from "../../filterBlock";
 
 export default function TiffinFilter({ vegFilter, nonVegFilter, toggleVegFilter, toggleNonVegFilter }) {
     return (
-        <div className="flex justify-between w-full mx-[3%]">
-            <div className="flex gap-2">
+        <div className="flex justify-start gap-4 w-full mx-[3%]">
+            {/* <div className="flex gap-2">
                 <FilterBlock onClick={toggleVegFilter}>
                     <div
                         className={clsx(
@@ -46,9 +46,9 @@ export default function TiffinFilter({ vegFilter, nonVegFilter, toggleVegFilter,
                         </div>
                     </div>
                 </FilterBlock>
-            </div>
-            <FilterBlock>Recommended</FilterBlock>
-            <FilterBlock>Sort By</FilterBlock>
+            </div> */}
+            <FilterBlock onClick={() => { alert("Honestly, we recommend everything! (We ourselves order every day from here 😋)") }}>Recommended</FilterBlock>
+            <FilterBlock onClick={() => { alert("Bhai 2 restraunts mei kya sort he karega? 👀") }}>Sort By</FilterBlock>
         </div>
     );
 }
