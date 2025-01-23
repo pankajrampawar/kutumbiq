@@ -131,7 +131,7 @@ export default function Tiffin() {
 
                 {/* Tiffin list section */}
                 <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full">
-                    <VendorCard name="Mauli Hotel" description="Authentic Maharashtiran meal, specialty in non-veg items especially fish." rating="3.9" deliveryTime="9:00 PM" pricePerMeal="95" image="/mauli.png" id="mauli" />
+                    <VendorCard name="Mauli Hotel" description="Authentic Maharashtrian meal, specialty in non-vegetarian items especially fish." rating="3.9" deliveryTime="9:00 PM" pricePerMeal="95" image="/mauli.png" id="mauli" />
                     <VendorCard name="Nalli's Hotel" description="Pure Veg meal, Maharashtrian style. serving complete thali" rating="4.1" deliveryTime="9:00 PM" pricePerMeal="90" image="/nallii's.png" id="nallii's" />
                 </section>
             </section>
