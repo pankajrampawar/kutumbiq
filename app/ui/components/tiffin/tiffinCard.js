@@ -56,15 +56,15 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
                             alt={alt}
                         />
                     </div>
-                    <div className="absolute bg-white border border-[#017272] rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                    <div className="absolute bg-white border border-[#017272] rounded-2xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
                         {quantity > 0 ? (
                             <div className="flex items-center font-bold">
-                                <button className="px-4 py-1 text-xl" onClick={handleRemoveItem}>-</button>
+                                <button className="px-4 py-2 text-xl" onClick={handleRemoveItem}>-</button>
                                 <div className="px-4 py-1 text-xl font-semibold">{quantity}</div>
                                 <button className="px-4 py-1 text-xl" onClick={handleAddItem}>+</button>
                             </div>
                         ) : (
-                            <button className="px-4 py-1 text-xl font-semibold text-[#017272]" onClick={handleAddItem}>
+                            <button className="px-8 py-2 text-xl font-semibold text-[#017272]" onClick={handleAddItem}>
                                 <p>Add</p>
                             </button>
                         )}
