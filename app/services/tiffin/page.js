@@ -7,6 +7,7 @@ import { comfortaa } from "@/app/ui/fonts";
 import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 import VendorCard from "@/app/ui/components/tiffin/vendorCard";
 import ListMenuItems from "@/app/ui/components/tiffin/listMenuItems";
+import ClosedToday from "@/app/ui/closedForToday";
 
 export default function Tiffin() {
 
@@ -16,6 +17,7 @@ export default function Tiffin() {
     const [showMenu, setShowMenu] = useState(false);
     const [filter, setFilter] = useState(null);
     const [menuItems, setMenuItems] = useState([]);
+    const [closedForToday, setClosedForToday] = useState(true)
     const { addAlert } = useAlert();
 
     const toggleVegFilter = () => {
@@ -49,34 +51,34 @@ export default function Tiffin() {
         }
     }, [vegFilter, nonVegFilter, showMenu])
 
-    useEffect(() => {
-        const getMenuItems = async () => {
-            try {
-                const response = await fetch("/api/tiffin/getMenu", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
+    // useEffect(() => {
+    //     const getMenuItems = async () => {
+    //         try {
+    //             const response = await fetch("/api/tiffin/getMenu", {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json"
+    //                 }
+    //             });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData || "Unable to fetch the menu items");
-                }
+    //             if (!response.ok) {
+    //                 const errorData = await response.json();
+    //                 throw new Error(errorData || "Unable to fetch the menu items");
+    //             }
 
-                const data = await response.json();
-                setMenuItems(data);
-                localStorage.setItem('menuItems', JSON.stringify(data))
-                console.log(data)
-                //setLoadingMenuItems(false)
-                addAlert('Online order closes at 7PM', 'warning');
-            } catch (error) {
-                console.error("Error fetching menu items:", error);
-            }
-        };
+    //             const data = await response.json();
+    //             setMenuItems(data);
+    //             localStorage.setItem('menuItems', JSON.stringify(data))
+    //             console.log(data)
+    //             //setLoadingMenuItems(false)
+    //             addAlert('Online order closes at 7PM', 'warning');
+    //         } catch (error) {
+    //             console.error("Error fetching menu items:", error);
+    //         }
+    //     };
 
-        getMenuItems();
-    }, [addAlert]);
+    //     getMenuItems();
+    // }, [addAlert]);
 
     // useEffect(() => {
     //     const getAllVendors = async () => {
@@ -135,6 +137,10 @@ export default function Tiffin() {
                     <VendorCard name="Nalli's Hotel" description="Pure Veg meal, Maharashtrian style. serving complete thali" rating="4.1" deliveryTime="9:00 PM" pricePerMeal="90" image="/nallii's.png" id="nallii's" />
                 </section>
             </section>
+
+            {closedForToday &&
+                <ClosedToday />
+            }
         </div>
     );
 }
