@@ -2,12 +2,8 @@
 import Navbar from "../navbar"
 import Image from "next/image"
 import { comfortaa } from "@/app/ui/fonts"
-import { useLocationContext } from "@/app/context/locationContext"
 
 export default function Hero() {
-
-    const { location, error, loading } = useLocationContext();
-
     return (
         <header className="w-full bg-cover" style={{ backgroundImage: "url('/heroBg.png')" }}
         >
@@ -24,23 +20,6 @@ export default function Hero() {
                 {/* location and input box here */}
                 <div className="flex w-full justify-center mt-10">
                     <div className="flex border border-black rounded-full bg-white max-w-[280px] w-full">
-                        {/* location here */}
-                        <section className="flex gap-2 border-r border-black px-2 py-2 sm:px-4 sm:py-3 items-center min-w-fit">
-                            <div className="min-w-fit">
-                                <Image
-                                    src="/locationPointer.svg"
-                                    alt="Location Pin"
-                                    width="15"
-                                    height="15"
-                                />
-                            </div>
-                            <div className="text-sm">
-                                {
-                                    loading ? "..." : error ? "Error" : location
-                                }
-                            </div>
-                        </section>
-
                         {/* search box here */}
                         <div className="flex items-center flex-grow">
                             <input
