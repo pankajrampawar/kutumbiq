@@ -2,6 +2,7 @@
 import Navbar from "../navbar"
 import Image from "next/image"
 import { lato, montserrat } from "../../fonts"
+import { motion } from "motion/react"
 
 export default function Hero() {
     return (
@@ -10,12 +11,15 @@ export default function Hero() {
                 <Navbar />
             </div>
 
-            <div className="mt-40 flex flex-col gap-6 sm:gap-3 min-[425px]:mx-[5%]">
-                <h1 className={`${montserrat.className} order-1 font-bold text-center 
-                    text-4xl leading-snug min-[455px]:text-[48px] min-[455px]:leading-tight sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl lg:leading-[84px]
-                `}>
-                    All Your Need At <br /> <span className="text-primary"> One Stop</span>
-                </h1>
+            <motion
+                className="mt-40 flex flex-col gap-6 sm:gap-3 min-[425px]:mx-[5%]"
+            >
+                <motion
+                    className={`${montserrat.className} order-1 font-bold text-center 
+                    text-4xl leading-snug min-[455px]:text-[48px] min-[455px]:leading-tight sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl lg:leading-[84px]`}
+                >
+                    All Your Needs At <br /> <span className="text-primary"> One Stop</span>
+                </motion>
 
                 <div className="flex justify-center overflow-hidden order-2 sm:order-3 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14">
                     <Image
@@ -31,7 +35,7 @@ export default function Hero() {
                     <p>We take care of your smaller problems so you could freely focus on bigger one's.</p>
                     <p className="text-textAlt">By the sutudents for the sutudents 👨🏻‍🎓.</p>
                 </div>
-            </div>
+            </motion>
         </header>
     )
 }

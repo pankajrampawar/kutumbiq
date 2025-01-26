@@ -36,7 +36,7 @@ export default function ServiceListing() {
             <div className="">
                 <h2 className="text-3xl font-bold">Services We Offer</h2>
             </div>
-            <ul className="flex flex-col mx-[5%] gap-10">
+            <ul className="flex flex-col mx-[5%] gap-10 items-center">
                 {
                     serviceList.map((service) => {
                         return (

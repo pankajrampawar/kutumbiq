@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { montserrat } from "./fonts"
 import clsx from "clsx"
+import { motion } from "motion/react"
 
 
 export default function HolderCard({ src, alt, title, href, end, start }) {
@@ -19,14 +20,19 @@ export default function HolderCard({ src, alt, title, href, end, start }) {
                 </div>
 
                 {/* div used to hold Image */}
-                <div>
+                <motion.div
+                    initial={{ scale: 0.95, y: 40, opacity: 0 }}
+                    whileInView={{ scale: 1, y: 0, opacity: 100 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                >
                     <Image
                         src={src}
                         alt={alt}
                         width="500"
                         height="500"
                     />
-                </div>
+                </motion.div>
             </div>
         </div >
     )
