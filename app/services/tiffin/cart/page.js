@@ -7,6 +7,7 @@ import { lato, montserrat } from "@/app/ui/fonts";
 import { useSession } from "next-auth/react";
 import { useCustomUser } from "@/app/context/customUserContext";
 import { motion } from "framer-motion";
+import CartCard from "@/app/ui/components/tiffin/cartCard";
 
 export default function CartPage() {
     const router = useRouter();
@@ -42,7 +43,7 @@ export default function CartPage() {
 
     return (
         <div className="mx-[3%] pb-32">
-            <h1 className="text-xl mt-2 underline underline-offset-4 ">Checkout Page</h1>
+            <h1 className="text-xl mt-2 underline underline-offset-4 ">Your Cart</h1>
             <div className="mt-10 flex flex-col gap-2">
                 {cartItems.length === 0 ? (
                     <div className="w-full h-full fixed top-0 justify-center items-center flex flex-col gap-5">
@@ -54,13 +55,8 @@ export default function CartPage() {
                             Go back
                         </button>
                     </div>
-                ) : (
-                    cartItems.map((item) => (
-                        <div key={item.id} className="flex justify-between w-full">
-                            <CheckoutCrumb item={item} />
-                        </div>
-                    ))
-                )}
+                ) : <CartCard cartItems={cartItems} />
+                }
             </div>
             {cartItems.length > 0 && (
                 <section className="fixed bottom-0 w-screen left-0 p-4">
