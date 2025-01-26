@@ -120,7 +120,6 @@ export const CartProvider = ({ children }) => {
                     </div>
 
                     <div className={`text-white ${montserrat.className} text-xl relative`}>
-
                         <div className="absolute top-0 left-0 w-2/3 h-2/3 blur-2xl bg-primary"></div>
                         <button className="bg-primary p-2 font-semibold tracking-wider rounded-[10px] relative z-10" onClick={() => { router.push('/services/tiffin/cart') }}>
                             Checkout

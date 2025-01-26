@@ -63,28 +63,25 @@ export default function CartPage() {
                 )}
             </div>
             {cartItems.length > 0 && (
-                <section className="fixed bottom-0 w-screen left-0 text-white p-4">
+                <section className="fixed bottom-0 w-screen left-0 p-4">
                     <motion.div
                         initial={{ y: '100%' }}
                         animate={{ y: '-20%' }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-xl bg-zinc-900 overflow-hidden"
+                        className="fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-[20px] overflow-hidden bg-white/10 backdrop-blur-lg shadow-xl flex justify-between items-center py-4 px-2"
                     >
-                        <div className="w-full px-4 py-2 border-b border-zinc-800">
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm text-zinc-400">Total</span>
-                                <span className="text-base font-medium">₹{calculateTotal().toFixed(2)}</span>
-                            </div>
+                        <div>
+                            <p><span className={`${montserrat.className} text-base font-medium`}>Total ₹{calculateTotal().toFixed(2)}</span></p>
+                            <p className="text-sm text-black/70">Pay on delivery</p>
                         </div>
-                        <button
-                            className={`w-full flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className} hover:bg-zinc-800 transition-colors`}
-                            onClick={handlePlaceOrder}
-                        >
-                            Place Order
-                        </button>
+
+                        <div className="relative">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-2/3 h-2/3 blur-2xl bg-primary"></div>
+                            <button className={`bg-primary p-2 text-white ${montserrat.className} tracking-wide  text-xl px-4 font-semibold rounded-[10px]`}>PLACE ORDER</button>
+                        </div>
                     </motion.div>
                 </section>
             )}
         </div>
     );
-}
+}   
