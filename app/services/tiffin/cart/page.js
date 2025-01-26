@@ -3,7 +3,7 @@ import { useCart } from "@/app/context/cartContext"
 import CheckoutCrumb from "@/app/ui/components/tiffin/checkoutCrumb";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { montserrat } from "@/app/ui/fonts";
+import { lato, montserrat } from "@/app/ui/fonts";
 import { useSession } from "next-auth/react";
 import { useCustomUser } from "@/app/context/customUserContext";
 import { motion } from "framer-motion";
@@ -72,7 +72,7 @@ export default function CartPage() {
                     >
                         <div>
                             <p><span className={`${montserrat.className} text-lg font-medium`}>Total ₹{calculateTotal().toFixed(2)}</span></p>
-                            <p className="text-sm text-black/70">Pay on delivery</p>
+                            <p className={`${lato.className} text-sm text-black/70`}>Pay on delivery</p>
                         </div>
 
                         <div className="relative">
