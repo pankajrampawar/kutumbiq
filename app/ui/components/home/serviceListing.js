@@ -1,4 +1,5 @@
 'use client'
+import Furniture from "@/app/services/furniture/page"
 import HolderCard from "@/app/ui/holderCard"
 
 export default function ServiceListing() {
@@ -33,9 +34,9 @@ export default function ServiceListing() {
     return (
         <div>
             <div className="">
-                <h2>Services We Offer</h2>
+                <h2 className="text-3xl font-bold">Services We Offer</h2>
             </div>
-            <ul className="flex flex-col mx-[5%]">
+            <ul className="flex flex-col mx-[5%] gap-10">
                 {
                     serviceList.map((service) => {
                         return (
@@ -45,6 +46,8 @@ export default function ServiceListing() {
                                     src={service.src}
                                     alt={service.alt}
                                     href={service.href}
+                                    end={service.title === "Furniture" ? true : false}
+                                    start={service.title === "Housing" ? true : false}
                                 />
                             </li>
                         )
