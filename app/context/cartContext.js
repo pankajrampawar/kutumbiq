@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import React, { createContext, useState, useContext } from "react";
 import { montserrat } from "../ui/fonts";
 import { usePathname, useRouter } from "next/navigation";
+import { Delete, DeleteIcon } from "lucide-react";
+import { Trash, Trash2, Trash2Icon, TrashIcon } from "lucide-react";
 
 const saveCartToLocalStorage = (cartItems, serviceProviderInCart) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -99,7 +101,7 @@ export const CartProvider = ({ children }) => {
                         ["/services/tiffin/cart", "/services/tiffin/confirmOrder", "/form/address", "/form/phoneNumber"].includes(pathname)
                             ? "100%"
                             : cartItems.length > 0
-                                ? 0
+                                ? -15
                                 : "100%",
                 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -109,13 +111,21 @@ export const CartProvider = ({ children }) => {
                     { "": pathname === "/services/tiffin/cart" }
                 )}
             >
-                <div className="flex justify-between w-full items-center bg-black h-full p-4 text-white rounded-xl">
-                    <span>{cartItems.length} item(s) in cart</span>
-                    <button className={`bg-white text-black px-4 py-2 rounded  tracking-wide ${montserrat.className}`}
-                        onClick={() => { router.push('/services/tiffin/cart') }}
-                    >
-                        Checkout
-                    </button>
+                <div className="flex justify-between items-center w-[90vw] bg-black/5 py-4 px-2 backdrop-blur-sm rounded-[20px] shadow-xl overflow-x-hidden">
+                    <div className="flex gap-2">
+                        <button>
+                            <Trash2Icon strokeWidth={2.2} />
+                        </button>
+                        <p className={`${montserrat.className} font-medium`}>{cartItems.length} Items in Cart</p>
+                    </div>
+
+                    <div className={`text-white ${montserrat.className} text-xl relative`}>
+
+                        <div className="absolute top-0 left-0 w-2/3 h-2/3 blur-2xl bg-primary"></div>
+                        <button className="bg-primary p-2 font-semibold tracking-wider rounded-[10px] relative z-10" onClick={() => { router.push('/services/tiffin/cart') }}>
+                            Checkout
+                        </button>
+                    </div>
                 </div>
             </motion.div>
         </CartContext.Provider >
