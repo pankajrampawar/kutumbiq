@@ -71,7 +71,7 @@ export default function CartPage() {
                         className="fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-[20px] overflow-hidden bg-white/10 backdrop-blur-lg shadow-xl flex justify-between items-center py-4 px-2"
                     >
                         <div>
-                            <p><span className={`${montserrat.className} text-base font-medium`}>Total ₹{calculateTotal().toFixed(2)}</span></p>
+                            <p><span className={`${montserrat.className} text-lg font-medium`}>Total ₹{calculateTotal().toFixed(2)}</span></p>
                             <p className="text-sm text-black/70">Pay on delivery</p>
                         </div>
 
