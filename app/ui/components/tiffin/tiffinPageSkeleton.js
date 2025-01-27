@@ -22,9 +22,6 @@ const TiffinPageSkeleton = () => {
                     <div className="h-4 bg-slate-200 rounded-md w-16 animate-pulse" />
                     <div className="h-4 bg-slate-200 rounded-md w-16 animate-pulse" />
                 </div>
-
-                {/* Button placeholder */}
-                <div className="h-10 bg-slate-200 rounded-xl w-full animate-pulse" />
             </div>
 
             {/* Shimmer effect overlay */}
