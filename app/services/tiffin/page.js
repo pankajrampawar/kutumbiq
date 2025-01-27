@@ -55,17 +55,18 @@ export default function Tiffin() {
                 const menuItemsFromLocalStorage = localStorage.getItem('menuItems')
 
                 if (!menuItemsFromLocalStorage) { // fetches menu item form server
-                    const menuItemsFromServer = getMenuItemsFromServer();
+                    const menuItemsFromServer = await getMenuItemsFromServer();
 
                     if (!menuItemsFromServer) {
                         console.error("Some error occured")
                     }
-                    localStorage.setItems('menuItems', JSON.stringify(menuItemsFromServer));
+                    localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
                     setMenuItems(menuItemsFromServer);
                 }
 
                 const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
                 setMenuItems(readableMenuItems);
+                console.log(menuItems)
                 setLoadingMenuItems(false)
             } catch (error) {
                 console.error("Error fetching menu items:", error);
@@ -111,6 +112,18 @@ export default function Tiffin() {
                     </div>
                     :
                     <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full">
+                        {menuItems.map((item) => {
+                            return (
+                                <VendorCard name={item.name}
+                                    description={item.description}
+                                    rating={item.rating}
+                                    deliveryTime={item.deliveryTime}
+                                    pricePerMeal={item.avgPrice}
+                                    image={item.image}
+                                    id={item._id}
+                                />
+                            )
+                        })}
                         <VendorCard name="Mauli Hotel" description="Authentic Maharashtiran meal, specialty in non-veg items especially fish." rating="3.9" deliveryTime="9:00 PM" pricePerMeal="95" image="/mauli.png" id="mauli" />
                         <VendorCard name="Nalli's Hotel" description="Pure Veg meal, Maharashtrian style. serving complete thali" rating="4.1" deliveryTime="9:00 PM" pricePerMeal="90" image="/nallii's.png" id="nallii's" />
                     </section>

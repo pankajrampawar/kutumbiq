@@ -6,34 +6,36 @@ import React, { useEffect, useState } from "react";
 export default function MenuPage({ params }) {
     const id = React.use(params).id; // Extract restaurant name from params
 
-    const [menuItems, setMenuItems] = useState([]);
-    const [filter, setFilter] = useState([]);
+    const [vendor, setVendor] = useState(null);
 
     useEffect(() => {
-        const storedMenu = localStorage.getItem('menuItems')
-        if (storedMenu) {
-            setMenuItems(JSON.parse(storedMenu))
+        const vendorListFromLS = localStorage.getItem('menuItems')
+        if (vendorListFromLS) {
+            const vendorList = JSON.parse(vendorListFromLS);
+            const selectedVendor = vendorList.find(vendor => vendor._id == id);
+            setVendor(selectedVendor);
+        } else {
+            console.log("nothing found")
         }
 
-        if (id === "mauli") {
-            setFilter("Mauli Hotel");
-        } else {
-            setFilter("Nalli's Kitchen");
-        }
     }, [])
+
+    if (!vendor) {
+        return <div>Loading</div>
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800">
             {/* Top Image Section */}
             <div className="relative h-64 w-full bg-gray-300">
                 <img
-                    src={`/${id}.png`}
+                    src={vendor.image}
                     alt={`${id} Restaurant`}
                     className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
-                    <h1 className="text-3xl font-bold">{filter}</h1>
+                    <h1 className="text-3xl font-bold">{vendor.name}</h1>
                 </div>
             </div>
 
@@ -49,18 +51,16 @@ export default function MenuPage({ params }) {
             {/* Menu Items Section */}
             <section className="px-4 py-6 pb-40">
                 <h2 className="text-2xl font-bold mb-4">Menu</h2>
-                <div className="grid grid-cols-1 gap-4">
-                    {console.log(filter)}
-                    {console.log(menuItems)}
-                    {menuItems.filter(item => item.serviceProvider === filter).map((item) => {
+                <div className="flex flex-col gap-1">
+                    {vendor.menu.length > 0 && vendor.menu.map((item) => {
                         return (
-                            <div key={item._id}>
+                            <div key={item.name}>
                                 <TiffinCard
-                                    id={item._id}
-                                    title={item.title}
+                                    id={item.name}
+                                    title={item.name}
                                     price={item.price}
                                     description={item.description}
-                                    src={item.src}
+                                    src={item.image}
                                     alt={item.alt}
                                     serviceProvider={item.serviceProvider}
                                     deliveryBy={item.deliveryBy}

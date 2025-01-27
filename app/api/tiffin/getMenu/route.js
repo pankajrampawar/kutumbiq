@@ -6,7 +6,7 @@ export async function GET() {
         const db = await connectToDatabase("Tiffin");
 
         // Fetch menu items
-        const menu = await db.collection("menu").find({}).toArray();
+        const menu = await db.collection("vendor").find({}).toArray();
 
         // Return 404 if menu is empty or null
         if (!menu?.length) {

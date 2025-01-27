@@ -10,7 +10,7 @@ export const POST = async (req) => {
         }
 
         const db = await connectToDatabase('Tiffin')
-        const collection = db.collection("orders")
+        const collection = db.collection("vendors")
         const result = await collection.insertOne(vendor);
 
         return NextResponse.json({ message: "Vendor added successfully", id: result.insertedId }, { status: 200 })

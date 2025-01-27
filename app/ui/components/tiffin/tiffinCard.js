@@ -3,6 +3,7 @@ import { montserrat } from "../../fonts";
 import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from 'react';
 import clsx from "clsx";
+import Image from "next/image";
 
 export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy, active }) {
 
@@ -54,6 +55,9 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
                         <img
                             src={src}
                             alt={alt}
+                            width="140"
+                            height="140"
+                            className="rounded-xl object-cover"
                         />
                     </div>
                     <div className="absolute bg-white border border-primary rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">

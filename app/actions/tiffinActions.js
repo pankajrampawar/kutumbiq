@@ -2,7 +2,7 @@
 export async function getMenuItemsFromServer() { // function to get menu items from the server
     try {
 
-        const response = await fetch("/api/tiffin/getMenu", {
+        const response = await fetch("/api/tiffin/getAllVendors", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -11,6 +11,7 @@ export async function getMenuItemsFromServer() { // function to get menu items f
 
         if (!response.ok) {
             const errorData = await response.json();
+            console.log(errorData);
             throw new Error(errorData || "Unable to fetch the menu items");
         }
 
