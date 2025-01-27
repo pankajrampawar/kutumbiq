@@ -43,7 +43,7 @@ export default function CartPage() {
 
     return (
         <div className="mx-[3%] pb-32">
-            <h1 className="text-xl mt-2 underline underline-offset-4 ">Your Cart</h1>
+            <h1 className="text-xl mt-2 underline underline-offset-4 font-medium">Your Cart</h1>
             <div className="mt-10 flex flex-col gap-2">
                 {cartItems.length === 0 ? (
                     <div className="w-full h-full fixed top-0 justify-center items-center flex flex-col gap-5">
@@ -64,7 +64,7 @@ export default function CartPage() {
                         initial={{ y: '100%' }}
                         animate={{ y: '-20%' }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-[20px] overflow-hidden bg-white/10 backdrop-blur-lg shadow-xl flex justify-between items-center py-4 px-2"
+                        className="fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-[20px] overflow-hidden bg-white/20 backdrop-blur-xl shadow-xl flex justify-between items-center py-4 px-2"
                     >
                         <div>
                             <p><span className={`${montserrat.className} text-lg font-medium`}>Total ₹{calculateTotal().toFixed(2)}</span></p>
@@ -73,7 +73,7 @@ export default function CartPage() {
 
                         <div className="relative">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-2/3 h-2/3 blur-2xl bg-primary"></div>
-                            <button className={`bg-primary p-2 text-white ${montserrat.className} tracking-wide  text-xl px-4 font-semibold rounded-[10px]`}>PLACE ORDER</button>
+                            <button className={`bg-primary p-2 text-white ${montserrat.className} tracking-wide  text-xl px-4 font-semibold rounded-[10px] relative z-10`}>PLACE ORDER</button>
                         </div>
                     </motion.div>
                 </section>
