@@ -17,7 +17,7 @@ export default function VendorCard({ image, name, description, rating, deliveryT
                     className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
-                    <h3 className={`text-xl font-semibold text-gray-900 mb-2 ${montserrat.className}`}> {name}</h3>
+                    <h3 className={`text-xl font-semibold text-gray-900 mb-2 ${montserrat.className}`}>{name}</h3>
                     <p className="text-gray-600 mb-4">{description}</p>
                     <div className="flex items-center justify-between text-sm">
                         <div className="flex items-center text-zinc-900">
