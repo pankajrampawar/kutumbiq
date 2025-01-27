@@ -6,7 +6,7 @@ import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
 import { comfortaa } from "@/app/ui/fonts";
 import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 import VendorCard from "@/app/ui/components/tiffin/vendorCard";
-import ListMenuItems from "@/app/ui/components/tiffin/listMenuItems";
+import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
 
 export default function Tiffin() {
 
@@ -52,24 +52,21 @@ export default function Tiffin() {
     useEffect(() => {
         const getMenuItems = async () => {
             try {
-                const response = await fetch("/api/tiffin/getMenu", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
+                const menuItemsFromLocalStorage = localStorage.getItem('menuItems')
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData || "Unable to fetch the menu items");
+                if (!menuItemsFromLocalStorage) { // fetches menu item form server
+                    const menuItemsFromServer = getMenuItemsFromServer();
+
+                    if (!menuItemsFromServer) {
+                        console.error("Some error occured")
+                    }
+                    localStorage.setItems('menuItems', JSON.stringify(menuItemsFromServer));
+                    setMenuItems(menuItemsFromServer);
                 }
 
-                const data = await response.json();
-                setMenuItems(data);
-                localStorage.setItem('menuItems', JSON.stringify(data))
-                console.log(data)
+                const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
+                setMenuItems(readableMenuItems);
                 setLoadingMenuItems(false)
-                addAlert('Online order closes at 7PM', 'warning');
             } catch (error) {
                 console.error("Error fetching menu items:", error);
             }
