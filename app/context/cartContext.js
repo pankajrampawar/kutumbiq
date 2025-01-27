@@ -106,17 +106,17 @@ export const CartProvider = ({ children }) => {
                 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className={clsx(
-                    "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-between items-center",
+                    "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-center items-center",
                     { "text-xl": cartItems.length > 0 },
                     { "": pathname === "/services/tiffin/cart" }
                 )}
             >
-                <div className="flex justify-between items-center w-[90vw] bg-black/5 py-4 px-2 backdrop-blur-sm rounded-[20px] shadow-xl overflow-x-hidden">
+                <div className="flex justify-between items-center w-[90vw] bg-white/20 py-4 px-3 backdrop-blur-lg rounded-[20px] shadow-xl overflow-x-hidden">
                     <div className="flex gap-2">
-                        <button>
+                        <button onClick={clearCart}>
                             <Trash2Icon strokeWidth={2.2} />
                         </button>
-                        <p className={`${montserrat.className} font-medium`}>{cartItems.length} Items in Cart</p>
+                        <p className={`${montserrat.className} font-medium text-lg`}>{cartItems.length} Item(s) in Cart</p>
                     </div>
 
                     <div className={`text-white ${montserrat.className} text-xl relative`}>
