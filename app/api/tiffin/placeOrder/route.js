@@ -2,9 +2,9 @@ import { connectToDatabase } from "@/lib/mongodb";
 
 export const POST = async (req) => {
     try {
-        const { userId, vendorId, totalPrice, items } = await req.json();
+        const { userId, vendorId, totalPrice, items, name, phoneNumber, address } = await req.json();
 
-        if (!userId || !vendorId || !totalPrice || !items) {
+        if (!userId || !vendorId || !totalPrice || !items || !name || !phoneNumber || !address) {
             return new Response(JSON.stringify({ error: "All fields are required" }), { status: 400 });
         }
 
@@ -27,6 +27,9 @@ export const POST = async (req) => {
 
         const newOrder = db.collection("orders").insertOne({
             userId,
+            name,
+            phoneNumber,
+            address,
             vendorId,
             totalPrice,
             items,
