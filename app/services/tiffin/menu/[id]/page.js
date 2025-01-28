@@ -2,9 +2,12 @@
 
 import TiffinCard from "@/app/ui/components/tiffin/tiffinCard";
 import React, { useEffect, useState } from "react";
+import { ChevronLeftIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function MenuPage({ params }) {
     const id = React.use(params).id; // Extract restaurant name from params
+    const router = useRouter();
 
     const [vendor, setVendor] = useState(null);
 
@@ -25,8 +28,11 @@ export default function MenuPage({ params }) {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-800">
+        <div className="min-h-screen bg-gray-50 text-gray-800 relative">
             {/* Top Image Section */}
+            <button className="fixed shadow-xl top-2 left-2 bg-white min-w-10 min-h-10 z-10 rounded-full flex justify-center  itmes-center max-w-10 max-h-10 items-center" onClick={() => { router.back() }}>
+                <ChevronLeftIcon className="-translate-x-[1px]" />
+            </button>
             <div className="relative h-64 w-full bg-gray-300">
                 <img
                     src={vendor.image}
@@ -38,6 +44,8 @@ export default function MenuPage({ params }) {
                     <h1 className="text-3xl font-bold">{vendor.name}</h1>
                 </div>
             </div>
+
+
 
             {/* Placeholder for Future Component */}
             <section className="px-4 py-6">
@@ -62,7 +70,7 @@ export default function MenuPage({ params }) {
                                     description={item.description}
                                     src={item.image}
                                     alt={item.alt}
-                                    serviceProvider={item.serviceProvider}
+                                    serviceProvider={vendor.name}
                                     deliveryBy={item.deliveryBy}
                                     active={true}
                                 />
