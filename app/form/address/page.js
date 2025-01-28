@@ -116,7 +116,7 @@ function AddressForm() {
                             htmlFor="addressLine1"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            Address Line 1
+                            Flat Number, floor
                         </label>
                         <input
                             type="text"
@@ -136,7 +136,7 @@ function AddressForm() {
                             htmlFor="addressLine2"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            Address Line 2 (Optional)
+                            Building/Society Name
                         </label>
                         <input
                             type="text"
@@ -145,6 +145,7 @@ function AddressForm() {
                             value={formData.addressLine2}
                             onChange={handleChange}
                             placeholder="Apt, Suite, etc."
+                            required
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
@@ -155,7 +156,7 @@ function AddressForm() {
                             htmlFor="city"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            City
+                            Area, City
                         </label>
                         <input
                             type="text"
