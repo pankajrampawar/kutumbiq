@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { montserrat } from "./fonts"
 import clsx from "clsx"
-import { motion } from "motion/react"
+import { motion } from "framer-motion";
 
 
 export default function HolderCard({ src, alt, title, href, end, start }) {
@@ -25,6 +25,7 @@ export default function HolderCard({ src, alt, title, href, end, start }) {
                     whileInView={{ scale: 1, y: 0, opacity: 100 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 }}
+                    className="z-0"
                 >
                     <Image
                         src={src}
