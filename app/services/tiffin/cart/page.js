@@ -73,7 +73,11 @@ export default function CartPage() {
 
                         <div className="relative">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-2/3 h-2/3 blur-2xl bg-primary"></div>
-                            <button className={`bg-primary p-2 text-white ${montserrat.className} tracking-wide  text-xl px-4 font-semibold rounded-[10px] relative z-10`}>PLACE ORDER</button>
+                            <button className={`bg-primary p-2 text-white ${montserrat.className} tracking-wide  text-xl px-4 font-semibold rounded-[10px] relative z-10`}
+                                onClick={handlePlaceOrder}
+                            >
+                                PLACE ORDER
+                            </button>
                         </div>
                     </motion.div>
                 </section>
