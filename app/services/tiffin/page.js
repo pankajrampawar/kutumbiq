@@ -52,27 +52,38 @@ export default function Tiffin() {
     useEffect(() => {
         const getMenuItems = async () => {
             try {
-                const menuItemsFromLocalStorage = localStorage.getItem('menuItems')
+                const timestampFromLocalStorage = localStorage.getItem('menuItemsTimestamp');
+                if (!timestampFromLocalStorage) {
+                    localStorage.removeItem('menuItems')
+                }
+                const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
 
-                if (!menuItemsFromLocalStorage) { // fetches menu item form server
+                // Check if the data exists and if it is older than 45 minutes (2700000ms)
+                const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 2700000);
+
+                // If no menu items or data is expired, fetch from the server
+                if (!menuItemsFromLocalStorage || isDataExpired) {
                     const menuItemsFromServer = await getMenuItemsFromServer();
 
                     if (!menuItemsFromServer) {
-                        console.error("Some error occured")
+                        console.error("Some error occurred while fetching menu items.");
+                    } else {
+                        // Save the menu items and current timestamp to localStorage
+                        localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
+                        localStorage.setItem('menuItemsTimestamp', Date.now().toString());
+                        setMenuItems(menuItemsFromServer);
                     }
-                    localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
-                    setMenuItems(menuItemsFromServer);
+                } else {
+                    // If valid data exists in localStorage, parse and use it
+                    const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
+                    setMenuItems(readableMenuItems);
                 }
 
-                const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
-                setMenuItems(readableMenuItems);
-                console.log(menuItems)
-                setLoadingMenuItems(false)
+                setLoadingMenuItems(false);
             } catch (error) {
                 console.error("Error fetching menu items:", error);
             }
         };
-
         getMenuItems();
     }, [addAlert]);
 
@@ -111,10 +122,12 @@ export default function Tiffin() {
                         <TiffinPageSkeleton />
                     </div>
                     :
-                    <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full">
+                    <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
                         {menuItems.map((item) => {
                             return (
-                                <VendorCard name={item.name}
+                                <VendorCard
+                                    key={item.name}
+                                    name={item.name}
                                     description={item.description}
                                     rating={item.rating}
                                     deliveryTime={item.deliveryTime}
@@ -124,8 +137,7 @@ export default function Tiffin() {
                                 />
                             )
                         })}
-                        <VendorCard name="Mauli Hotel" description="Authentic Maharashtiran meal, specialty in non-veg items especially fish." rating="3.9" deliveryTime="9:00 PM" pricePerMeal="95" image="/mauli.png" id="mauli" />
-                        <VendorCard name="Nalli's Hotel" description="Pure Veg meal, Maharashtrian style. serving complete thali" rating="4.1" deliveryTime="9:00 PM" pricePerMeal="90" image="/nallii's.png" id="nallii's" />
+
                     </section>
                 }
             </section>
