@@ -9,7 +9,7 @@ export default function Home() {
         <Hero />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-16 relative -z-10">
         <ServiceListing />
       </div>
 
