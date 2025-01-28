@@ -16,13 +16,11 @@ export default function RootLayout({ children }) {
       <body className={``}>
         <CustomUserProvider>
           <AlertProvider>
-            <LocationProvider>
-              <CartProvider>
-                <UserProvider>
-                  {children}
-                </UserProvider>
-              </CartProvider>
-            </LocationProvider>
+            <CartProvider>
+              <UserProvider>
+                {children}
+              </UserProvider>
+            </CartProvider>
           </AlertProvider>
         </CustomUserProvider>
       </body>
