@@ -7,6 +7,7 @@ import { comfortaa } from "@/app/ui/fonts";
 import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 import VendorCard from "@/app/ui/components/tiffin/vendorCard";
 import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
+import IndividualItemCard from "@/app/ui/components/tiffin/individualItemCard";
 
 export default function Tiffin() {
 
@@ -102,17 +103,56 @@ export default function Tiffin() {
                 </div>
             </section>
 
+
+            {/* individual items section */}
+            <section className="flex flex-col gap-3 pb-8 border-b mb-8">
+                <div className="flex justify-evenly">
+                    <IndividualItemCard
+                        src="/coke.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Coke"
+                    />
+                    <IndividualItemCard
+                        src="/paneer.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Paneer"
+                    />
+                    <IndividualItemCard
+                        src="/chicken.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Chicken"
+                    />
+                </div>
+                <div className="flex justify-evenly">
+                    <IndividualItemCard
+                        src="/coke.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Coke"
+                    />
+                    <IndividualItemCard
+                        src="/paneer.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Paneer"
+                    />
+                    <IndividualItemCard
+                        src="/chicken.png"
+                        alt="Image of coke bottle and chips"
+                        itemName="Chicken"
+                    />
+                </div>
+            </section>
+
             {/* Items section */}
             <section className="flex flex-col gap-6">
                 {/* Filters section */}
-                <section className="flex gap-4  border-b pb-4">
+                {/* <section className="flex gap-4  border-b pb-4">
                     <TiffinFilter
                         vegFilter={vegFilter}
                         nonVegFilter={nonVegFilter}
                         toggleVegFilter={toggleVegFilter}
                         toggleNonVegFilter={toggleNonVegFilter}
                     />
-                </section>
+                </section> */}
 
 
                 {loadingMenuItems
