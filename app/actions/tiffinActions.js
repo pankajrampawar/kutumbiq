@@ -21,3 +21,12 @@ export async function getMenuItemsFromServer() { // function to get menu items f
         console.error("Error fetching menu items:", error);
     }
 }
+
+
+export function provideFilteredItem() {
+    return (
+        <div>
+
+        </div>
+    )
+}
