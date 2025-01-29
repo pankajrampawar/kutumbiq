@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useLocationContext } from "@/app/context/locationContext";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { useCustomUser } from '@/app/context/customUserContext'
@@ -36,19 +35,7 @@ function AddressForm() {
         addressLine2: "",
         city: "",
     });
-    const { location, error, loading, completeAddress } = useLocationContext();
 
-    // Adds the location using location context
-    useEffect(() => {
-        if (location) {
-            console.log("Location Data:", completeAddress);
-            setFormData({
-                addressLine1: "", // You may want to leave addressLine1 empty or set it to location data if available
-                addressLine2: completeAddress.neighbourhood || "",
-                city: completeAddress.city || "",
-            });
-        }
-    }, [location]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
