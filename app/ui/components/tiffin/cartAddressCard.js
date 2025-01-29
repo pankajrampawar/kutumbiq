@@ -22,9 +22,7 @@ export default function CartAddressCard({ address }) {
                 </div>
 
                 <div className="w-full mx-[2%]">
-                    <button className={`text-primary ${montserrat.className} font-semibold text-xl`}>
-                        Add Delivery Address
-                    </button>
+
                 </div>
             </div>
         </BgBlurCard>
