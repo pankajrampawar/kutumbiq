@@ -5,7 +5,7 @@ import { MapPinIcon } from "lucide-react"
 import { useCustomUser } from "@/app/context/customUserContext"
 import { lato, montserrat } from "../../fonts"
 
-export default function CartAddressCard() {
+export default function CartAddressCard({ address }) {
 
     const { userData, fetchUserData } = useCustomUser
 
@@ -18,7 +18,7 @@ export default function CartAddressCard() {
                 </div>
 
                 <div className={`${lato.className} text-lg text-black/50 mx-[2%]`}>
-                    You haven’t provided us with your deliver address yet, you can provide us with your delivery address by clicking below
+                    {address ? address : "You haven’t provided us with your deliver address yet, you can provide us with your delivery address by clicking below"}
                 </div>
 
                 <div className="w-full mx-[2%]">
