@@ -9,7 +9,6 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
 
     const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
     const [quantity, setQuantity] = useState(0);
-    console.log(id)
 
     useEffect(() => {
         const item = cartItems.find(item => item.id === id);
