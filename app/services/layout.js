@@ -11,7 +11,7 @@ export default function Layout({ children }) {
             <div className="relative z-50">
                 <Navbar />
             </div>
-            <div>
+            <div className="relative z-0">
                 {children}
             </div>
         </div>

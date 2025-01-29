@@ -37,13 +37,12 @@ export default function ConfirmOrder() {
                     console.log("Signing in...");
                     signIn("google");
                     return;
-                }
-
-                if (status === "authenticated") {
+                } else if (status === "authenticated") {
                     // Mark that we've checked credentials
                     credentialsChecked.current = true;
 
                     let user = session?.user;
+
                     if (!user?._id) {
                         const fetchedUser = await fetchUserData(user.email)
                         if (!fetchedUser._id) {
@@ -54,8 +53,12 @@ export default function ConfirmOrder() {
                     }
 
                     if (!user?.phoneNumber) {
-                        router.push('/form/phoneNumber');
-                        return;
+                        const fetchedUser = await fetchUserData(user.email)
+                        console.log("fetcehd user: ", fetchedUser)
+                        if (!fetchedUser?.phoneNumber) {
+                            router.push('/form/phoneNumber');
+                            return;
+                        }
                     }
 
                     if (!user?.address) {
@@ -68,6 +71,8 @@ export default function ConfirmOrder() {
                     console.log("All requirements met. Placing order...");
                     await placeOrder();
                     addAlert("All orders are COD!", "success");
+                } else {
+                    signIn('google')
                 }
             } catch (err) {
                 console.error("Error in credential check:", err);
@@ -84,6 +89,14 @@ export default function ConfirmOrder() {
             const totalPrice = getTotalPrice(cartItems);
 
             let userId;
+            let address;
+            let name;
+            let phoneNumber;
+
+            if (!session.user.email) {
+                signIn("google")
+            }
+
             if (session?.user?._id) {
                 userId = session.user._id
             } else if (userData?._id) {
@@ -97,11 +110,32 @@ export default function ConfirmOrder() {
                 signIn("google")
             }
 
+            if (userData?.address) {
+                address = userData.address;
+                phoneNumber = userData.phoneNumber;
+                name = userData.name;
+            } else {
+                if (!session.user.email) {
+                    signIn('google');
+                }
+                const newUser = fetchUserData(session.user.email);
+                address = newUser.address;
+                phoneNumber = newUser.phoneNumber;
+                name = newUser.name;
+            }
+
+            address = userData.address;
+            phoneNumber = userData.phoneNumber;
+            name = userData.name;
+
             const response = await fetch("/api/tiffin/placeOrder", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     userId: userId,
+                    name: name,
+                    phoneNumber: phoneNumber,
+                    address: address,
                     vendorId: serviceProviderInCart,
                     totalPrice: totalPrice,
                     items: cartItems,

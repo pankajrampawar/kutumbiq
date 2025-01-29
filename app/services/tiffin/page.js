@@ -1,108 +1,82 @@
 'use client';
-
 import { useState, useEffect } from "react";
 import { useAlert } from "@/app/context/alertContext";
 import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
 import { comfortaa } from "@/app/ui/fonts";
 import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 import VendorCard from "@/app/ui/components/tiffin/vendorCard";
-import ListMenuItems from "@/app/ui/components/tiffin/listMenuItems";
-import ClosedToday from "@/app/ui/closedForToday";
+import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
+import IndividualItemCard from "@/app/ui/components/tiffin/individualItemCard";
+import { XIcon } from "lucide-react";
 
 export default function Tiffin() {
-
     const [loadingMenuItems, setLoadingMenuItems] = useState(true);
-    const [vegFilter, setVegFilter] = useState(false);
-    const [nonVegFilter, setNonVegFilter] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
-    const [filter, setFilter] = useState(null);
+    const [loadingFilter, setLoadingFilter] = useState(false);
+    const [filteredItems, setFilteredItems] = useState([]);
     const [menuItems, setMenuItems] = useState([]);
     const [closedForToday, setClosedForToday] = useState(true)
     const { addAlert } = useAlert();
-
-    const toggleVegFilter = () => {
-        setVegFilter((prev) => {
-            if (!prev) {
-                setNonVegFilter(false);
-                setFilter("veg");
-            } else {
-                setFilter(null);
-            }
-            return !prev;
-        });
-    };
-
-    const toggleNonVegFilter = () => {
-        setNonVegFilter((prev) => {
-            if (!prev) {
-                setVegFilter(false);
-                setFilter("non-veg");
-            } else {
-                setFilter(null);
-            }
-            return !prev;
-        });
-    };
-
+    const [filter, setFilter] = useState(null);
 
     useEffect(() => {
-        if (vegFilter || nonVegFilter) {
-            setShowMenu(true);
-        }
-    }, [vegFilter, nonVegFilter, showMenu])
+        const getMenuItems = async () => {
+            try {
+                const timestampFromLocalStorage = localStorage.getItem('menuItemsTimestamp');
+                if (!timestampFromLocalStorage) {
+                    localStorage.removeItem('menuItems')
+                }
+                const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
 
-    // useEffect(() => {
-    //     const getMenuItems = async () => {
-    //         try {
-    //             const response = await fetch("/api/tiffin/getMenu", {
-    //                 method: "GET",
-    //                 headers: {
-    //                     "Content-Type": "application/json"
-    //                 }
-    //             });
+                // Check if the data exists and if it is older than 45 minutes (2700000ms)
+                const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 2700000);
 
-    //             if (!response.ok) {
-    //                 const errorData = await response.json();
-    //                 throw new Error(errorData || "Unable to fetch the menu items");
-    //             }
+                // If no menu items or data is expired, fetch from the server
+                if (!menuItemsFromLocalStorage || isDataExpired) {
+                    const menuItemsFromServer = await getMenuItemsFromServer();
 
-    //             const data = await response.json();
-    //             setMenuItems(data);
-    //             localStorage.setItem('menuItems', JSON.stringify(data))
-    //             console.log(data)
-    //             //setLoadingMenuItems(false)
-    //             addAlert('Online order closes at 7PM', 'warning');
-    //         } catch (error) {
-    //             console.error("Error fetching menu items:", error);
-    //         }
-    //     };
+                    if (!menuItemsFromServer) {
+                        console.error("Some error occurred while fetching menu items.");
+                    } else {
+                        // Save the menu items and current timestamp to localStorage
+                        localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
+                        localStorage.setItem('menuItemsTimestamp', Date.now().toString());
+                        setMenuItems(menuItemsFromServer);
+                    }
+                } else {
+                    // If valid data exists in localStorage, parse and use it
+                    const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
+                    setMenuItems(readableMenuItems);
+                }
 
-    //     getMenuItems();
-    // }, [addAlert]);
+                setLoadingMenuItems(false);
+            } catch (error) {
+                console.error("Error fetching menu items:", error);
+            }
+        };
+        getMenuItems();
+    }, [addAlert]);
 
-    // useEffect(() => {
-    //     const getAllVendors = async () => {
-    //         try {
-    //             const response = await fetch("/api/tiffin/getAllVendors", {
-    //                 method: "GET",
-    //                 headers: {
-    //                     "Content-Type": "application/json"
-    //                 }
-    //             });
+    // Filter items when filter changes
+    useEffect(() => {
+        const filterItems = async () => {
+            if (!filter) return;
 
-    //             if (!response.ok) {
-    //                 const errorData = await response.json();
-    //                 throw new Error("Error Collecting Data", errorData)
-    //             }
+            setLoadingFilter(true);
+            try {
+                const filtered = menuItems.filter(vendor =>
+                    vendor.menu.some(menuItem =>
+                        menuItem.tags.includes(filter.toLowerCase())
+                    )
+                );
+                setFilteredItems(filtered);
+            } catch (error) {
+                console.error("Error filtering items:", error);
+            }
+            setLoadingFilter(false);
+        };
 
-    //             const vendorsList = await response.json();
-    //             setVendors(vendorsList);
-    //             addAlert("Online order closes at 7pm", 'warning');
-    //         } catch (error) {
-    //             console.log("Error Fetching Restaurants", error)
-    //         }
-    //     }
-    // })
+        filterItems();
+    }, [filter, menuItems]);
 
     return (
         <div>
@@ -113,34 +87,87 @@ export default function Tiffin() {
                         Budget Friendly And Truly Good Meal.
                     </h1>
                 </div>
-
                 <div>
 
                 </div>
             </section>
 
-            {/* Items section */}
-            <section className="flex flex-col gap-6">
-                {/* Filters section */}
-                <section className="flex gap-4  border-b pb-4">
-                    <TiffinFilter
-                        vegFilter={vegFilter}
-                        nonVegFilter={nonVegFilter}
-                        toggleVegFilter={toggleVegFilter}
-                        toggleNonVegFilter={toggleNonVegFilter}
+            {/* Filter section */}
+            <section className="flex flex-col gap-3 pb-8 border-b mb-8">
+                <div className="flex justify-evenly">
+                    <IndividualItemCard
+                        src="/coke.png"
+                        alt="Coke bottle and chips"
+                        itemName="Coke"
+                        onClick={() => setFilter('coke')}
                     />
-                </section>
-
-                {/* Tiffin list section */}
-                <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full">
-                    <VendorCard name="Mauli Hotel" description="Authentic Maharashtrian meal, specialty in non-vegetarian items especially fish." rating="3.9" deliveryTime="9:00 PM" pricePerMeal="95" image="/mauli.png" id="mauli" />
-                    <VendorCard name="Nalli's Hotel" description="Pure Veg meal, Maharashtrian style. serving complete thali" rating="4.1" deliveryTime="9:00 PM" pricePerMeal="90" image="/nallii's.png" id="nallii's" />
-                </section>
+                    <IndividualItemCard
+                        src="/paneer.png"
+                        alt="Paneer dish"
+                        itemName="Paneer"
+                        onClick={() => setFilter('paneer')}
+                    />
+                    <IndividualItemCard
+                        src="/chicken.png"
+                        alt="Chicken dish"
+                        itemName="Chicken"
+                        onClick={() => setFilter(' chicken')}
+                    />
+                </div>
             </section>
 
-            {closedForToday &&
-                <ClosedToday />
-            }
-        </div>
+            {/* Items section */}
+            <section className="flex flex-col gap-6">
+                {loadingMenuItems ? (
+                    <div>
+                        <TiffinPageSkeleton />
+                        <TiffinPageSkeleton />
+                    </div>
+                ) : filter ? (
+                    loadingFilter ? (
+                        <div>
+                            <TiffinPageSkeleton />
+                            <TiffinPageSkeleton />
+                        </div>
+                    ) : (
+                        <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
+                            <div className="flex items-center">
+                                <button onClick={() => { setFilter(null) }}>
+                                    <XIcon />
+                                </button>
+                                Suggesting vendors that sell {filter}
+                            </div>
+                            {filteredItems.map((item) => (
+                                <VendorCard
+                                    key={item._id}
+                                    name={item.name}
+                                    description={item.description}
+                                    rating={item.rating}
+                                    deliveryTime={item.deliveryTime}
+                                    pricePerMeal={item.avgPrice}
+                                    image={item.image}
+                                    id={item._id}
+                                />
+                            ))}
+                        </section>
+                    )
+                ) : (
+                    <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
+                        {menuItems.map((item) => (
+                            <VendorCard
+                                key={item._id}
+                                name={item.name}
+                                description={item.description}
+                                rating={item.rating}
+                                deliveryTime={item.deliveryTime}
+                                pricePerMeal={item.avgPrice}
+                                image={item.image}
+                                id={item._id}
+                            />
+                        ))}
+                    </section>
+                )}
+            </section>
+        </div >
     );
 }

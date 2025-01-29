@@ -14,9 +14,6 @@ export default function Navbar() {
 
     const { cartItems } = useCart();
     const { data: session, status } = useSession();
-    if (status === 'authenticated') {
-        console.log(session.user)
-    }
 
     const router = useRouter();
 
@@ -85,10 +82,10 @@ export default function Navbar() {
     }
 
     return (
-        <div className={clsx(`p-2 flex justify-between w-full`,
+        <div className={clsx(`p-2 flex justify-between w-full relative z-50`,
             { "fixed top-0": isMenuOpen }
         )}>
-            <h3 className="relative z-10">
+            <h3 className="relative z-30">
                 <Link href="/">
                     <Image
                         src="/kutumbiq.svg"
@@ -109,7 +106,7 @@ export default function Navbar() {
                 </ul>
             </nav>
 
-            <div className="flex justify-center items-center gap-3">
+            <div className="flex justify-center items-center gap-3 relative">
                 <button
                     onClick={toggleMenu}
                     className={clsx("relative z-10 bg-black p-2 rounded-lg",
@@ -127,7 +124,7 @@ export default function Navbar() {
                 </button>
             </div>
 
-            <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500`}>
+            <div className={`fixed w-screen h-screen top-0 left-0 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} bg-black text-gray-400 h-screen transition-all ease-in-out duration-500 `}>
                 <NavItems />
             </div>
         </div >

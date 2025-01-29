@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useLocationContext } from "@/app/context/locationContext";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { useCustomUser } from '@/app/context/customUserContext'
@@ -36,19 +35,7 @@ function AddressForm() {
         addressLine2: "",
         city: "",
     });
-    const { location, error, loading, completeAddress } = useLocationContext();
 
-    // Adds the location using location context
-    useEffect(() => {
-        if (location) {
-            console.log("Location Data:", completeAddress);
-            setFormData({
-                addressLine1: "", // You may want to leave addressLine1 empty or set it to location data if available
-                addressLine2: completeAddress.neighbourhood || "",
-                city: completeAddress.city || "",
-            });
-        }
-    }, [location]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -116,7 +103,7 @@ function AddressForm() {
                             htmlFor="addressLine1"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            Address Line 1
+                            Flat Number, floor
                         </label>
                         <input
                             type="text"
@@ -136,7 +123,7 @@ function AddressForm() {
                             htmlFor="addressLine2"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            Address Line 2 (Optional)
+                            Building/Society Name
                         </label>
                         <input
                             type="text"
@@ -145,6 +132,7 @@ function AddressForm() {
                             value={formData.addressLine2}
                             onChange={handleChange}
                             placeholder="Apt, Suite, etc."
+                            required
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
@@ -155,7 +143,7 @@ function AddressForm() {
                             htmlFor="city"
                             className="block text-gray-700 text-sm font-medium mb-2"
                         >
-                            City
+                            Area, City
                         </label>
                         <input
                             type="text"

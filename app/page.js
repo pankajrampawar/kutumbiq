@@ -1,8 +1,6 @@
 import Hero from "./ui/components/home/hero";
 import ServiceListing from "./ui/components/home/serviceListing";
 import TiffinSection from "./ui/components/home/tiffinSection";
-import HousingSection from "./ui/components/home/housingSection";
-import MaidSection from "./ui/components/home/maidSection";
 
 export default function Home() {
   return (
@@ -11,20 +9,12 @@ export default function Home() {
         <Hero />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-16 relative -z-10">
         <ServiceListing />
       </div>
 
-      <div>
+      <div className="mb-40">
         <TiffinSection />
-      </div>
-
-      <div>
-        <HousingSection />
-      </div>
-
-      <div>
-        <MaidSection />
       </div>
     </main>
   );

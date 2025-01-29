@@ -1,10 +1,10 @@
 import { connectToDatabase } from "@/lib/mongodb";
 
-export default async function GET() {
+export async function GET() {
     try {
         const db = await connectToDatabase("Tiffin")
 
-        const vendors = await db.colllection("vendors").find({}).toArray();
+        const vendors = await db.collection("vendors").find({}).toArray();
 
         if (!vendors) {
             return createResponse({ error: "unable to fetch vendors" }, 404)
