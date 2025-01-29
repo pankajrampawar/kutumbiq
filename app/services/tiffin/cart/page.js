@@ -23,22 +23,21 @@ export default function CartPage() {
         if (status === "authenticated") {
             const updateUserAndGiveAddress = async () => {
                 const user = await fetchUserData(session.user.email);
-                if (user?.address) {
-                    return user.address
-                } else return null
-            }
-            if (userData?.address) {
-                setAddress(address)
-            } else {
-                const fetchedAddress = updateUserAndGiveAddress();
-                if (!fetchedAddress) {
-                    setAddress(null)
-                }
+                return user?.address || null;
+            };
 
-                setAddress(fetchedAddress);
-            }
+            const fetchAddress = async () => {
+                if (userData?.address) {
+                    setAddress(userData.address);
+                } else {
+                    const fetchedAddress = await updateUserAndGiveAddress();
+                    setAddress(fetchedAddress);
+                }
+            };
+
+            fetchAddress();
         }
-    }, [status]);
+    }, [status, session, fetchUserData, userData]);
 
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
