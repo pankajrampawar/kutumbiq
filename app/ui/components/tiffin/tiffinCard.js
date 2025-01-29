@@ -15,6 +15,8 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
         const item = cartItems.find(item => item.id === id);
         if (item) {
             setQuantity(item.quantity);
+        } else {
+            setQuantity(0)
         }
     }, [cartItems])
 
