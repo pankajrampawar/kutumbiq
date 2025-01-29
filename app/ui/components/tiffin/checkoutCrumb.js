@@ -13,9 +13,9 @@ export default function CheckoutCrumb({ item }) {
                 <div className="flex gap-3 bg-white/5 p-1 rounded-lg text-sm min-w-[60px] justify-between relative overflow-hidden">
                     <div className="absolute blur-xl  bg-primary min-w-5 min-h-5 left-0"></div>
                     <div className="absolute blur-xl  bg-rustOrange min-w-5 min-h-5 right-0"></div>
-                    <button onClick={() => removeItemFromCart(item.id)}><span>-</span></button>
+                    <button onClick={() => removeItemFromCart(item.id)} className="realtive z-20"><span>-</span></button>
                     <p>{item.quantity}</p>
-                    <button onClick={() => addItemToCart(item)}><span>+</span></button>
+                    <button onClick={() => addItemToCart(item)} className="realtive z-20"><span>+</span></button>
                 </div>
                 <p className="min-w-[40px] flex justify-end">{item.price * item.quantity}</p>
             </section>
