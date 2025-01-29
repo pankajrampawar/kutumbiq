@@ -96,7 +96,7 @@ export default function CartPage() {
             {
                 cartItems.length > 0 && (
                     <div>
-                        <BillCard total={calculateTotal} />
+                        <BillCard total={calculateTotal()} />
                     </div>
                 )
             }
