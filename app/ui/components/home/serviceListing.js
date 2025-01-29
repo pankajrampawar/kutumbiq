@@ -1,5 +1,4 @@
 'use client'
-import Furniture from "@/app/services/furniture/page"
 import HolderCard from "@/app/ui/holderCard"
 
 export default function ServiceListing() {

@@ -2,9 +2,16 @@
 import Navbar from "../navbar"
 import Image from "next/image"
 import { lato, montserrat } from "../../fonts"
-import { motion } from "motion/react"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Hero() {
+
+    const router = useRouter();
+
+    useEffect(() => {
+        router.push('/services/tiffin');
+    }, [])
     return (
         <header className="w-full bg-cover">
             <div className="fixed top-0 w-screen">
