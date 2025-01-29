@@ -20,13 +20,25 @@ export default function CartPage() {
     const [address, setAddress] = useState(null);
 
     useEffect(() => {
-        const addressJson = localStorage.getItem("address");
-        if (addressJson) {
-            const address = JSON.parse(addressJson);
-            setAddress(address);
-            console.log("Address:", address);
+        if (status === "authenticated") {
+            const updateUserAndGiveAddress = async () => {
+                const user = await fetchUserData(session.user.email);
+                if (user?.address) {
+                    return user.address
+                } else return null
+            }
+            if (userData?.address) {
+                setAddress(address)
+            } else {
+                const fetchedAddress = updateUserAndGiveAddress();
+                if (!fetchedAddress) {
+                    setAddress(null)
+                }
+
+                setAddress(fetchedAddress);
+            }
         }
-    }, []);
+    }, [status]);
 
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
@@ -76,7 +88,7 @@ export default function CartPage() {
             {cartItems.length > 0
                 &&
                 <div className="relative">
-                    <CartAddressCard />
+                    <CartAddressCard address={address} />
 
                     <div className="absolute top-0 left-10 min-w-[35px] min-h-[35px] bg-brightYellow blur-2xl -z-10" />
                     <div className="absolute -bottom-10 left-40 min-w-[35px] min-h-[35px] bg-rustOrange blur-2xl -z-10" />

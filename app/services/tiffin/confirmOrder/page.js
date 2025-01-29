@@ -42,7 +42,6 @@ export default function ConfirmOrder() {
                     credentialsChecked.current = true;
 
                     let user = session?.user;
-                    console.log(user)
 
                     if (!user?._id) {
                         const fetchedUser = await fetchUserData(user.email)
