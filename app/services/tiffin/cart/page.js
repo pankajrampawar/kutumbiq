@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import CartCard from "@/app/ui/components/tiffin/cartCard";
 import CartAddressCard from "@/app/ui/components/tiffin/cartAddressCard";
 import BackButton from "@/app/ui/backButton";
+import BillCard from "@/app/ui/components/tiffin/billCard";
 
 export default function CartPage() {
     const router = useRouter();
@@ -84,7 +85,7 @@ export default function CartPage() {
             {
                 cartItems.length > 0 && (
                     <div>
-
+                        <BillCard />
                     </div>
                 )
             }
