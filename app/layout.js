@@ -4,6 +4,7 @@ import { CartProvider } from "./context/cartContext";
 import UserProvider from "./context/userContext";
 import { AlertProvider } from "./context/alertContext";
 import { CustomCartProvider, CustomUserProvider } from "./context/customUserContext";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   title: "Kutumbiq",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
             <CartProvider>
               <UserProvider>
                 {children}
+                <Analytics />
               </UserProvider>
             </CartProvider>
           </AlertProvider>
