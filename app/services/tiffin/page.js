@@ -1,87 +1,87 @@
 'use client';
-import { useState, useEffect } from "react";
-import { useAlert } from "@/app/context/alertContext";
-import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
-import { comfortaa, lato, montserrat } from "@/app/ui/fonts";
-import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
-import VendorCard from "@/app/ui/components/tiffin/vendorCard";
-import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
-import IndividualItemCard from "@/app/ui/components/tiffin/individualItemCard";
-import { XIcon } from "lucide-react";
-import StartingSoon from "@/app/ui/startingSoon";
+// import { useState, useEffect } from "react";
+// import { useAlert } from "@/app/context/alertContext";
+// import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
+// import { comfortaa, lato, montserrat } from "@/app/ui/fonts";
+// import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
+// import VendorCard from "@/app/ui/components/tiffin/vendorCard";
+// import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
+// import IndividualItemCard from "@/app/ui/components/tiffin/individualItemCard";
+// import { XIcon } from "lucide-react";
+// import StartingSoon from "@/app/ui/startingSoon";
 import { TiffinHolder } from "@/app/ui/tiffinHolder";
 
 export default function Tiffin() {
-    const [loadingMenuItems, setLoadingMenuItems] = useState(true);
-    const [loadingFilter, setLoadingFilter] = useState(false);
-    const [filteredItems, setFilteredItems] = useState([]);
-    const [menuItems, setMenuItems] = useState([]);
-    const [closedForToday, setClosedForToday] = useState(true)
-    const { addAlert } = useAlert();
-    const [filter, setFilter] = useState(null);
+    // const [loadingMenuItems, setLoadingMenuItems] = useState(true);
+    // const [loadingFilter, setLoadingFilter] = useState(false);
+    // const [filteredItems, setFilteredItems] = useState([]);
+    // const [menuItems, setMenuItems] = useState([]);
+    // const [closedForToday, setClosedForToday] = useState(true)
+    // const { addAlert } = useAlert();
+    // const [filter, setFilter] = useState(null);
 
-    useEffect(() => {
-        const getMenuItems = async () => {
-            try {
-                const timestampFromLocalStorage = localStorage.getItem('menuItemsTimestamp');
-                if (!timestampFromLocalStorage) {
-                    localStorage.removeItem('menuItems')
-                }
-                const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
+    // useEffect(() => {
+    //     const getMenuItems = async () => {
+    //         try {
+    //             const timestampFromLocalStorage = localStorage.getItem('menuItemsTimestamp');
+    //             if (!timestampFromLocalStorage) {
+    //                 localStorage.removeItem('menuItems')
+    //             }
+    //             const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
 
-                // Check if the data exists and if it is older than 45 minutes (2700000ms)
-                const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 2700000);
+    //             // Check if the data exists and if it is older than 45 minutes (2700000ms)
+    //             const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 2700000);
 
-                // If no menu items or data is expired, fetch from the server
-                if (!menuItemsFromLocalStorage || isDataExpired) {
-                    const menuItemsFromServer = await getMenuItemsFromServer();
+    //             // If no menu items or data is expired, fetch from the server
+    //             if (!menuItemsFromLocalStorage || isDataExpired) {
+    //                 const menuItemsFromServer = await getMenuItemsFromServer();
 
-                    if (!menuItemsFromServer) {
-                        console.error("Some error occurred while fetching menu items.");
-                    } else {
-                        // Save the menu items and current timestamp to localStorage
-                        localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
-                        localStorage.setItem('menuItemsTimestamp', Date.now().toString());
-                        setMenuItems(menuItemsFromServer);
-                    }
-                } else {
-                    // If valid data exists in localStorage, parse and use it
-                    const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
-                    setMenuItems(readableMenuItems);
-                }
+    //                 if (!menuItemsFromServer) {
+    //                     console.error("Some error occurred while fetching menu items.");
+    //                 } else {
+    //                     // Save the menu items and current timestamp to localStorage
+    //                     localStorage.setItem('menuItems', JSON.stringify(menuItemsFromServer));
+    //                     localStorage.setItem('menuItemsTimestamp', Date.now().toString());
+    //                     setMenuItems(menuItemsFromServer);
+    //                 }
+    //             } else {
+    //                 // If valid data exists in localStorage, parse and use it
+    //                 const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
+    //                 setMenuItems(readableMenuItems);
+    //             }
 
-                setLoadingMenuItems(false);
-            } catch (error) {
-                console.error("Error fetching menu items:", error);
-            }
-        };
-        getMenuItems();
-    }, [addAlert]);
+    //             setLoadingMenuItems(false);
+    //         } catch (error) {
+    //             console.error("Error fetching menu items:", error);
+    //         }
+    //     };
+    //     getMenuItems();
+    // }, [addAlert]);
 
-    // Filter items when filter changes
-    useEffect(() => {
-        const filterItems = async () => {
-            if (!filter) return;
+    // // Filter items when filter changes
+    // useEffect(() => {
+    //     const filterItems = async () => {
+    //         if (!filter) return;
 
-            setLoadingFilter(true);
-            try {
-                const filtered = menuItems.filter(vendor =>
-                    vendor.menu.some(menuItem =>
-                        menuItem.tags.includes(filter.toLowerCase())
-                    )
-                );
-                setFilteredItems(filtered);
-            } catch (error) {
-                console.error("Error filtering items:", error);
-            }
-            setLoadingFilter(false);
-        };
+    //         setLoadingFilter(true);
+    //         try {
+    //             const filtered = menuItems.filter(vendor =>
+    //                 vendor.menu.some(menuItem =>
+    //                     menuItem.tags.includes(filter.toLowerCase())
+    //                 )
+    //             );
+    //             setFilteredItems(filtered);
+    //         } catch (error) {
+    //             console.error("Error filtering items:", error);
+    //         }
+    //         setLoadingFilter(false);
+    //     };
 
-        filterItems();
-    }, [filter, menuItems]);
+    //     filterItems();
+    // }, [filter, menuItems]);
 
     return (
-        <TiffinHolder>
+        <TiffinHolder className="">
             <div className={`text-center ${montserrat.className} font-medium text-2xl`}>
                 <h1>
                     Huh! We'll be back this <br /><span className="text-primary font-semibold">
