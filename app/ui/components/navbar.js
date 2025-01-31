@@ -3,20 +3,10 @@ import Image from "next/image"
 import { useState } from "react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { comfortaa, montserrat } from "../fonts";
+import { comfortaa } from "../fonts";
 import clsx from 'clsx'
-import { useCart } from "@/app/context/cartContext";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react"
-import { SignOut } from "./auth/sign-out";
 
 export default function Navbar() {
-
-    const { cartItems } = useCart();
-    const { data: session, status } = useSession();
-
-    const router = useRouter();
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
 
