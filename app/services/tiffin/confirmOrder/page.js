@@ -95,38 +95,18 @@ export default function ConfirmOrder() {
 
             if (!session.user.email) {
                 signIn("google")
+                return;
             }
 
-            if (session?.user?._id) {
-                userId = session.user._id
-            } else if (userData?._id) {
-                userId = userData._id
-            } else if (session?.user?.email) {
-                const user = await fetchUserData(session.user.email)
-                if (user?._id) {
-                    userId = user._id;
-                }
-            } else {
-                signIn("google")
+            const fetchedUser = await fetchUserData(session.user.email)
+            if (!fetchedUser) {
+                return;
             }
 
-            if (userData?.address) {
-                address = userData.address;
-                phoneNumber = userData.phoneNumber;
-                name = userData.name;
-            } else {
-                if (!session.user.email) {
-                    signIn('google');
-                }
-                const newUser = fetchUserData(session.user.email);
-                address = newUser.address;
-                phoneNumber = newUser.phoneNumber;
-                name = newUser.name;
-            }
-
-            address = userData.address;
-            phoneNumber = userData.phoneNumber;
-            name = userData.name;
+            userId = fetchedUser._id;
+            name = fetchedUser.name;
+            phoneNumber = fetchedUser.phoneNumber;
+            address = fetchedUser.address;
 
             const response = await fetch("/api/tiffin/placeOrder", {
                 method: "POST",
