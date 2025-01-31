@@ -1,3 +1,4 @@
+"use client"
 import { lato, montserrat } from "./fonts";
 import { useRouter } from "next/navigation";
 
