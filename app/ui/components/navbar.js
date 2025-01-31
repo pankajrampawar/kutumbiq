@@ -82,8 +82,9 @@ export default function Navbar() {
     }
 
     return (
-        <div className={clsx(`p-2 flex justify-between w-full relative z-50`,
-            { "fixed top-0": isMenuOpen }
+        <div className={clsx(`p-2 flex justify-between w-full z-50 `,
+            { "fixed top-0": isMenuOpen },
+            { "relative": !isMenuOpen }
         )}>
             <h3 className="relative z-30">
                 <Link href="/">
