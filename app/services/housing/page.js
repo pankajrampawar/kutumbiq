@@ -1,7 +1,10 @@
+import StartingSoon from "@/app/ui/startingSoon"
+
+
 export default function Housing() {
     return (
         <div>
-            Housing page
+            <StartingSoon />
         </div>
     )
 }
