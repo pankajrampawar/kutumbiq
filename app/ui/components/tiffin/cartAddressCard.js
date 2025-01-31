@@ -2,27 +2,29 @@
 
 import BgBlurCard from "../../bgBlurCard"
 import { MapPinIcon } from "lucide-react"
-import { useCustomUser } from "@/app/context/customUserContext"
 import { lato, montserrat } from "../../fonts"
+import { useRouter } from "next/navigation"
 
 export default function CartAddressCard({ address }) {
 
-    const { userData, fetchUserData } = useCustomUser
+    const router = useRouter();
 
     return (
         <BgBlurCard>
             <div className="flex flex-col gap-4">
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-1 items-center">
                     <MapPinIcon />
-                    <p className={`${montserrat.className} text-xl font-medium`}>Delivery Address</p>
+                    <p className={`${montserrat.className} text-lg font-semibold tracking-wider`}>Delivery Address</p>
                 </div>
 
                 <div className={`${lato.className} text-lg text-black/50 mx-[2%]`}>
-                    {address ? address : "You haven’t provided us with your deliver address yet, you can provide us with your delivery address by clicking below"}
+                    {address ? address : "You haven’t provided us with your deliver address yet, Click on place order, you'll be redirected to required pages."}
                 </div>
 
-                <div className="w-full mx-[2%]">
-
+                <div className="flex justify-start w-full text-primary">
+                    <button className="mx-[2%] text-xl font-semibold " onClick={() => { router.push('/form/address') }}>
+                        {address ? "Edit Address" : ""}
+                    </button>
                 </div>
             </div>
         </BgBlurCard>
