@@ -96,10 +96,10 @@ export default function Tiffin() {
             <section className="flex flex-col gap-3 pb-8 border-b mb-8">
                 <div className="flex justify-evenly">
                     <IndividualItemCard
-                        src="/coke.png"
+                        src="/eggNoBg.png"
                         alt="Coke bottle and chips"
-                        itemName="Coke"
-                        onClick={() => setFilter('coke')}
+                        itemName="Egg"
+                        onClick={() => setFilter('egg')}
                     />
                     <IndividualItemCard
                         src="/paneer.png"
@@ -131,7 +131,7 @@ export default function Tiffin() {
                         </div>
                     ) : (
                         <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
-                            <div className="flex items-center">
+                            <div className="flex items-center w-full ">
                                 <button onClick={() => { setFilter(null) }}>
                                     <XIcon />
                                 </button>
