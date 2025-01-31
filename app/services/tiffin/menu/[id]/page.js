@@ -52,7 +52,7 @@ export default function MenuPage({ params }) {
                 <div className="bg-white shadow rounded-lg p-4">
                     <h2 className="text-xl font-semibold">Additional features.</h2>
                     <p className="text-sm text-gray-600">Coming Soon</p>
-                    <p className="text-sm">Working to give you a better experiance 😊</p>
+                    <p className="text-sm">Working to give you a better experience 😊</p>
                 </div>
             </section>
 

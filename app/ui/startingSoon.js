@@ -2,7 +2,7 @@ import { lato, montserrat } from "./fonts";
 
 export default function StartingSoon() {
     return (
-        <div className="h-screen relative flex ">
+        <div className="h-screen relative flex justify-center">
             <div className="flex min-w-10 max-w-10 min-h-10 bg-rustOrange absolute left-1/2 -translate-x-1/2 top-28 blur-[46px]"></div>
             <div className="flex min-w-10 max-w-10 min-h-10 bg-brightYellow absolute left-1/2 -translate-x-1/2 top-60 blur-[46px]"></div>
 
