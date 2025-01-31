@@ -1,7 +1,9 @@
+import StartingSoon from "@/app/ui/startingSoon";
+
 export default function Furniture() {
     return (
         <div>
-            This service is coming soon...
+            <StartingSoon />
         </div>
     )
 }
