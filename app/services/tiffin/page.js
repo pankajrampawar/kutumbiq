@@ -2,12 +2,14 @@
 import { useState, useEffect } from "react";
 import { useAlert } from "@/app/context/alertContext";
 import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
-import { comfortaa } from "@/app/ui/fonts";
+import { comfortaa, lato, montserrat } from "@/app/ui/fonts";
 import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 import VendorCard from "@/app/ui/components/tiffin/vendorCard";
 import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
 import IndividualItemCard from "@/app/ui/components/tiffin/individualItemCard";
 import { XIcon } from "lucide-react";
+import StartingSoon from "@/app/ui/startingSoon";
+import { TiffinHolder } from "@/app/ui/tiffinHolder";
 
 export default function Tiffin() {
     const [loadingMenuItems, setLoadingMenuItems] = useState(true);
@@ -79,95 +81,108 @@ export default function Tiffin() {
     }, [filter, menuItems]);
 
     return (
-        <div>
-            {/* Hero section */}
-            <section className="flex flex-col items-center gap-6">
-                <div className="flex justify-center items-center text-center my-[8%] px-[5%]">
-                    <h1 className={`text-2xl font-bold ${comfortaa.className}`}>
-                        Budget Friendly And Truly Good Meal.
-                    </h1>
-                </div>
-                <div>
+        <TiffinHolder>
+            <div className={`text-center ${montserrat.className} font-medium text-2xl`}>
+                <h1>
+                    Huh! We'll be back this <br /><span className="text-primary font-semibold">
+                        Monday
+                    </span>
+                </h1>
+                <p className={`${lato.className} text-base mt-4`}>Grinding to level up your experience<br /> Let us Cook...</p>
+            </ div >
+        </TiffinHolder >
+    )
 
-                </div>
-            </section>
+    // return (
+    //     <div>
+    //         {/* Hero section */}
+    //         <section className="flex flex-col items-center gap-6">
+    //             <div className="flex justify-center items-center text-center my-[8%] px-[5%]">
+    //                 <h1 className={`text-2xl font-bold ${comfortaa.className}`}>
+    //                     Budget Friendly And Truly Good Meal.
+    //                 </h1>
+    //             </div>
+    //             <div>
 
-            {/* Filter section */}
-            <section className="flex flex-col gap-3 pb-8 border-b mb-8">
-                <div className="flex justify-evenly">
-                    <IndividualItemCard
-                        src="/eggNoBg.png"
-                        alt="Coke bottle and chips"
-                        itemName="Egg"
-                        onClick={() => setFilter('egg')}
-                    />
-                    <IndividualItemCard
-                        src="/paneer.png"
-                        alt="Paneer dish"
-                        itemName="Paneer"
-                        onClick={() => setFilter('paneer')}
-                    />
-                    <IndividualItemCard
-                        src="/chicken.png"
-                        alt="Chicken dish"
-                        itemName="Chicken"
-                        onClick={() => setFilter(' chicken')}
-                    />
-                </div>
-            </section>
+    //             </div>
+    //         </section>
 
-            {/* Items section */}
-            <section className="flex flex-col gap-6">
-                {loadingMenuItems ? (
-                    <div>
-                        <TiffinPageSkeleton />
-                        <TiffinPageSkeleton />
-                    </div>
-                ) : filter ? (
-                    loadingFilter ? (
-                        <div>
-                            <TiffinPageSkeleton />
-                            <TiffinPageSkeleton />
-                        </div>
-                    ) : (
-                        <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
-                            <div className="flex items-center w-full ">
-                                <button onClick={() => { setFilter(null) }}>
-                                    <XIcon />
-                                </button>
-                                Suggesting vendors that sell {filter}
-                            </div>
-                            {filteredItems.map((item) => (
-                                <VendorCard
-                                    key={item._id}
-                                    name={item.name}
-                                    description={item.description}
-                                    rating={item.rating}
-                                    deliveryTime={item.deliveryTime}
-                                    pricePerMeal={item.avgPrice}
-                                    image={item.image}
-                                    id={item._id}
-                                />
-                            ))}
-                        </section>
-                    )
-                ) : (
-                    <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
-                        {menuItems.map((item) => (
-                            <VendorCard
-                                key={item._id}
-                                name={item.name}
-                                description={item.description}
-                                rating={item.rating}
-                                deliveryTime={item.deliveryTime}
-                                pricePerMeal={item.avgPrice}
-                                image={item.image}
-                                id={item._id}
-                            />
-                        ))}
-                    </section>
-                )}
-            </section>
-        </div >
-    );
+    //         {/* Filter section */}
+    //         <section className="flex flex-col gap-3 pb-8 border-b mb-8">
+    //             <div className="flex justify-evenly">
+    //                 <IndividualItemCard
+    //                     src="/eggNoBg.png"
+    //                     alt="Coke bottle and chips"
+    //                     itemName="Egg"
+    //                     onClick={() => setFilter('egg')}
+    //                 />
+    //                 <IndividualItemCard
+    //                     src="/paneer.png"
+    //                     alt="Paneer dish"
+    //                     itemName="Paneer"
+    //                     onClick={() => setFilter('paneer')}
+    //                 />
+    //                 <IndividualItemCard
+    //                     src="/chicken.png"
+    //                     alt="Chicken dish"
+    //                     itemName="Chicken"
+    //                     onClick={() => setFilter(' chicken')}
+    //                 />
+    //             </div>
+    //         </section>
+
+    //         {/* Items section */}
+    //         <section className="flex flex-col gap-6">
+    //             {loadingMenuItems ? (
+    //                 <div>
+    //                     <TiffinPageSkeleton />
+    //                     <TiffinPageSkeleton />
+    //                 </div>
+    //             ) : filter ? (
+    //                 loadingFilter ? (
+    //                     <div>
+    //                         <TiffinPageSkeleton />
+    //                         <TiffinPageSkeleton />
+    //                     </div>
+    //                 ) : (
+    //                     <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
+    //                         <div className="flex items-center w-full ">
+    //                             <button onClick={() => { setFilter(null) }}>
+    //                                 <XIcon />
+    //                             </button>
+    //                             Suggesting vendors that sell {filter}
+    //                         </div>
+    //                         {filteredItems.map((item) => (
+    //                             <VendorCard
+    //                                 key={item._id}
+    //                                 name={item.name}
+    //                                 description={item.description}
+    //                                 rating={item.rating}
+    //                                 deliveryTime={item.deliveryTime}
+    //                                 pricePerMeal={item.avgPrice}
+    //                                 image={item.image}
+    //                                 id={item._id}
+    //                             />
+    //                         ))}
+    //                     </section>
+    //                 )
+    //             ) : (
+    //                 <section className="mb-40 mx-[3%] flex flex-col gap-4 md:flex-row md:w-full flex-wrap">
+    //                     {menuItems.map((item) => (
+    //                         <VendorCard
+    //                             key={item._id}
+    //                             name={item.name}
+    //                             description={item.description}
+    //                             rating={item.rating}
+    //                             deliveryTime={item.deliveryTime}
+    //                             pricePerMeal={item.avgPrice}
+    //                             image={item.image}
+    //                             id={item._id}
+    //                         />
+    //                     ))}
+    //                 </section>
+    //             )}
+    //         </section>
+    //     </div >
+    // );
 }
