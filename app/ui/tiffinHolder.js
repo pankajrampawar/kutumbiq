@@ -11,7 +11,7 @@ export const TiffinHolder = ({
     const parentRef = useRef(null);
 
     // State for screen width
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenWidth, setScreenWidth] = useState(0);
 
     // Update screen width on resize
     useEffect(() => {

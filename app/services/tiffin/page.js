@@ -1,8 +1,8 @@
-'use client';
+"use client"
+import { comfortaa, lato, montserrat } from "@/app/ui/fonts";
 // import { useState, useEffect } from "react";
 // import { useAlert } from "@/app/context/alertContext";
 // import TiffinFilter from "@/app/ui/components/tiffin/tiffinFilter";
-// import { comfortaa, lato, montserrat } from "@/app/ui/fonts";
 // import TiffinPageSkeleton from "@/app/ui/components/tiffin/tiffinPageSkeleton";
 // import VendorCard from "@/app/ui/components/tiffin/vendorCard";
 // import { getMenuItemsFromServer } from "@/app/actions/tiffinActions";
