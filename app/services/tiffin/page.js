@@ -82,7 +82,9 @@ export default function Tiffin() {
 
     return (
         <TiffinHolder className="">
-            <div className={`text-center ${montserrat.className} font-medium text-2xl`}>
+            <div className={`text-center ${montserrat.className} font-medium text-2xl relative`}>
+                <div className="flex min-w-10 max-w-10 min-h-10 bg-rustOrange absolute left-1/2 -translate-x-1/2 top-1/5 blur-[46px]"></div>
+                <div className="flex min-w-10 max-w-10 min-h-10 bg-brightYellow absolute left-1/2 -translate-x-1/2 top-1/4 blur-[46px]"></div>
                 <h1>
                     Huh! We'll be back this <br /><span className="text-primary font-semibold">
                         Monday
