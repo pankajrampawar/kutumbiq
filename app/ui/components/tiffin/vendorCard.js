@@ -80,9 +80,9 @@ export default function VendorCard({
                             <Clock className="h-4 w-4" />
                             <span className="ml-1">{deliveryTime}</span>
                         </div>
-                        <div className="flex items-center text-gray-600">
+                        <div className="flex items-center text-gray-600 text-[16px]">
                             <IndianRupee className="h-4 w-4" />
-                            <span className="ml-1">{pricePerMeal}</span>
+                            <span className="">{pricePerMeal} / meal</span>
                         </div>
                     </div>
                 </div>
