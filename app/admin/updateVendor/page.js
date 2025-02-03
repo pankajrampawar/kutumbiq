@@ -128,7 +128,7 @@ export default function AddVendorForm() {
                 Is Pure Veg?
             </label>
             <input
-                type="url"
+                type="string"
                 name="image"
                 placeholder="Image URL"
                 value={vendorData.image}
@@ -166,7 +166,7 @@ export default function AddVendorForm() {
                     className="border p-2"
                 />
                 <input
-                    type="url"
+                    type=""
                     name="image"
                     placeholder="Item Image URL"
                     value={menuItem.image}
