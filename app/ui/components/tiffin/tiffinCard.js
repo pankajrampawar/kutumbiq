@@ -52,13 +52,13 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
                 </article>
 
                 <div className="relative">
-                    <div className="bg-gray-200 aspect-square min-w-[140px] rounded-xl">
+                    <div className="bg-gray-200 aspect-square min-w-[140px] max-w-[140px] max-h-[140px] overflow-hidden rounded-xl">
                         <img
                             src={src}
                             alt={alt}
                             width="140"
                             height="140"
-                            className="rounded-xl object-cover"
+                            className="rounded-xl object-cover object-center w-full h-full"
                         />
                     </div>
                     <div className="absolute bg-white border border-primary rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
