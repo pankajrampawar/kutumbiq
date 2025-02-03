@@ -3,7 +3,7 @@ import React from 'react';
 
 const TiffinPageSkeleton = () => {
     return (
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-md overflow-hidden max-w-[450px]">
             {/* Image placeholder */}
             <div className="w-full h-48 bg-slate-200 animate-pulse" />
 
