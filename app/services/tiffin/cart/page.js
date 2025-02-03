@@ -56,7 +56,7 @@ export default function CartPage() {
 
 
     return (
-        <div className="mx-[3%] pb-32 flex flex-col gap-8">
+        <div className="mx-[3%] pb-32 flex flex-col gap-8 pt-14">
 
             <div className="mt-4 relative">
                 <div className="flex items-center">
