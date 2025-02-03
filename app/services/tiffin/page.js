@@ -110,7 +110,7 @@ export default function Tiffin() {
                         src="/chicken.png"
                         alt="Chicken dish"
                         itemName="Chicken"
-                        onClick={() => setFilter(' chicken')}
+                        onClick={() => setFilter('chicken')}
                     />
                 </div>
             </section>
