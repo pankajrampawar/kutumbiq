@@ -8,16 +8,16 @@ export default function ServiceListing() {
 
     const serviceList = [
         {
-            title: "Housing",
-            src: "/housing.png",
-            alt: "Image/Illustration of an apartment.",
-            href: "/services/housing",
-        },
-        {
             title: "Tiffin",
             src: "/tiffin.png",
             alt: "Image/Illustration of a typical Indian tiffin (dabba) with pulses curry and chapati.",
             href: "/services/tiffin",
+        },
+        {
+            title: "Housing",
+            src: "/housing.png",
+            alt: "Image/Illustration of an apartment.",
+            href: "/services/housing",
         },
         {
             title: "Maid",
@@ -49,7 +49,7 @@ export default function ServiceListing() {
                                     alt={service.alt}
                                     href={service.href}
                                     end={service.title === "Furniture"}
-                                    start={service.title === "Housing"}
+                                    start={service.title === "Tiffin"}
                                     handleClick={() => router.push(service.href)}
                                 />
                             </li>
