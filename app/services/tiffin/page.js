@@ -99,7 +99,7 @@ export default function Tiffin() {
                 </div>
                 <h1 className={`text-3xl font-semibold text-center mt-36 tracking-wide ${montserrat.className}`}>This service will <br /> start tomorrow.</h1>
                 <div className="flex justify-center w-full">
-                    <button onClick={() => router.back()} className={`${montserrat.className} min-w-[140px] font-semibold text-xl bg-primary text-white relative z-40 p-2 px-3 rounded-xl mt-4`}>Go Back</button>
+                    <button onClick={() => router.push("/")} className={`${montserrat.className} min-w-[140px] font-semibold text-xl bg-primary text-white relative z-40 p-2 px-3 rounded-xl mt-4`}>Go Back</button>
                 </div>
             </div>
         </div >
