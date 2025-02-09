@@ -8,10 +8,10 @@ export const metadata = {
 export default function Layout({ children }) {
     return (
         <div>
-            <div className="absolute w-full z-50">
+            <div className="relative w-full z-50">
                 <Navbar />
             </div>
-            <div className="relative z-0">
+            <div className="relative z-10">
                 {children}
             </div>
         </div>

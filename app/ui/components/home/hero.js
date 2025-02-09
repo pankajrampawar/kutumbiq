@@ -2,31 +2,24 @@
 import Navbar from "../navbar"
 import Image from "next/image"
 import { lato, montserrat } from "../../fonts"
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 
 export default function Hero() {
 
-    const router = useRouter();
-
-    useEffect(() => {
-        router.push('/services/tiffin');
-    }, [])
     return (
         <header className="w-full bg-cover">
-            <div className="fixed top-0 w-screen">
+            <div className=" w-full">
                 <Navbar />
             </div>
 
-            <motion
-                className="mt-40 flex flex-col gap-6 sm:gap-3 min-[425px]:mx-[5%]"
+            <div
+                className="mt-20 flex flex-col gap-6 sm:gap-3 min-[425px]:mx-[5%]"
             >
-                <motion
+                <div
                     className={`${montserrat.className} order-1 font-bold text-center 
                     text-4xl leading-snug min-[455px]:text-[48px] min-[455px]:leading-tight sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl lg:leading-[84px]`}
                 >
                     All Your Needs At <br /> <span className="text-primary"> One Stop</span>
-                </motion>
+                </div>
 
                 <div className="flex justify-center overflow-hidden order-2 sm:order-3 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14">
                     <Image
@@ -42,7 +35,7 @@ export default function Hero() {
                     <p>We take care of your smaller problems so you could freely focus on bigger one's.</p>
                     <p className="text-textAlt">By the sutudents for the sutudents 👨🏻‍🎓.</p>
                 </div>
-            </motion>
+            </div>
         </header>
     )
 }
