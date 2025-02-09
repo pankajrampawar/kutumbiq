@@ -49,9 +49,9 @@ function AboutUs() {
 
                     {/* Support Section */}
                     <div className="bg-white p-8 rounded-xl shadow-md mt-8">
-                        <div className="flex items-center justify-center space-x-4 mb-6">
+                        <div className="flex items-left justify-center space-x-4 mb-6">
                             <Users className="w-8 h-8 text-indigo-600" />
-                            <h3 className="text-2xl font-semibold text-gray-900">Support at Every Step</h3>
+                            <h3 className="text-2xl font-semibold text-gray-900">Why? Because We Care!</h3>
                         </div>
                         <p className="text-gray-600">
                             From housing to food and beyond, we've got your back. We believe every student deserves to start this journey without the anxiety of being alone.
