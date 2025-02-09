@@ -33,7 +33,7 @@ export default function Hero() {
 
                 <div className={`text-center text-black/70 font ${lato.className} order-3 sm:order-2 lg:text-2xl lg:tracking-wide sm:mt-4`}>
                     <p>We take care of your smaller problems so you could freely focus on bigger one's.</p>
-                    <p className="text-textAlt">By the sutudents for the sutudents 👨🏻‍🎓.</p>
+                    <p className="text-textAlt">By the students for the students 👨🏻‍🎓.</p>
                 </div>
             </div>
         </header>
