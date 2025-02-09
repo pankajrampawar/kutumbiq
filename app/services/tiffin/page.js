@@ -89,7 +89,7 @@ export default function Tiffin() {
 
             <div className="text-center space-y-4">
                 <div className="mt-32 relative">
-                    <MessageCard message="Excited to see you tomorrow" />
+                    <MessageCard message="Kal milte hain, can’t wait! 😄" />
                     <Image
                         src="/panda.svg"
                         alt="Panda image"
