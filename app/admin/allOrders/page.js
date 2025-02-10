@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 export default function AllOrders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const { data: session, status } = useSession();
-
+    const [nonUser, setNonUser] = useState();
     useEffect(() => {
         async function fetchOrders() {
             try {
@@ -37,6 +37,14 @@ export default function AllOrders() {
 
     if (loading) {
         return <div>Loading orders...</div>;
+    }
+
+    if (nonUser) {
+        return (
+            <div>
+                <button onClick={() => { signIn('google') }} className="text-xl bg-black m-3 p-3">Log in</button>
+            </div>
+        )
     }
 
     return (
