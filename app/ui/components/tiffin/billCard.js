@@ -28,9 +28,14 @@ export default function BillCard({ total }) {
                         <p>-7</p>
                     </div>
 
+                    <div className="flex justify-between items-center text-textAlt">
+                        <p>First Day Offer</p>
+                        <p>-{total / 2}</p>
+                    </div>
+
                     <div className="flex justify-between text-xl font-semibold pt-2 border-t mt-2">
                         <p>Total</p>
-                        <p className="flex items-center"><IndianRupeeIcon height={20} />{total}</p>
+                        <p className="flex items-center"><IndianRupeeIcon height={20} />{total - total / 2}</p>
                     </div>
                 </div>
             </BgBlurCard>

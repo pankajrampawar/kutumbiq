@@ -5,21 +5,23 @@ import { motion } from "framer-motion";
 import React, { createContext, useState, useContext } from "react";
 import { montserrat } from "../ui/fonts";
 import { usePathname, useRouter } from "next/navigation";
-import { Delete, DeleteIcon } from "lucide-react";
-import { Trash, Trash2, Trash2Icon, TrashIcon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 
-const saveCartToLocalStorage = (cartItems, serviceProviderInCart) => {
+const saveCartToLocalStorage = (cartItems, serviceProviderInCart, coupon) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     localStorage.setItem("serviceProviderInCart", JSON.stringify(serviceProviderInCart));
+    localStorage.setItem("coupon", JSON.stringify(coupon));
 };
 
 const loadCartFromLocalStorage = () => {
     const savedCartItems = localStorage.getItem("cartItems");
     const savedServiceProviderInCart = localStorage.getItem("serviceProviderInCart");
+    const savedCoupon = localStorage.getItem("coupon");
 
     return {
         cartItems: savedCartItems ? JSON.parse(savedCartItems) : [],
         serviceProviderInCart: savedServiceProviderInCart ? JSON.parse(savedServiceProviderInCart) : null,
+        coupon: savedCoupon ? JSON.parse(savedCoupon) : null,
     };
 };
 
@@ -30,21 +32,22 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-
     const router = useRouter();
-    const pathname = usePathname()
+    const pathname = usePathname();
     const [cartItems, setCartItems] = useState([]);
     const [serviceProviderInCart, setServiceProviderInCart] = useState(null);
+    const [coupon, setCoupon] = useState(null);
 
     useEffect(() => {
-        const { cartItems, serviceProviderInCart } = loadCartFromLocalStorage();
+        const { cartItems, serviceProviderInCart, coupon } = loadCartFromLocalStorage();
         setCartItems(cartItems);
         setServiceProviderInCart(serviceProviderInCart);
+        setCoupon(coupon);
     }, []);
 
     useEffect(() => {
-        saveCartToLocalStorage(cartItems, serviceProviderInCart);
-    }, [cartItems, serviceProviderInCart]);
+        saveCartToLocalStorage(cartItems, serviceProviderInCart, coupon);
+    }, [cartItems, serviceProviderInCart, coupon]);
 
     const addItemToCart = (item) => {
         if (!serviceProviderInCart) {
@@ -87,10 +90,30 @@ export const CartProvider = ({ children }) => {
     const clearCart = () => {
         setCartItems([]);
         setServiceProviderInCart(null);
+        setCoupon(null);
+    };
+
+    const applyCoupon = (code, discount) => {
+        setCoupon({ code, discount });
+    };
+
+    const removeCoupon = () => {
+        setCoupon(null);
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart, clearCart }}>
+        <CartContext.Provider
+            value={{
+                cartItems,
+                addItemToCart,
+                removeItemFromCart,
+                serviceProviderInCart,
+                clearCart,
+                coupon,
+                applyCoupon,
+                removeCoupon,
+            }}
+        >
             {children}
 
             {/* Animated Checkout Bar */}
@@ -127,6 +150,6 @@ export const CartProvider = ({ children }) => {
                     </div>
                 </div>
             </motion.div>
-        </CartContext.Provider >
+        </CartContext.Provider>
     );
 };

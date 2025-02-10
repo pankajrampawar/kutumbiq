@@ -122,7 +122,10 @@ export default function ConfirmOrder() {
                 }),
             });
 
-            if (!response.ok) throw new Error("Failed to place order");
+            if (!response.ok) {
+                router.push('/services/tiffin/cart')
+                //throw new Error("Failed to place order");
+            }
 
             // Show success UI
             clearCart();
