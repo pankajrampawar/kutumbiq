@@ -17,14 +17,10 @@ export default function VendorCard({
 }) {
     const router = useRouter();
 
-    const isActive = getCurrentTimeStatus(filter);
+    const { isActive, alert } = getCurrentTimeStatus(filter);
 
     const handleClick = () => {
         router.push(`/services/tiffin/menu/${id}`);
-        if (!isActive) {
-            alert("This service is available from 5 PM to 12 AM.");
-            return;
-        }
     };
 
 

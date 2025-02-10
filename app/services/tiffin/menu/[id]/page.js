@@ -5,12 +5,16 @@ import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import LoadingPanda from "@/app/ui/components/panda/loadingPanda";
+import { getCurrentTimeStatus } from "@/app/actions/tiffinActions";
 
 export default function MenuPage({ params }) {
     const id = React.use(params).id; // Extract restaurant name from params
     const router = useRouter();
 
     const [vendor, setVendor] = useState(null);
+    const [active, setIsActive] = useState(true);
+    const [alertMessage, setAlert] = useState(false)
+
 
     useEffect(() => {
         const vendorListFromLS = localStorage.getItem('menuItems')
@@ -24,7 +28,16 @@ export default function MenuPage({ params }) {
 
     }, [])
 
-    if (!vendor || vendor) {
+    useEffect(() => {
+        if (vendor) {
+            const { isActive, alert } = getCurrentTimeStatus(vendor.filter);
+            setIsActive(isActive);
+            setAlert(alert)
+        }
+    }, [vendor])
+
+
+    if (!vendor) {
         return (
             <div>
                 <LoadingPanda />
@@ -79,7 +92,8 @@ export default function MenuPage({ params }) {
                                     alt={item.alt}
                                     serviceProvider={vendor.name}
                                     deliveryBy={item.deliveryBy}
-                                    active={true}
+                                    active={active}
+                                    alertMessage={alertMessage}
                                 />
                             </div>
                         );

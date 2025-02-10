@@ -106,12 +106,12 @@ export const CartProvider = ({ children }) => {
                 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className={clsx(
-                    "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-center items-center",
+                    "fixed bottom-0 left-0 w-screen px-2 pb-2 flex justify-center items-center z-50",
                     { "text-xl": cartItems.length > 0 },
                     { "": pathname === "/services/tiffin/cart" }
                 )}
             >
-                <div className="flex justify-between items-center w-[90vw] bg-white/20 py-4 px-3 backdrop-blur-lg rounded-[20px] shadow-xl overflow-x-hidden">
+                <div className="flex justify-between items-center w-[90vw] bg-white/20 py-4 px-3 backdrop-blur-lg rounded-[20px] shadow-xl overflow-x-hidden z-50">
                     <div className="flex gap-2">
                         <button onClick={clearCart}>
                             <Trash2Icon strokeWidth={2.2} />

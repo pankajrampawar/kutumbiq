@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import clsx from "clsx";
 import Image from "next/image";
 
-export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy, active }) {
+export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy, active, alertMessage }) {
 
     const { cartItems, addItemToCart, removeItemFromCart, serviceProviderInCart } = useCart();
     const [quantity, setQuantity] = useState(0);
@@ -21,10 +21,9 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
 
     const handleAddItem = () => {
         const now = new Date();
-        const currentHour = now.getHours();
 
-        if (currentHour >= 19) {
-            alert("Orders cannot be placed after 7 PM. Please try again tomorrow.");
+        if (!active) {
+            alert(alertMessage);
             return;
         }
 
@@ -58,7 +57,7 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
                             alt={alt}
                             width="140"
                             height="140"
-                            className="rounded-xl object-cover object-center w-full h-full"
+                            className={`rounded-xl object-cover object-center w-full h-full ${active ? "" : "opacity-70 grayscale"}`}
                         />
                     </div>
                     <div className="absolute bg-white border border-primary rounded-3xl bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
