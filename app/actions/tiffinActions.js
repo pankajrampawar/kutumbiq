@@ -45,6 +45,8 @@ export const getCurrentTimeStatus = (filter) => {
             return { isActive: false, alert: "This vendor accepts orders from 5 PM to 11:30 PM" };
         }
 
+    } else if (filter === "CLOSED") {
+        return { isActive: false, alert: "Closed Today" }
     }
-    return true; // Default to clickable if no filter matches
+    return { isActive: true } // Default to clickable if no filter matches
 };

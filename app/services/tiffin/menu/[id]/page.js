@@ -71,7 +71,6 @@ export default function MenuPage({ params }) {
             {!active &&
                 <section className="px-4 py-6 pb-0">
                     <div className="bg-white shadow rounded-lg p-4">
-                        <h2 className="text-xl font-semibold">Order Timings</h2>
                         <p className="text-sm">{alertMessage}</p>
                     </div>
                 </section>
