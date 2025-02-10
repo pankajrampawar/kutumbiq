@@ -1,16 +1,18 @@
 'use client'
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function AllOrders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { data: session, status } = useSession();
 
     useEffect(() => {
         async function fetchOrders() {
             try {
                 const response = await fetch("/api/tiffin/getAllOrders"); // Assuming your API route is `/api/orders`
                 const data = await response.json();
-                console.log(data)
+                console.log(data);
                 setOrders(data.data);
             } catch (error) {
                 console.error("Failed to fetch orders:", error);
@@ -19,8 +21,19 @@ export default function AllOrders() {
             }
         }
 
-        fetchOrders();
-    }, []);
+        if (session) {
+            alert(session.user.email);
+            if (
+                session.user.email === "rohangotnochil@gmail.com" ||
+                session.user.email === "sujalpakhale1@gmail.com" ||
+                session.user.email === "2022.pankaj.pawar@ves.ac.in"
+            ) {
+                fetchOrders();
+            } else {
+                console.error("Unauthorized access");
+            }
+        }
+    }, [session]);
 
     if (loading) {
         return <div>Loading orders...</div>;
