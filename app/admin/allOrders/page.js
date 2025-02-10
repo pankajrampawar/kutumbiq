@@ -22,16 +22,21 @@ export default function AllOrders() {
         }
 
         if (session) {
-            alert(session.user.email);
             if (
                 session.user.email === "rohangotnochil@gmail.com" ||
                 session.user.email === "sujalpakhale1@gmail.com" ||
                 session.user.email === "2022.pankaj.pawar@ves.ac.in"
             ) {
                 fetchOrders();
+                setNonUser(false)
             } else {
                 console.error("Unauthorized access");
+                setNonUser(true)
+                setLoading(false)
             }
+        } else {
+            setLoading(false)
+            setNonUser(true)
         }
     }, [session]);
 
@@ -42,7 +47,7 @@ export default function AllOrders() {
     if (nonUser) {
         return (
             <div>
-                <button onClick={() => { signIn('google') }} className="text-xl bg-black m-3 p-3">Log in</button>
+                <button onClick={() => { signIn('google') }} className="text-xl bg-black m-3 p-3 text-white">Log in</button>
             </div>
         )
     }
