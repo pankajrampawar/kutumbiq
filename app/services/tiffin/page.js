@@ -31,7 +31,7 @@ export default function Tiffin() {
                 const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
 
                 // Check if the data exists and if it is older than 45 minutes (2700000ms)
-                const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 2700000);
+                const isDataExpired = timestampFromLocalStorage && (Date.now() - timestampFromLocalStorage > 250000);
 
                 // If no menu items or data is expired, fetch from the server
                 if (!menuItemsFromLocalStorage || isDataExpired) {
