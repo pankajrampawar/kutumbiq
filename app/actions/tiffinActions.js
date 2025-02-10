@@ -37,7 +37,7 @@ export const getCurrentTimeStatus = (filter) => {
     } else if (filter === "12PM") {
         // Allow clicks only between 5 PM and 12 AM
         if (
-            (currentHour > 16 && currentHour < 23) || // Between 5 PM and 11 PM
+            (currentHour > 19 && currentHour < 23) || // Between 5 PM and 11 PM
             (currentHour === 23 && currentMinute <= 30) // Up to 11:30 PM
         ) {
             return { isActive: true, alert: null };
