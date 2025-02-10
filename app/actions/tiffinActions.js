@@ -30,3 +30,19 @@ export function provideFilteredItem() {
         </div>
     )
 }
+
+
+export const getCurrentTimeStatus = (filter) => {
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    if (filter === "7PM") {
+        // Allow clicks only between 5 PM and 7 PM
+        return currentHour >= 17 && currentHour < 19;
+    } else if (filter === "12PM") {
+        // Allow clicks only between 5 PM and 12 AM
+        return currentHour >= 17 || currentHour < 12;
+    }
+
+    return true; // Default to clickable if no filter matches
+};

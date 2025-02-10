@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Star, Clock, IndianRupee } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { montserrat, lato } from "../../fonts";
+import { getCurrentTimeStatus } from "@/app/actions/tiffinActions";
 
 export default function VendorCard({
     image,
@@ -16,30 +17,14 @@ export default function VendorCard({
 }) {
     const router = useRouter();
 
-    // Utility function to determine if the card is active
-    const getCurrentTimeStatus = () => {
-        const now = new Date();
-        const currentHour = now.getHours();
-
-        if (filter === "7PM") {
-            // Allow clicks only between 5 PM and 7 PM
-            return currentHour >= 17 && currentHour < 19;
-        } else if (filter === "12PM") {
-            // Allow clicks only between 5 PM and 12 AM
-            return currentHour >= 17 || currentHour < 12;
-        }
-
-        return true; // Default to clickable if no filter matches
-    };
-
-    const isActive = getCurrentTimeStatus();
+    const isActive = getCurrentTimeStatus(filter);
 
     const handleClick = () => {
+        router.push(`/services/tiffin/menu/${id}`);
         if (!isActive) {
             alert("This service is available from 5 PM to 12 AM.");
             return;
         }
-        router.push(`/services/tiffin/menu/${id}`);
     };
 
 
@@ -47,8 +32,7 @@ export default function VendorCard({
     return (
         <button
             onClick={handleClick}
-            disabled={!isActive}
-            className={`transition-shadow max-w-[450px] text-start ${lato.className} ${isActive ? "" : "opacity-50 cursor-not-allowed"
+            className={`transition-shadow max-w-[450px] text-start ${lato.className} ${isActive ? "" : "opacity-70 cursor-not-allowed"
                 }`}
         >
             <div

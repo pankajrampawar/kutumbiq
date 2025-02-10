@@ -15,6 +15,9 @@ export default {
         brightYellow: "#EDDD2B",
         softTeal: "#61B3B1"
       },
+      animation: {
+        spin: 'spin 1s linear infinite',
+      },
     },
   },
   plugins: [],

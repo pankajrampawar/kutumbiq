@@ -4,6 +4,7 @@ import TiffinCard from "@/app/ui/components/tiffin/tiffinCard";
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LoadingPanda from "@/app/ui/components/panda/loadingPanda";
 
 export default function MenuPage({ params }) {
     const id = React.use(params).id; // Extract restaurant name from params
@@ -23,8 +24,12 @@ export default function MenuPage({ params }) {
 
     }, [])
 
-    if (!vendor) {
-        return <div>Loading</div>
+    if (!vendor || vendor) {
+        return (
+            <div>
+                <LoadingPanda />
+            </div>
+        )
     }
 
     return (
