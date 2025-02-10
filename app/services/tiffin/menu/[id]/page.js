@@ -30,10 +30,14 @@ export default function MenuPage({ params }) {
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800 relative">
             {/* Top Image Section */}
-            <button className="fixed shadow-xl top-2 left-2 bg-white min-w-10 min-h-10 z-10 rounded-full flex justify-center  itmes-center max-w-10 max-h-10 items-center" onClick={() => { router.back() }}>
-                <ChevronLeftIcon className="-translate-x-[1px]" />
-            </button>
             <div className="relative h-64 w-full bg-gray-300">
+                {/* Back Button */}
+                <button
+                    className="absolute top-2 left-2 z-10 bg-white shadow-xl min-w-10 min-h-10 rounded-full flex justify-center items-center"
+                    onClick={() => router.back()}
+                >
+                    <ChevronLeftIcon className="-translate-x-[1px]" />
+                </button>
                 <img
                     src={vendor.image}
                     alt={`${id} Restaurant`}
@@ -44,8 +48,6 @@ export default function MenuPage({ params }) {
                     <h1 className="text-3xl font-bold">{vendor.name}</h1>
                 </div>
             </div>
-
-
 
             {/* Placeholder for Future Component */}
             <section className="px-4 py-6">

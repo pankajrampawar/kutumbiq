@@ -61,7 +61,7 @@ export default function VendorCard({
                     className={`w-full h-48 object-cover ${isActive ? "" : "grayscale"
                         }`}
                 />
-                <div className="p-6">
+                <div className="p-4">
                     <h3
                         className={`text-xl font-semibold mb-2 ${isActive ? "text-gray-900" : "text-gray-500"
                             } ${montserrat.className}`}
