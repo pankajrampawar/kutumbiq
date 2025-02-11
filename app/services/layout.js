@@ -2,7 +2,7 @@ import Navbar from "../ui/components/navbar";
 
 export const metadata = {
     title: "Kutumbiq Services",
-    description: "Kutumbiq solves daily problems of the common men",
+    description: "Kutumbiq aims at solving problems faced by students in their day to day life. An initiative by the students for the students",
 };
 
 export default function Layout({ children }) {
