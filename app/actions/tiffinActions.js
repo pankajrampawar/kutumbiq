@@ -29,7 +29,7 @@ export const getCurrentTimeStatus = (filter) => {
 
     if (filter === "7PM") {
         // Allow clicks only between 5 PM and 7 PM
-        if (currentHour >= 17 && currentHour < 19) {
+        if (currentHour >= 16 && currentHour < 19) {
             return { isActive: true, alert: null }
         } else {
             return { isActive: false, alert: "This vendor accepts order from 4pm to 7pm" }
