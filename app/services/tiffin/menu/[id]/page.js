@@ -84,9 +84,9 @@ export default function MenuPage({ params }) {
             </section>
 
             {/* Menu Items Section */}
-            <section className="px-4 py-6 pb-40">
-                <h2 className="text-2xl font-bold mb-4">Menu</h2>
-                <div className="flex flex-col gap-1">
+            <section className="px-4 py-6 pb-40 flex items-center flex-col">
+                <h2 className="text-2xl font-bold mb-4 w-full max-w-[720px]">Menu</h2>
+                <div className="flex flex-col gap-1 max-w-[720px] w-full">
                     {vendor.menu.length > 0 && vendor.menu.map((item) => {
                         return (
                             <div key={item.name}>
