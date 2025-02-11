@@ -56,34 +56,38 @@ export default function AllOrders() {
         <div>
             <h1>All Orders</h1>
             <ul className="flex flex-col gap-20">
-                {orders && orders.map((order) => (
-                    <li key={order._id}>
-                        <h2 className="text-3xl font-bold">{order.vendorId}</h2>
-                        <div><strong>Item:</strong>
-                            {
-                                order.items.map((item) => {
-                                    return (
-                                        <div key={item.id} className="flex gap-2">
-                                            <span>{item.quantity}</span>
-                                            <span>{item.title}</span>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        {order.user ? (
-                            <div>
-                                <h3>User Details</h3>
-                                <p><strong>Name:</strong> {order.user.name}</p>
-                                <p><strong>Email:</strong> {order.user.email}</p>
-                                <p><strong>Phone:</strong> {order.user.phoneNumber}</p>
-                                <p><strong>Address:</strong> {order.user.address}</p>
-                            </div>
-                        ) : (
-                            <p>User details not found</p>
-                        )}
-                    </li>
-                ))}
+                {orders && orders.map((order) => {
+                    if (order.status === 'pending') {
+                        return (
+                            <li key={order._id}>
+                                <h2 className="text-3xl font-bold">{order.vendorId}</h2>
+                                <div><strong>Item:</strong>
+                                    {
+                                        order.items.map((item) => {
+                                            return (
+                                                <div key={item.id} className="flex gap-2">
+                                                    <span>{item.quantity}</span>
+                                                    <span>{item.title}</span>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                {order.user ? (
+                                    <div>
+                                        <h3>User Details</h3>
+                                        <p><strong>Name:</strong> {order.user.name}</p>
+                                        <p><strong>Email:</strong> {order.user.email}</p>
+                                        <p><strong>Phone:</strong> {order.user.phoneNumber}</p>
+                                        <p><strong>Address:</strong> {order.user.address}</p>
+                                    </div>
+                                ) : (
+                                    <p>User details not found</p>
+                                )}
+                            </li>
+                        )
+                    }
+                })}
             </ul>
         </div>
     );
