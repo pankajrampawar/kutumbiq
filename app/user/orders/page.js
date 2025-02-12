@@ -125,7 +125,7 @@ export default function YourOrders() {
                         {...itemAnimation}
                     >
                         <h2 className="text-xl font-semibold mb-2 text-gray-700">
-                            Order Total: ₹{order.totalPrice.toFixed(2) / 2}
+                            Order Total: ₹{Math.ceil(order.totalPrice * 0.75)}
                         </h2>
                         <div className="space-y-2">
                             {order.items.map((item) => (
