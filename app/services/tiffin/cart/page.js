@@ -41,8 +41,9 @@ export default function CartPage() {
     };
 
     const newTotal = () => {
-        const initial = cartItems.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
-        return initial / 2;
+        const total = calculateTotal();
+        const discountedPrice = total * 0.25;
+        return total - Math.ceil(discountedPrice)
     }
 
     const handleApplyCoupon = () => {
@@ -114,7 +115,7 @@ export default function CartPage() {
             )}
 
             {cartItems.length > 0 && (
-                <BillCard total={discountedTotal !== null ? discountedTotal : calculateTotal()} />
+                <BillCard total={calculateTotal()} />
             )}
 
             {cartItems.length > 0 && (
