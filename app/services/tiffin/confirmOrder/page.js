@@ -6,6 +6,7 @@ import { useCart } from "@/app/context/cartContext";
 import { useCustomUser } from "@/app/context/customUserContext";
 import { useAlert } from "@/app/context/alertContext";
 import { SignIn } from "@/app/ui/components/auth/sign-in";
+import { montserrat } from "@/app/ui/fonts";
 
 export default function ConfirmOrder() {
     const [loading, setLoading] = useState(true);
@@ -17,6 +18,7 @@ export default function ConfirmOrder() {
     const { cartItems, serviceProviderInCart, clearCart } = useCart();
     const credentialsChecked = useRef(false);
     const { addAlert } = useAlert();
+    const [finalConfirmation, setFinalConfirmation] = useState(false);
 
     const getTotalPrice = (cartItems) => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -69,8 +71,7 @@ export default function ConfirmOrder() {
                         }
                     }
                     console.log("All requirements met. Placing order...");
-                    await placeOrder();
-                    addAlert("All orders are COD!", "success");
+                    setFinalConfirmation(true)
                 } else {
                     signIn('google')
                 }
@@ -131,6 +132,7 @@ export default function ConfirmOrder() {
             clearCart();
             setOrderPlaced(true); // Set the success state
             setLoading(false);
+            addAlert("All orders are COD!", "success");
 
             // Delay redirect by 3 seconds
             setTimeout(() => {
@@ -143,6 +145,16 @@ export default function ConfirmOrder() {
         }
     };
 
+    const handleFinalConfrimation = async (choice) => {
+        if (choice) {
+            await placeOrder()
+            setFinalConfirmation(false)
+        } else {
+            setFinalConfirmation(false)
+            router.push('/services/tiffin/cart')
+        }
+    }
+
     if (error) {
         return (
             <div className="p-4 text-red-500">
@@ -152,6 +164,41 @@ export default function ConfirmOrder() {
         );
     }
 
+    if (finalConfirmation) {
+        return (
+            <div className="mx-[5%] mt-40">
+                <div className={`${montserrat.className} w-full max-w-md bg-white rounded-2xl shadow-xl p-6 md:p-8 transform transition-all`}>
+                    <div className="text-center space-y-4">
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                            Place a COD Order
+                        </h1>
+
+                        <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                            Your order will be placed and delivered by vendor on their respective timings
+                        </p>
+
+                        <div className="flex items-center justify-center gap-4 pt-6">
+                            <button
+                                className="px-6 py-2.5 rounded-lg border-2 border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-colors duration-200"
+                                type="button"
+                                onClick={() => handleFinalConfrimation(false)}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="px-6 py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-blue-700 transition-colors duration-200"
+                                type="button"
+                                onClick={() => handleFinalConfrimation(true)}
+                            >
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
     return (
         <div className="flex justify-center items-center min-h-screen">
             {loading ? (

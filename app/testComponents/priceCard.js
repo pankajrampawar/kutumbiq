@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export const PriceCard = ({ price }) => {
     const discountedPrice = price * 0.75;
+    const finalPrice = Math.ceil(discountedPrice)
 
     return (
         <motion.div
@@ -19,7 +20,7 @@ export const PriceCard = ({ price }) => {
                     className="flex items-baseline gap-2"
                 >
                     <span className="text-lg font-bold  text-textAlt">
-                        ₹{discountedPrice}
+                        ₹{finalPrice}
                     </span>
                     <span className="text-xs text-gray-400 line-through ">
                         ₹{price}
