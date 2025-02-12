@@ -4,6 +4,7 @@ import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from 'react';
 import clsx from "clsx";
 import Image from "next/image";
+import { PriceCard } from "@/app/testComponents/priceCard";
 
 export default function TiffinCard({ id, title, price, description, src, alt, serviceProvider, deliveryBy, active, alertMessage }) {
 
@@ -40,13 +41,18 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
     };
 
     return (
-        <div className={clsx("flex flex-col gap-4 mx-[2%] border-t py-[5%]",
+        <div className={clsx("flex flex-col gap-4 mx-[2%] border-t py-[5%] relative",
             { "text-zinc-400": !active }
         )}>
             <section className="flex justify-between gap-2 items-center ">
+                <div className="absolute top-0 left-0">
+                    <span className="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">
+                        25% OFF
+                    </span>
+                </div>
                 <article className="flex-1 ">
                     <h2 className={`text-lg font-semibold ${montserrat.className}`}>{title}</h2>
-                    <p className="text-lg"><span>Rs. {price}</span></p>
+                    <div className="text-lg"><span><PriceCard price={price} /></span></div>
                     <p className="text-sm">{description}</p>
                 </article>
 

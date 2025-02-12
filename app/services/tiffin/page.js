@@ -10,6 +10,7 @@ import { XIcon } from "lucide-react";
 import Image from "next/image";
 import MessageCard from "@/app/ui/messageCard";
 import { useRouter } from "next/navigation";
+import { AutoScrollCards } from "@/app/ui/components/tiffin/scrollCard";
 
 export default function Tiffin() {
     const router = useRouter();
@@ -68,7 +69,7 @@ export default function Tiffin() {
             try {
                 const filtered = menuItems.filter(vendor =>
                     vendor.menu.some(menuItem =>
-                        menuItem.tags.includes(filter.toLowerCase())
+                        menuItem.tags?.includes(filter.toLowerCase())
                     )
                 );
                 setFilteredItems(filtered);
@@ -86,15 +87,16 @@ export default function Tiffin() {
 
     return (
         <div>
+            <section>
+                <AutoScrollCards />
+            </section>
+
             {/* Hero section */}
-            <section className="flex flex-col items-center gap-6">
-                <div className="flex justify-center items-center text-center my-[8%] px-[5%] pt-10">
+            <section className="flex flex-col items-center">
+                <div className="flex justify-center items-center text-center mt-[8%] px-[5%] pb-10">
                     <h1 className={`text-2xl font-bold ${comfortaa.className}`}>
                         Budget Friendly And Truly Good Meal.
                     </h1>
-                </div>
-                <div>
-
                 </div>
             </section>
 

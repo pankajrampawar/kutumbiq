@@ -1,4 +1,5 @@
 'use client'
+import Demo, { PriceCard } from "@/app/testComponents/priceCard";
 import { useEffect, useState } from "react"
 
 export default function Vendors() {
@@ -19,7 +20,7 @@ export default function Vendors() {
     }, [])
     return (
         <div>
-            Vendors list page
+            <Demo />
         </div>
     )
 }

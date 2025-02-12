@@ -4,6 +4,7 @@ import { Star, Clock, IndianRupee } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { montserrat, lato } from "../../fonts";
 import { getCurrentTimeStatus } from "@/app/actions/tiffinActions";
+import { Montserrat } from "next/font/google";
 
 export default function VendorCard({
     image,
@@ -32,9 +33,15 @@ export default function VendorCard({
                 }`}
         >
             <div
-                className={`bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl ${isActive ? "" : "hover:shadow-md"
+                className={`bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl relative ${isActive ? "" : "hover:shadow-md"
                     }`}
             >
+                <div className="absolute top-0 right-0">
+                    <span className={` ${montserrat.className} p-2 px-3 text-[14px] font-bold text-white rounded bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]`}>
+                        25% OFF <span className="text-lg ml-2">🎉</span>
+                    </span>
+                </div>
+
                 <img
                     src={image}
                     alt={name}
