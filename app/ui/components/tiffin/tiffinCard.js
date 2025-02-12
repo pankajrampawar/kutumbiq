@@ -47,7 +47,7 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
             <section className="flex justify-between gap-2 items-center ">
                 <div className="absolute top-0 left-0">
                     <span className="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">
-                        50% OFF
+                        25% OFF
                     </span>
                 </div>
                 <article className="flex-1 ">

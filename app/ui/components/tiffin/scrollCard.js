@@ -110,7 +110,7 @@ export function AutoScrollCards() {
                         aria-label={`Offer ${currentIndex + 1} of ${offers.length}`}
                     >
                         <Tag className="h-5 w-5" aria-hidden="true" />
-                        <span className="text-sm font-medium whitespace-nowrap">
+                        <span className="text-base font-medium whitespace-nowrap">
                             {offers[currentIndex].text}
                         </span>
                     </motion.div>
@@ -128,8 +128,8 @@ export function AutoScrollCards() {
                         key={index}
                         onClick={() => handleDotClick(index)}
                         className={`h-2 w-2 rounded-full transition-all duration-300 ${index === currentIndex
-                            ? "bg-primary scale-125"
-                            : "bg-primary/30 hover:bg-white/50"
+                            ? "bg-rustOrange scale-125"
+                            : "bg-rustOrange/30 hover:bg-white/50"
                             }`}
                         role="tab"
                         aria-selected={index === currentIndex}

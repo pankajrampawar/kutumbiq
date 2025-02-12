@@ -93,7 +93,7 @@ export default function Tiffin() {
 
             {/* Hero section */}
             <section className="flex flex-col items-center">
-                <div className="flex justify-center items-center text-center mt-[8%] px-[5%] pt-10">
+                <div className="flex justify-center items-center text-center mt-[8%] px-[5%] pb-10">
                     <h1 className={`text-2xl font-bold ${comfortaa.className}`}>
                         Budget Friendly And Truly Good Meal.
                     </h1>

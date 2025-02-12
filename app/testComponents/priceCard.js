@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export const PriceCard = ({ price }) => {
-    const discountedPrice = price / 2;
+    const discountedPrice = price * 0.75;
 
     return (
         <motion.div
