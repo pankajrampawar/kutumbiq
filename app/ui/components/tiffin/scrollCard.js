@@ -20,7 +20,7 @@ const offers = [
     {
         text: "Special Weekend Deals",
         color: "bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]",
-    },
+    }
 ];
 
 export function AutoScrollCards() {
