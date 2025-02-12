@@ -78,6 +78,7 @@ export default function AllOrders() {
                                         <h3>User Details</h3>
                                         <p><strong>Name:</strong> {order.name}</p>
                                         <p><strong>Total Price: </strong>{order.totalPrice}</p>
+                                        <p><strong>Email: </strong>{order.user.email}</p>
                                         <p><strong>Phone:</strong> {order.user.phoneNumber}</p>
                                         <p><strong>Address:</strong> {order.user.address}</p>
                                     </div>
