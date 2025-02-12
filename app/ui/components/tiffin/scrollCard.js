@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const offers = [
     {
-        text: "Get flat 20% off on all orders",
+        text: "Get flat 25% off on all orders",
         color: "bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]",
     },
     {
@@ -19,10 +19,6 @@ const offers = [
     },
     {
         text: "Special Weekend Deals",
-        color: "bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]",
-    },
-    {
-        text: "New User Extra 10% OFF",
         color: "bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]",
     },
 ];
