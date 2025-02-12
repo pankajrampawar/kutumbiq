@@ -28,8 +28,8 @@ export default function BillCard({ total }) {
                         <p>-7</p>
                     </div>
 
-                    <div className="flex justify-between items-center text-textAlt">
-                        <p>First Day Offer</p>
+                    <div className="flex justify-between items-center text-textAlt text-semibold">
+                        <p className="text-green-700 font-semibold">Kutumbiq OP 🎉</p>
                         <p>-{total / 2}</p>
                     </div>
 
