@@ -44,6 +44,8 @@ export const getCurrentTimeStatus = (filter) => {
 
     } else if (filter === "CLOSED") {
         return { isActive: false, alert: "Closed Today" }
+    } else if (filter === "PENDING") {
+        return { isActive: false, alert: "Will Update Soon" }
     }
     return { isActive: true } // Default to clickable if no filter matches
 };
