@@ -48,9 +48,13 @@ export default function VendorCard({
                     }`}
             >
                 <div className="absolute top-0 right-0 z-10">
-                    <span className={` ${montserrat.className} p-2 px-3 text-[14px] font-bold text-white rounded bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]`}>
+                    {isActive ? <span className={` ${montserrat.className} p-2 px-3 text-[14px] font-bold text-white rounded bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]`}>
                         25% OFF <span className="text-lg ml-2">🎉</span>
-                    </span>
+                    </span> :
+                        <span className="flex justify-center items-center font-semibold p-1 bg-white">
+                            {alert}
+                        </span>
+                    }
                 </div>
                 <div className="relative">
                     <img
