@@ -7,6 +7,7 @@ export default function AllOrders() {
     const [loading, setLoading] = useState(true);
     const { data: session, status } = useSession();
     const [nonUser, setNonUser] = useState();
+
     useEffect(() => {
         async function fetchOrders() {
             try {
