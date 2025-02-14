@@ -103,7 +103,7 @@ export default function YourOrders() {
             <div className="flex justify-center items-center h-screen flex-col gap-2">
                 <p className="text-gray-500 text-lg font-semibold">No orders found.</p>
                 <div className="">
-                    <button className="flex text-white font-lg p-2 rounded-lg bg-black" onClick={() => { router.push("/services/tiffin") }}>Go Back</button>
+                    <button className="flex text-white font-lg p-2 rounded-lg bg-black" onClick={() => signIn('google')}>Go Back</button>
                 </div>
             </div>
         );
@@ -121,9 +121,11 @@ export default function YourOrders() {
                 {orders.map((order) => (
                     <motion.div
                         key={order._id}
-                        className="p-4 bg-white shadow-sm rounded-lg border border-gray-200"
+                        className={`${order.status === "Completed" ? "border-green-200" : "border-green-600"} p-4 bg-white shadow-sm rounded-lg border`}
                         {...itemAnimation}
-                    >
+                    > {
+                            order.status === "completed" ? <div className="flex justify-between items-center text-green-600">Completed</div> : <div className="flex justify-between text-sm items-center text-rustOrange pb-2">Will be delivered by 9:15 PM</div>
+                        }
                         <h2 className="text-xl font-semibold mb-2 text-gray-700">
                             Order Total: ₹{Math.ceil(order.totalPrice * 0.75)}
                         </h2>
