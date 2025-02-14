@@ -118,13 +118,13 @@ export default function YourOrders() {
                 className="space-y-6"
                 {...containerAnimation}
             >
-                {orders.map((order) => (
+                {orders.slice().reverse().map((order) => (
                     <motion.div
                         key={order._id}
-                        className={`${order.status === "Completed" ? "border-green-200" : "border-green-600"} p-4 bg-white shadow-sm rounded-lg border`}
+                        className={`${order.status === "completed" ? "border-green-200" : "border-primary/50"} p-4 bg-white shadow-sm rounded-lg border`}
                         {...itemAnimation}
                     > {
-                            order.status === "completed" ? <div className="flex justify-between items-center text-green-600">Completed</div> : <div className="flex justify-between text-sm items-center text-rustOrange pb-2">Will be delivered by 9:15 PM</div>
+                            order.status === "completed" ? <div className="flex justify-between items-center text-green-600">Completed</div> : <div className="flex justify-between text-sm items-center text-primary/70 pb-2">Will be delivered by 9:15 PM</div>
                         }
                         <h2 className="text-xl font-semibold mb-2 text-gray-700">
                             Order Total: ₹{Math.ceil(order.totalPrice * 0.75)}
@@ -164,7 +164,7 @@ export default function YourOrders() {
                 initial={{ y: '100%' }}
                 animate={{ y: '-20%' }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className={`fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-xl bg-zinc-900 flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className} text-white`}
+                className={`fixed w-[90vw] bottom-0 left-0 right-0 mx-auto rounded-xl bg-primary flex justify-center items-center text-xl p-4 tracking-wide font-semibold ${montserrat.className} text-white`}
                 onClick={handleGoBack}
             >
                 <div>
