@@ -52,6 +52,12 @@ export const getCurrentTimeStatus = (filter) => {
         } else {
             return { isActive: false, alert: "This vendor accepts Lunch orders from 11am to 1pm" }
         }
+    } else if (filter === "10PM") {
+        if ((currentHour >= 16 && currentHour < 22) || (currentHour === 22 && currentMinutes <= 30)) {
+            return { isActive: true, alert: null };
+        } else {
+            return { isActive: false, alert: "This vendor accepts orders from 4:00 PM to 10:30 PM" };
+        }
     }
     return { isActive: true } // Default to clickable if no filter matches
 };
