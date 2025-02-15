@@ -52,5 +52,6 @@ export const getCurrentTimeStatus = (filter) => {
         } else {
             return { isActive: false, alert: "This vendor accepts Lunch orders from 11am to 1pm" }
         }
-        return { isActive: true } // Default to clickable if no filter matches
-    };
+    }
+    return { isActive: true } // Default to clickable if no filter matches
+};
