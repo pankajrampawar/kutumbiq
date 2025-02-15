@@ -46,6 +46,11 @@ export const getCurrentTimeStatus = (filter) => {
         return { isActive: false, alert: "Closed Today" }
     } else if (filter === "PENDING") {
         return { isActive: false, alert: "Updating Menu" }
-    }
-    return { isActive: true } // Default to clickable if no filter matches
-};
+    } else if (filter === "Lunch") {
+        if (currentHour >= 11 && currentHour < 13) {
+            return { isActive: true, alert: null }
+        } else {
+            return { isActive: false, alert: "This vendor accepts Lunch orders from 11am to 1pm" }
+        }
+        return { isActive: true } // Default to clickable if no filter matches
+    };
