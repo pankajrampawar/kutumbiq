@@ -36,7 +36,19 @@ export default function VendorCard({
         },
     };
 
-    console.log(filter)
+    const getDeliveryTime = (time) => {
+
+        const currentTime = new Date();
+        const currentHour = currentTime.getHours();
+        const currentMinutes = currentTime.getMinutes();
+
+        if (time === "9 PM") {
+            return "9 PM"
+        } else if (time === "45 mins") {
+            if (currentHour < 20) return "9 PM";
+            else if (currentHour >= 20) return "45 min";
+        }
+    }
     return (
         <button
             onClick={handleClick}
@@ -49,7 +61,7 @@ export default function VendorCard({
             >
                 <div className="absolute top-0 right-0 z-10">
                     {isActive ? <span className={` ${montserrat.className} p-2 px-3 text-[14px] font-bold text-white rounded bg-gradient-to-b from-rustOrange/70 via-rustOrange to-rustOrange/70 rounded-bl-[20px]`}>
-                        25% OFF <span className="text-lg ml-2">🎉</span>
+                        FREE DELIVERY <span className="text-lg ml-2">🎉</span>
                     </span> :
                         <span className="flex justify-center items-center font-semibold p-1 bg-white">
                             {alert}
@@ -89,7 +101,7 @@ export default function VendorCard({
                         </div>
                         <div className="flex items-center text-gray-600">
                             <Clock className="h-4 w-4" />
-                            <span className="ml-1">{deliveryTime}</span>
+                            <span className="ml-1">{getDeliveryTime(deliveryTime)}</span>
                         </div>
                         <div className="flex items-center text-gray-600 text-[16px]">
                             <IndianRupee className="h-4 w-4" />
