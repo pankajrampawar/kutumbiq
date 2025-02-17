@@ -42,8 +42,12 @@ export default function CartPage() {
 
     const newTotal = () => {
         const total = calculateTotal();
-        const discountedPrice = total * 0.25;
-        return total - Math.ceil(discountedPrice)
+        if (total < 230) {
+            return total;
+        } else if (total > 229) {
+            const discountedPrice = total * 0.25;
+            return total - Math.ceil(discountedPrice)
+        }
     }
 
     const handleApplyCoupon = () => {
@@ -129,7 +133,7 @@ export default function CartPage() {
                         <div>
                             <p>
                                 <span className={`${montserrat.className} text-lg font-medium`}>
-                                    Total ₹{calculateTotal()}
+                                    Total ₹{newTotal()}
                                 </span>
                             </p>
                             <p className={`${lato.className} text-sm text-black/70`}>Pay on delivery</p>
