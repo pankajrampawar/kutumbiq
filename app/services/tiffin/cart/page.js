@@ -129,7 +129,7 @@ export default function CartPage() {
                         <div>
                             <p>
                                 <span className={`${montserrat.className} text-lg font-medium`}>
-                                    Total ₹{newTotal()}
+                                    Total ₹{calculateTotal()}
                                 </span>
                             </p>
                             <p className={`${lato.className} text-sm text-black/70`}>Pay on delivery</p>

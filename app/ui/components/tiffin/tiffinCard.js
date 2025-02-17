@@ -47,12 +47,12 @@ export default function TiffinCard({ id, title, price, description, src, alt, se
             <section className="flex justify-between gap-2 items-center ">
                 <div className="absolute top-0 left-0">
                     <span className="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">
-                        25% OFF
+                        FREE DELIVERY
                     </span>
                 </div>
                 <article className="flex-1 ">
                     <h2 className={`text-lg font-semibold ${montserrat.className}`}>{title}</h2>
-                    <div className="text-lg"><span><PriceCard price={price} /></span></div>
+                    <div className="text-lg"><span className="font-bold text-green-800">{price}</span></div>
                     <p className="text-sm">{description}</p>
                 </article>
 
