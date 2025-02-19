@@ -2,16 +2,26 @@ import BgBlurCard from "../../bgBlurCard";
 import { montserrat } from "../../fonts";
 import { IndianRupeeIcon } from "lucide-react";
 
-export default function BillCard({ total }) {
+export default function BillCard({ total, couponApplied }) {
 
     const discountedPrice = total * 0.25;
+    const afterCouponPrice = total * 0.5;
 
     const getDiscountedPrice = (total) => {
         if (total < 229) {
-            return total;
+            let netTotal = total;
+            if (couponApplied) {
+                netTotal = Math.ceil(total / 2);
+            }
+            return netTotal;
         } else if (total > 229) {
-            const discountedPrice = total * 0.25;
-            const finalPrice = total - Math.ceil(discountedPrice)
+            let finalPrice;
+            if (!couponApplied) {
+                const discountedPrice = total * 0.25;
+                finalPrice = total - Math.ceil(discountedPrice)
+            } else {
+
+            }
             return finalPrice;
         }
     }
@@ -40,6 +50,13 @@ export default function BillCard({ total }) {
                         <p>Discount</p>
                         <p>-7</p>
                     </div>
+
+                    {couponApplied &&
+                        <div className="flex justify-between items-center text-textAlt text-semibold">
+                            <p className="text-green-700 font-semibold">NEW50 🎉</p>
+                            <p>-{afterCouponPrice}</p>
+                        </div>
+                    }
 
                     {total > 229 && <div className="flex justify-between items-center text-textAlt text-semibold">
                         <p className="text-green-700 font-semibold">Kutumbiq OP 🎉</p>

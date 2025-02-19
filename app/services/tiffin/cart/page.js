@@ -11,6 +11,7 @@ import CartCard from "@/app/ui/components/tiffin/cartCard";
 import CartAddressCard from "@/app/ui/components/tiffin/cartAddressCard";
 import BackButton from "@/app/ui/backButton";
 import BillCard from "@/app/ui/components/tiffin/billCard";
+import CouponCard from "@/app/ui/components/tiffin/cart/applyCoupon";
 
 export default function CartPage() {
     const router = useRouter();
@@ -18,20 +19,26 @@ export default function CartPage() {
     const { userData, fetchUserData } = useCustomUser();
     const { data: session, status } = useSession();
     const [address, setAddress] = useState(null);
-    const [coupon, setCoupon] = useState("");
+    const [userId, setUserId] = useState(null)
+    const [coupon, setCoupon] = useState(null);
+    const [couponApplied, setCouponApplied] = useState(false)
     const [discountedTotal, setDiscountedTotal] = useState(null);
+
 
     useEffect(() => {
         if (status === "authenticated") {
             const fetchAddress = async () => {
                 const user = await fetchUserData(session.user.email);
+                console.log(user)
                 setAddress(user?.address || null);
+                setUserId(user?._id || null)
             };
 
             if (!userData?.address) {
                 fetchAddress();
             } else {
                 setAddress(userData.address);
+                setUserId(userData._id);
             }
         }
     }, [status, session, fetchUserData, userData]);
@@ -43,24 +50,15 @@ export default function CartPage() {
     const newTotal = () => {
         const total = calculateTotal();
         if (total < 230) {
+            if (couponApplied) {
+                return Math.ceil(total * 0.5)
+            }
             return total;
         } else if (total > 229) {
             const discountedPrice = total * 0.25;
             return total - Math.ceil(discountedPrice)
         }
     }
-
-    const handleApplyCoupon = () => {
-        if (coupon.toUpperCase() === "FLAT50") {
-            sessionStorage.setItem('coupon', '50');
-            const total = calculateTotal();
-            const discount = Math.min(total * 0.5); // 50% off, capped at ₹80
-            setDiscountedTotal(total - discount);
-            alert(`Coupon applied! You saved ₹${discount.toFixed(2)}`);
-        } else {
-            alert("Invalid coupon code.");
-        }
-    };
 
     const handlePlaceOrder = () => {
         const now = new Date();
@@ -100,26 +98,12 @@ export default function CartPage() {
                         <div className="absolute top-0 left-10 min-w-[35px] min-h-[35px] bg-brightYellow blur-2xl -z-10" />
                         <div className="absolute -bottom-10 left-40 min-w-[35px] min-h-[35px] bg-rustOrange blur-2xl -z-10" />
                     </div>
-                    {/* <div className="flex gap-4 mt-4 items-center">
-                        <input
-                            type="text"
-                            value={coupon}
-                            onChange={(e) => setCoupon(e.target.value)}
-                            placeholder="Enter coupon code"
-                            className="border px-3 py-2 rounded-lg w-full"
-                        />
-                        <button
-                            onClick={handleApplyCoupon}
-                            className="bg-primary text-white px-4 py-2 rounded-lg"
-                        >
-                            Apply
-                        </button>
-                    </div> */}
+                    <CouponCard coupon={coupon} setCoupon={setCoupon} setCouponApplied={setCouponApplied} status={status} userMail={session?.user?.email} userId={userId} />
                 </>
             )}
 
             {cartItems.length > 0 && (
-                <BillCard total={calculateTotal()} />
+                <BillCard total={calculateTotal()} couponApplied={couponApplied} />
             )}
 
             {cartItems.length > 0 && (
