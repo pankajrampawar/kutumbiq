@@ -11,7 +11,7 @@ export default function BillCard({ total, couponApplied }) {
         if (total < 229) {
             let netTotal = total;
             if (couponApplied) {
-                netTotal = Math.ceil(total / 2);
+                netTotal = Math.ceil(total * 2);
             }
             return netTotal;
         } else if (total > 229) {
@@ -20,7 +20,7 @@ export default function BillCard({ total, couponApplied }) {
                 const discountedPrice = total * 0.25;
                 finalPrice = total - Math.ceil(discountedPrice)
             } else {
-
+                finalPrice = Math.ceil(total * 0.5)
             }
             return finalPrice;
         }
@@ -58,7 +58,7 @@ export default function BillCard({ total, couponApplied }) {
                         </div>
                     }
 
-                    {total > 229 && <div className="flex justify-between items-center text-textAlt text-semibold">
+                    {total && !couponApplied > 229 && <div className="flex justify-between items-center text-textAlt text-semibold">
                         <p className="text-green-700 font-semibold">Kutumbiq OP 🎉</p>
                         <p>-{discountedPrice}</p>
                     </div>}

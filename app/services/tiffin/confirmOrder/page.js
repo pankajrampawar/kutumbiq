@@ -88,7 +88,7 @@ export default function ConfirmOrder() {
     const placeOrder = async () => {
         try {
             const totalPrice = getTotalPrice(cartItems);
-
+            const coupon = sessionStorage.getItem('coupon') || null;
             let userId;
             let address;
             let name;
@@ -120,6 +120,7 @@ export default function ConfirmOrder() {
                     vendorId: serviceProviderInCart,
                     totalPrice: totalPrice,
                     items: cartItems,
+                    coupon
                 }),
             });
 

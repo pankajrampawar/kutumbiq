@@ -32,6 +32,7 @@ export default function CouponCard({ coupon, setCoupon, status, userMail, userId
                     return;
                 } else {
                     setCouponApplied(0.5)
+                    sessionStorage.setItem('coupon', 'NEW50');
                     setLoading(false)
                 }
             } else {

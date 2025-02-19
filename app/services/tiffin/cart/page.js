@@ -55,8 +55,12 @@ export default function CartPage() {
             }
             return total;
         } else if (total > 229) {
-            const discountedPrice = total * 0.25;
-            return total - Math.ceil(discountedPrice)
+            if (!couponApplied) {
+                const discountedPrice = total * 0.25;
+                return total - Math.ceil(discountedPrice)
+            } else {
+                return Math.ceil(total * 0.5)
+            }
         }
     }
 
