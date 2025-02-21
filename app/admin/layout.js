@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import BackButton from "../ui/backButton";
+import { signIn } from "next-auth/react";
 
 
 export default function AdminLayout({ children }) {
@@ -43,6 +44,7 @@ export default function AdminLayout({ children }) {
             <div>
                 <h1 className="bg-red-700">Unauthorized</h1>
                 <p>Either you are not signed in or you are not an admin if. Action further action on this page will tracked and legal actions will be taken if the actions are found to Unauthorized</p>
+                <div onClick={() => signIn('google')}>Login</div>
             </div>
         )
     }

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ export default function UpdateVendor({ params }) {
                 const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
                 const selectedVendor = readableMenuItems.find(vendor => vendor._id == id);
                 if (!selectedVendor) {
-                    alert("Vendor not found!")
+                    alert("Vendor not found!");
                     return;
                 }
 
@@ -34,7 +34,7 @@ export default function UpdateVendor({ params }) {
             }
         };
         getMenuItems();
-    }, []);
+    }, [id]);
 
     const handleDeleteItem = (index) => {
         const updatedMenu = vendor.menu.filter((_, i) => i !== index);
@@ -59,14 +59,33 @@ export default function UpdateVendor({ params }) {
         setVendor({ ...vendor, menu: updatedMenu });
     };
 
-    const handleSaveChanges = () => {
-        // Save the updated vendor data back to localStorage
-        const menuItemsFromLocalStorage = localStorage.getItem('menuItems');
-        const readableMenuItems = JSON.parse(menuItemsFromLocalStorage);
-        const updatedMenuItems = readableMenuItems.map(v => (v._id === vendor._id ? vendor : v));
-        localStorage.setItem('menuItems', JSON.stringify(updatedMenuItems));
-        alert("Changes saved successfully!");
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('/api/tiffin/updateVendor', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: vendor._id, // Include the vendor ID
+                    ...vendor, // Include all updated vendor data
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update vendor');
+            }
+
+            const result = await response.json();
+            alert(result.message || "Vendor updated successfully!");
+        } catch (error) {
+            console.error("Error updating vendor:", error);
+            alert("Failed to update vendor. Please try again.");
+        }
     };
+
+
+    const filterOptions = ["PENDING", "CLOSED", "LUNCH", "10PM", "7PM", "12PM"];
 
     if (loading) {
         return (
@@ -164,6 +183,26 @@ export default function UpdateVendor({ params }) {
                             style={{ focusBorderColor: colors.primary }}
                         />
                     </div>
+
+                    <div className="p-4 bg-gray-100 rounded-lg">
+                        <label htmlFor="filter" className="block text-sm font-medium text-gray-700">
+                            Filter By:
+                        </label>
+                        <select
+                            id="filter"
+                            name="filter"
+                            value={vendor.filter}
+                            onChange={(e) => setVendor({ ...vendor, filter: e.target.value })}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            <option value="">Select an option</option>
+                            {filterOptions.map((option, index) => (
+                                <option key={index} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </section>
 
                 <section>
@@ -244,7 +283,7 @@ export default function UpdateVendor({ params }) {
                 </section>
 
                 <button
-                    onClick={handleSaveChanges}
+                    onClick={handleSubmit}
                     className="mt-8 w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
                 >
                     Save Changes

@@ -22,6 +22,14 @@ export async function getMenuItemsFromServer() { // function to get menu items f
     }
 }
 
+export async function updateExistingVendor() {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
 
 export const getCurrentTimeStatus = (filter) => {
     const now = new Date();
