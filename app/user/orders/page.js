@@ -127,7 +127,7 @@ export default function YourOrders() {
                             order.status === "completed" ? <div className="flex justify-between items-center text-green-600">Completed</div> : <div className="flex justify-between text-sm items-center text-primary/70 pb-2">Will be delivered by 9:15 PM</div>
                         }
                         <h2 className="text-xl font-semibold mb-2 text-gray-700">
-                            Order Total: ₹{order.totalPrice > 229 ? order.totalPrice - Math.ceil(order.totalPrice * 0.25) : order.totalPrice}
+                            Order Total: ₹{order.totalPrice > 229 ? order.totalPrice - Math.ceil(order.totalPrice * 0.5) : order?.coupon === "NEW50" ? order.totalPrice - Math.ceil(order.totalPrice * 0.5) : order.totalPrice}
                         </h2>
                         <div className="space-y-2">
                             {order.items.map((item) => (
