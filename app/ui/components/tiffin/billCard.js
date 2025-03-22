@@ -4,7 +4,7 @@ import { IndianRupeeIcon } from "lucide-react";
 
 export default function BillCard({ total, couponApplied }) {
 
-    const discountedPrice = total * 0.5;
+    const discountedPrice = total * 0.25;
     const afterCouponPrice = total * 0.5;
 
     const getDiscountedPrice = (total) => {
@@ -17,7 +17,7 @@ export default function BillCard({ total, couponApplied }) {
         } else if (total > 229) {
             let finalPrice;
             if (!couponApplied) {
-                const discountedPrice = total * 0.5;
+                const discountedPrice = total * 0.25;
                 finalPrice = total - Math.ceil(discountedPrice)
             } else {
                 finalPrice = Math.ceil(total * 0.5)
@@ -58,7 +58,7 @@ export default function BillCard({ total, couponApplied }) {
                         </div>
                     }
 
-                    {total && !couponApplied > 229 && <div className="flex justify-between items-center text-textAlt text-semibold">
+                    {total && !couponApplied && total > 229 && <div className="flex justify-between items-center text-textAlt text-semibold">
                         <p className="text-green-700 font-semibold">Kutumbiq OP 🎉</p>
                         <p>-{discountedPrice}</p>
                     </div>}
