@@ -9,7 +9,7 @@ export default function AdminPage() {
     const navOptions = [
         { label: "Add New Vendor", path: "/admin/addVendor" },
         { label: "Update Existing Vendor", path: "/admin/updateVendor" },
-        { label: "Viwe All Orders", path: "/admin/allOrders" },
+        { label: "View All Orders", path: "/admin/allOrders" },
         { label: "Users", path: "/admin/users" },
     ];
 
