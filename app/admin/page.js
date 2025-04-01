@@ -12,7 +12,7 @@ export default function AdminPage() {
         { label: "Viwe All Orders", path: "/admin/allOrders" },
         { label: "Users", path: "/admin/users" },
     ];
-
+    w
     return (
         <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
             <motion.div

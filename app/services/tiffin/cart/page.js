@@ -102,7 +102,7 @@ export default function CartPage() {
                         <div className="absolute top-0 left-10 min-w-[35px] min-h-[35px] bg-brightYellow blur-2xl -z-10" />
                         <div className="absolute -bottom-10 left-40 min-w-[35px] min-h-[35px] bg-rustOrange blur-2xl -z-10" />
                     </div>
-                    <CouponCard coupon={coupon} setCoupon={setCoupon} setCouponApplied={setCouponApplied} status={status} userMail={session?.user?.email} userId={userId} />
+
                 </>
             )}
 
